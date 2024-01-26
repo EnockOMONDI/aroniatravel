@@ -100,27 +100,19 @@ WSGI_APPLICATION = 'tours_travels.wsgi.application'
 
 # To use Neon with Django, you have to create a Project on Neon and specify the project connection settings in your settings.py in the same way as for standalone Postgres.
 
+# To use Neon with Django, you have to create a Project on Neon and specify the project connection settings in your settings.py in the same way as for standalone Postgres.
+
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'Highflyerdb',
-    'USER': 'enockomondike',
-    'PASSWORD': 'OTZ1AKdfemU3',
-    'HOST': 'ep-snowy-dawn-20745126.us-east-2.aws.neon.tech',
+    'NAME': 'aronia',
+    'USER': 'reline9556',
+    'PASSWORD': 'G47mWrzAMjSg',
+    'HOST': 'ep-tiny-union-a28ylo8q.eu-central-1.aws.neon.tech',
     'PORT': '5432',
     'OPTIONS': {'sslmode': 'require'},
   }
-#   postgresql://enockomondike:OTZ1AKdfemU3@/Highflyerdb?sslmode=require
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-     
-    
-#     }
-# }
-
 
 # db_from_env = dj_database_url.config(conn_max_age=500)
 # DATABASES['default'].update(db_from_env)
