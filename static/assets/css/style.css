@@ -60,10 +60,10 @@
 
 .single-activity-item .content .main-btn i, .header-two .header-navigation.sticky, .header-one .header-navigation.sticky, .black-bg {
   background: rgb(255,255,255);
-  background: -moz-linear-gradient(29deg, rgba(255,255,255,1) 0%, rgba(17,22,1,1) 0%, rgba(64,49,0,1) 38%, rgba(35,28,0,1) 100%);
-  background: -webkit-linear-gradient(29deg, rgba(255,255,255,1) 0%, rgba(17,22,1,1) 0%, rgba(64,49,0,1) 38%, rgba(35,28,0,1) 100%);
-  background: linear-gradient(29deg, rgba(255,255,255,1) 0%, rgba(17,22,1,1) 0%, rgba(64,49,0,1) 38%, rgba(35,28,0,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#231c00",GradientType=1); 
+background: -moz-linear-gradient(29deg, rgba(255,255,255,1) 0%, rgba(0,50,5,1) 0%, rgba(64,49,0,1) 38%, rgba(34,25,1,1) 100%);
+background: -webkit-linear-gradient(29deg, rgba(255,255,255,1) 0%, rgba(0,50,5,1) 0%, rgba(64,49,0,1) 38%, rgba(34,25,1,1) 100%);
+background: linear-gradient(29deg, rgba(255,255,255,1) 0%, rgba(0,50,5,1) 0%, rgba(64,49,0,1) 38%, rgba(34,25,1,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#221901",GradientType=1); 
 }
 
 .skill-wrapper, .footer-newsletter-widget .footer-content form .form_control, .sidebar-widget-area .booking-form-widget .sidebar-booking-form .bk-item .nice-select, .sidebar-widget-area .booking-form-widget .sidebar-booking-form .bk-item input, .sidebar-widget-area .sidebar-widget, .single-blog-post-four .entry-content .main-btn.filled-btn:hover i, .gw-testimonial-item-two, .destination-details-wrapper .destination-info .features-list li span, .single-place-item-three .place-content .meta .icon-btn, .single-place-item-three:hover, .single-place-item .place-content .info, .booking-form .nice-select:focus, .booking-form .form_control:focus, .booking-form-wrapper, .activity-nav-tab, .single-service-item-four .content .icon-btn, .single-service-item-four:hover, .single-service-item-three .content .meta span.rate, .single-service-item-three:hover, .single-service-item .content .icon-btn, .single-service-item, .video-popup, .single-event-item, .single-activity-item .content .meta, .single-counter-item-two .icon, .single-counter-item, .single-team-item, .fancy-icon-box-three .icon, .fancy-icon-box-two, .fancy-icon-box .icon, .single-features-list .icon-inner .icon, .single-features-item-three .content, .single-features-item .img-holder .content, .about-two_content-box .card-list .card-item, .hero-search-form, .hero-wrapper-three .hero-arrows .slick-arrow:hover, .navigation-white.header-navigation .navbar-toggler span, .header-four .header-navigation.sticky, .header-navigation.breakpoint-on .nav-menu, .header-navigation .main-menu ul > li .sub-menu, .preloader, .main-btn.filled-btn:hover i, .main-btn i, .white-bg {
