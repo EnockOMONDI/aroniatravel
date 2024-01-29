@@ -18,10 +18,10 @@ def verification_mail(link, user):
     s.login(ei, password)
     msg = MIMEMultipart()
     print(link, user.email, type(user.email))
-    msg['From'] = "High Flyers Ventures"
+    msg['From'] = "Aronia Travel"
     msg['To'] = user.email
-    msg['Subject'] = "Welcome to High Flyers Ventures"
-    message = f'Hi {user.username}, welcome to High Flyers Ventures.<br>To activate your account, click the link below:<br>{link}<br><br>'
+    msg['Subject'] = "Welcome to Aronia Travel"
+    message = f'Hi {user.username}, welcome to Aronia Travel.<br>To activate your account, click the link below:<br>{link}<br><br>'
 
     # Add a new paragraph about the advantages of your travel agency in HTML
     directors_message = """
@@ -29,7 +29,7 @@ def verification_mail(link, user):
     """
 
     advantages_message = """
-    <p>We are delighted to have you as part of the High Flyers Ventures community. Our goal is simple: We want every trip you take with us to be <strong>affordable</strong> and wonderfully <strong>memorable</strong>. Thats where we come in, we take care of all the little things to ensure your journey is smooth and effortless, creating moments you'll treasure forever.</p>    """
+    <p>We are delighted to have you as part of the Aronia Travel community. Our goal is simple: We want every trip you take with us to be <strong>affordable</strong> and wonderfully <strong>memorable</strong>. Thats where we come in, we take care of all the little things to ensure your journey is smooth and effortless, creating moments you'll treasure forever.</p>    """
 
     msg.attach(MIMEText(message + directors_message + advantages_message, 'html'))
     s.send_message(msg)
