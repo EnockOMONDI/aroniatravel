@@ -106,18 +106,26 @@
                             <ul>
                                 <li><a href="{% url 'users:users-home'%}"> <span style="padding-right: 10px;"> Home</a></li>
 
-                                <li><a href="{% url 'users:aboutus'%} "> <span style="padding-right: 10px;"><i class="far fa-info-circle"></i> About Us</a></li>
+                                <li><a href="{% url 'users:aboutus'%} "> <span style="padding-right: 10px;">
+                                    <!-- <i class="far fa-info-circle"> -->
+
+                                    </i> About Us</a></li>
 
                              
-                                <li class="menu-item has-children"><a href="#"> <span style="padding-right: 10px;"><i class="far fa-map"></i> Tour Packages</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="{% url 'users:all_packages'%} "><strong>   <i class="far fa-arrow-right "></i> All Packages</strong></a></li>
-
-                                    </ul>
-                                </li>
-
+                   
+                                    <li class="menu-item has-children"><a href="#"> <span style="padding-right: 10px;"><i class="far fa-briefcase"></i> Corporate Travel</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="{% url 'users:corporatepage'%} ">Business Travel Management</a></li>
+                                        </ul>
+                                    </li>
                            
-                                
+                                    <li class="menu-item has-children"><a href="#"> <span style="padding-right: 10px;"><i class="far fa-map"></i> Tour Packages</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="{% url 'users:all_packages'%} "><strong>   <i class="far fa-arrow-right "></i> All Packages</strong></a></li>
+    
+                                        </ul>
+                                    </li>
+
                                 <li class="menu-item has-children"><a href="#"> <span style="padding-right: 10px;"><i class="far fa-bed"></i> Hotels</a></a>
                                     <ul class="sub-menu">
                                         <li><a href="">Luxury Hotels </a></li>
@@ -131,18 +139,14 @@
 
                                     </ul>
                                 </li>
-                                <li class="menu-item has-children"><a href="#"> <span style="padding-right: 10px;"><i class="far fa-briefcase"></i> Business Travel</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="{% url 'users:corporatepage'%} ">Corporate Travel Management</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item has-children"><a href="#"><i class="far fa-plane"></i> + <i class="far fa-bed"></i> <small>Offers</small> </a>
+                             
+                                <!-- <li class="menu-item has-children"><a href="#"><i class="far fa-plane"></i> + <i class="far fa-bed"></i> <small>Offers</small> </a>
                                     <ul class="sub-menu">
                                         <li><a href="destination.html">Flights + Stay Deals</a></li>
                                         <li><a href="destination.html">Flight Offers</a></li>
                                         <li><a href="destination-details.html">Hotel Deals</a></li>
                                     </ul>
-                                </li>
+                                </li> -->
                                 <li class="menu-item has-children"><a href="#"> <span style="padding-right: 10px;"><i class="far fa-globe"></i> more</a>
                                     <ul class="sub-menu">
                                         <li><a href="tour.html">Travel Insurance</a></li>
