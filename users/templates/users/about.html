@@ -1,0 +1,210 @@
+{% extends 'users/base.html' %}
+{% load static  %}
+
+
+
+
+{% block content %}
+ 
+    <!-- Login-Sign Form -->
+    <div class="modal login-modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header position-relative" data-background="{% static 'assets3/img/banner/lg-bg.html" style="background-image: url(&quot;assets/img/banner/lg-bg.html&quot;);">
+                    <div class="login-head text-center pera-content">
+                        <p>Lacinia at quis risus sed. Tempus egestas sed sed risus pretium quam vulputate dignissim.</p>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-signup-login-tab">
+                        <div class="tab-pane-btn ul-li">
+                            <ul id="tabs" class="nav text-center nav-tabs tab-pane-btn-area">
+                                <li class="nav-item"><a href="#" data-target="#login" data-toggle="tab" class="nav-link text-capitalize active"><i class="far fa-user"></i> Login</a></li>
+                                <li class="nav-item"><a href="#" data-target="#signUp" data-toggle="tab" class="nav-link text-capitalize"><i class="fa fa-key"></i> Sign Up</a></li>
+                            </ul>
+                        </div>
+                        <div id="tabsContent" class="tab-content">
+                            <div id="login" class="tab-pane fade active show">
+                                <div class="login-content pera-content text-center">
+                                    <form action="#" method="post">
+                                        <input type="text" placeholder="Username or email">
+                                        <input type="text" placeholder="Password">
+                                        <div class="login-label clearfix">
+                                            <span><input type="checkbox">Remember me</span>
+                                            <a href="#">Forget Password?</a>
+                                        </div>
+                                        <button type="submit">Submit</button>
+                                    </form>
+                                    <p>Don’t have any account? <a href="#">Signup</a></p>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-fb btn-block"><i class="fab fa-facebook-f float-left"></i> Log In via Facebook</button>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-googl btn-block"><i class="fab fa-google float-left"></i> Log In via Google+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="signUp" class="tab-pane fade">
+                                <div class="sign-up-content pera-content text-center">
+                                    <form action="#" method="post">
+                                        <input type="text" placeholder="First Name">
+                                        <input type="text" placeholder="Last Name">
+                                        <input type="email" placeholder="Email address">
+                                        <input type="text" placeholder="Username">
+                                        <input type="text" placeholder="Password">
+                                        <input type="text" placeholder="Confirm password">
+                                        <div class="login-label clearfix">
+                                            <span><input type="checkbox">By clicking signup you are agree to our terms of service</span>
+                                        </div>
+                                        <button type="submit">Submit</button>
+                                    </form>
+                                    <p>Already have an account? <a href="#">Log in</a></p>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-fb btn-block"><i class="fab fa-facebook-f float-left"></i> Sign up via Facebook</button>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-googl btn-block"><i class="fab fa-google float-left"></i> Sign up via Google+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Start of header section
+       ============================================= -->
+    <!-- Start of breadcrumb section
+       ============================================= -->
+    <!-- <section id="breadcrumb" class="breadcrumb-section position-relative" data-background="{% static 'assets3/img/banner/banner-bg.jpg' %}" style="background-image: url(&quot;assets/img/banner/banner-bg.jpg&quot;);">
+        <span class="breadcrumb-overlay position-absolute"></span>
+        <div class="container">
+            <div class="breadcrumb-content text-center headline">
+                <h2>About Us</h2>
+                <div class="breadcrumb-item ul-li">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- End of breadcrumb section
+       ============================================= -->
+    <!-- Start of about us section
+       ============================================= -->
+    <section id="about-section" class="about-section">
+        <div class="container">
+            <div class="row row-xl-wide row-50 align-items-center align-items-xl-start">
+                <div class="col-md-6">
+                    <div class="figure-box parallax-scene-js">
+                        <div class="figure figure-1 layer" data-depth="-.2"></div>
+                        <div class="figure figure-2 layer" data-depth=".3"></div><img class="figure-image layer" src="{% static 'assets3/img/about/about-1.png ' %}" alt="" width="460" height="223" data-depth=".1">
+                        <div class="figure figure-3 layer" data-depth="-.25"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="section-title  headline title-style-two position-relative">
+                        <p class="title-watermark">About us</p>
+                        <span>About Us &amp; Services</span>
+                        <h2>We are a reliable agency in all travel business. </h2>
+                    </div>
+                    <p>Welcome to Aronia Travel, your trusted partner for unparalleled travel experiences. Located at New Peoples Media Center, Kilimani Elgeyo Marakwet Rd. At Aronia Travel, we're more than just travel experts; We're your strategic partner committed to elevating your travel experiences, we stand as a beacon of commitment to delivering exceptional travel services.
+
+                    <p>                        We are a growing entity on a mission to exceed our clients' expectations. Our core values of honesty, trust, and integrity guide us in offering personalized services while maintaining competitive rates without compromising our high standards.</p>
+                </p>
+                 
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End of about us section
+       ============================================= -->
+    <!--====== Start Features section ======-->
+    <section class="features-section-2">
+        <div class="container">
+            <div class="row clearfix">
+
+                <!-- Title Column -->
+                <div class="title-column col-lg-5 col-md-12 col-sm-12">
+                    <div class="section-title  headline title-style-two position-relative">
+                        <p class="title-watermark">Why Us</p>
+                        <span>Why You Should Choose Us</span>
+                        <h2>We makes finding and booking your tours and excursions an enjoyable experience. </h2>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Blocks Column -->
+                <div class="blocks-column col-lg-7 col-md-12 col-sm-12">
+                    <div class="inner-column">
+                        <div class="row clearfix">
+
+                            <!-- Feature Block -->
+                            <div class="feature-block col-lg-6 col-md-6 col-sm-12">
+                                <div class="inner-box">
+                                    <i class="icon flaticon-adoption"></i>
+                                    <div class="content">
+                                        <h5><a href="#">For Whole Family</a></h5>
+                                        <div class="text">We offer travel services for your whole family.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Feature Block -->
+                            <div class="feature-block col-lg-6 col-md-6 col-sm-12">
+                                <div class="inner-box">
+                                    <i class="icon flaticon-planet-earth"></i>
+                                    <div class="content">
+                                        <h5><a href="#">Worldwide Service</a></h5>
+                                        <div class="text">We have hundreds of agencies around the world.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Feature Block -->
+                            <div class="feature-block col-lg-6 col-md-6 col-sm-12">
+                                <div class="inner-box">
+                                    <i class="icon flaticon-map"></i>
+                                    <div class="content">
+                                        <h5><a href="#">All Destinations</a></h5>
+                                        <div class="text">We have activities and services all over the world.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Feature Block -->
+                            <div class="feature-block col-lg-6 col-md-6 col-sm-12">
+                                <div class="inner-box">
+                                    <i class="icon flaticon-happiness"></i>
+                                    <div class="content">
+                                        <h5><a href="#">Satisfaction</a></h5>
+                                        <div class="text">We offer an unforgettable holiday experience.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+  
+
+      
+
+    {% include 'users/footer.html' %}
+
+    {% endblock %}

@@ -67,7 +67,7 @@ def success(request):
 
 def aboutus(request):
     
-    return render(request, 'users/aboutus.html')
+    return render(request, 'users/about.html')
 
 def corporate(request):
     

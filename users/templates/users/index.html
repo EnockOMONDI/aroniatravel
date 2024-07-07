@@ -1,204 +1,860 @@
-{% extends 'users/basemain.html' %}
+{% extends 'users/base.html' %}
 {% load static  %}
 
 
 {% block content %}
-       <!--====== Start Hero Section ======-->
-       <section class="hero-section">
-        <div class="hero-wrapper-three">
-            <div class="hero-arrows"></div>
-            <div class="hero-slider-three">
-                <!--=== Single Slider ===-->
-                <div class="single-slider">
-                    <div class="image-layer bg_cover" style="background-image: url({% static 'assets/images/hero/hero-three_img-1.jpg' %});"></div>
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-xl-8">
-                                <!--=== Hero Content ===-->
-                                <div class="hero-content text-white">
-                                    <!-- <span class="sub-title"></span> -->
-                                    <h1 data-animation="fadeInDown" data-delay=".4s">Simplify Your Corporate Journeys</h1>
-                                    <div class="hero-button" data-animation="fadeInRight" data-delay=".6s"> 
-                                        <a href="{% url 'users:corporatepage'%} " class="main-btn secondary-btn">Corporate Travel<i class="fas fa-paper-plane"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+
+
+    <!-- Start of slider section
+       ============================================= -->
+    <section id="slider" class="slider-section">
+        <div id="main-slider" class="main-slider-content owl-carousel">
+            <div class="slider-main-item position-relative">
+                <div class="slider-main-img img-zooming" data-background="{% static 'assets3/img/slide/slide-2.png ' %}"></div>
+                <div class="slider-overlay"></div>
+                <div class="container">
+                    <div class="slider-main-text headline pera-content">
+                        <span>Holidays</span>
+                        <Br>  <Br>  <Br>  
+                        <h1>
+                            Discover Blissful Gateways With Us
+                        </h1>
+                        <Br>
+                        <p>Embark on a journey to the world's most serene and breathtaking locations with Aronia Travel Ltd. We specialize in curating travel experiences that lead you to tranquil beaches, picturesque mountains, and vibrant cities. </p>
+                        <div class="slider-main-btn">
+                            <!-- <a href="#"><i class="fas fa-user"></i> About us</a> -->
+                            <a href="#"><i class="fas fa-hiking"></i> Holiday Packages</a>
                         </div>
                     </div>
                 </div>
-                <!--=== Single Slider ===-->
-            
-                <div class="single-slider">
-                    <div class="image-layer bg_cover" style="background-image: url({% static 'assets/images/hero/hero-three_img-3.jpg' %});"></div>
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-xl-7">
-                                <!--=== Hero Content ===-->
-                                <div class="hero-content text-white">
-                                    <!-- <span class="sub-title">Aronia Travel</span> -->
-                                    <h1 data-animation="fadeInDown" data-delay=".4s">Best Accomodation
-                                        & Hotel Deals</h1>
-                                    <div class="hero-button" data-animation="fadeInRight" data-delay=".6s"> 
-                                        <a href="about.html" class="main-btn primary-btn">View all Hotels<i class="fas fa-paper-plane"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+            </div>
+            <div class="slider-main-item position-relative">
+                <div class="slider-main-img img-zooming" data-background="{% static 'assets3/img/slide/slide-2.png ' %}"></div>
+                <div class="slider-overlay"></div>
+                <div class="container">
+                    <div class="slider-main-text headline pera-content">
+                        <span>Corporate Travel</span>
+                        <br>     <br>
+                        <h1>
+                            Simplify your Corporate Journeys
+                        </h1>
+                        <p>Let Aronia Travel Ltd simplify your corporate journeys.From booking accommodations to arranging transportation, we simplify the process so you can focus on what matters most – your business goals. </p>
+                        <div class="slider-main-btn">
+                            <!-- <a href="#"><i class="fas fa-user"></i> About us</a> -->
+                            <a href="#"><i class="fas fa-hiking"></i> Corporate Travel</a>
                         </div>
                     </div>
                 </div>
-                <!--=== Single Slider ===-->
-                <div class="single-slider">
-                    <div class="image-layer bg_cover" style="background-image: url({% static 'assets/images/hero/hero-three_img-2.jpg' %});"></div>
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-xl-7">
-                                <!--=== Hero Content ===-->
-                                <div class="hero-content text-white">
-                                    <!-- <span class="sub-title">Aronia Travel</span> -->
-                                    <h1 data-animation="fadeInDown" data-delay=".4s">Discover Blissful Getaways with Us</h1>
-                                    <div class="hero-button" data-animation="fadeInRight" data-delay=".6s"> 
-                                        <a href="{% url 'users:all_packages'%} " class="main-btn primary-btn">Explore all Packages<i class="fas fa-paper-plane"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+            </div>
+            <div class="slider-main-item position-relative">
+                <div class="slider-main-img img-zooming" data-background="{% static 'assets3/img/slide/slide-2.png ' %}"></div>
+                <div class="slider-overlay"></div>
+                <div class="container">
+                    <div class="slider-main-text headline pera-content">
+                        <span>Accomodations</span>
+                        <br>     <br>
+                        <h1>
+                            Best Hotel and Accomodation deals 
+                        </h1>
+                        <p>Unlock unbeatable savings on hotel stays with Aronia Travel Ltd. Our extensive network of partners allows us to offer you the best deals on accommodations worldwide. Whether you're looking for luxury resorts, boutique hotels, or budget-friendly options.</p>
+                        <div class="slider-main-btn">
+                          
+                            <a href="#"><i class="fas fa-hiking"></i> Hotels</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section><!--====== End Hero Section ======-->
-    <!--====== Start Features Section ======-->
-    <section class="features-section pt-80 pb-50">
-        <div class="container">
-            <div class="row align-items-xl-center">
-                <div class="col-xl-6">
-                    <!--=== Features Content Box ===-->
-                    <div class="features-content-box pr-lg-10 mb-50">
-                        <!--=== Section Title ===-->
-                        <div class="section-title mb-30">
-                            <h1>Navigate the World with Ease and Excellence</h1>
-                        </div>
-                        <p class="mb-30">Aronia Travel Ltd is a travel specialist based in Nairobi, Kenya with a profound focus on worldwide destinations. Our customer service focus is at every touchpoint to ensure the customers journey in dealing with us is effortless which is key to excellent customer experience. With an unwavering commitment to offering unparalleled travel experiences, Aronia Travel has firmly established itself as a hub for explorers seeking to uncover the diverse and captivating beauty of various destinations worldwide. Aronia Travel is actively expanding its partnerships both within the local context and on a broader global scale.</p>
-                        <a href="{% url 'users:aboutus'%} " class="main-btn filled-btn">view All Services<i class="far fa-paper-plane"></i></a>
-                    </div>
-                </div>
-                <div class="col-xl-6">
-                     <div class="features-list_one">
-                            <!--=== Single Features List ===-->
-                            <div class="single-features-list mb-40">
-                                <div class="icon-inner d-flex align-items-center">
-                                
-                                    <div class="icon">
-                                        <i class="flaticon-travel"></i>
-                                    </div>
-                                </div>
-                                <div class="content">
-                                    <h4>Domestic and International Air Ticketing </h4>
-                                    <p>Effortless travel with expert itineraries, cost-effective schedules, and personalized service for every destination.</p>
-                                </div>
-                            </div>
-                            <!--=== Single Features List ===-->
-                            <div class="single-features-list mb-40">
-                                <div class="icon-inner d-flex align-items-center">
-                                
-                                    <div class="icon">
-                                        <i class="flaticon-flight"></i>
-                                    </div>
-                                </div>
-                                <div class="content">
-                                    <h4> Streamlined Ticketing Services </h4>
-                                    <p>Efficient, IATA-trained staff, 24/7 connectivity—ensuring precision, prompt responses, and stress-free travel arrangements.</p>
-                                </div>
-                            </div>
-                            <!--=== Single Features List ===-->
-                            <div class="single-features-list mb-40">
-                                <div class="icon-inner d-flex align-items-center">
-                                
-                                    <div class="icon">
-                                        <i class="flaticon-best-price"></i>
-                                    </div>
-                                </div>
-                                <div class="content">
-                                    <h4>Cost-Effective Travel planning </h4>
-                                    <p>Budget-friendly journeys—expert advice, group discounts, and timely updates for efficient travel planning.</p>
-                                </div>
-                            </div>
-                            <div class="single-features-list mb-40">
-                                <div class="icon-inner d-flex align-items-center">
-                                
-                                    <div class="icon">
-                                        <i class="flaticon-tent"></i>
-                                    </div>
-                                </div>
-                                <div class="content">
-                                    <h4>Exclusive Hotel Reservationse</h4>
-                                    <p> Elevate your stay with best rates, special packages, and early booking advantages worldwide.</p>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
- 
+    </section>
 
-    <!--====== Start Gallery Section ======-->
-    <section class="gallery-section-two pb-100">
-        <div class="container-fluid">
-            <!--=== Gallery Slider ===-->
-            <div class="col-lg-8">
-            <div class="section-title mb-60">
-         
-            <span class="sub-title">Top packages</span>
-            <h2>Best Picks for Your Unforgettable Journeys</h2>
-        </div>
-           </div>
-            <div class="slider-active-3-item-dot">
-                <!--=== Gallery Item ===-->
-                <div class="single-gallery-item-two">
-                    <div class="img-holder">
-                        <img src="{% static 'assets/images/gallery/maasaimara.jpg' %}" alt="Gallery Image">
-                    </div>
-                    <div class="content">
-                        <h3 class="title">5 Days 4 nights Safari Adventure @ Maasai Mara </h3>
-                        <a href="#">Adventure & Travel</a>
-                    </div>
-                </div>
-                <!--=== Gallery Item ===-->
-                <div class="single-gallery-item-two">
-                    <div class="img-holder">
-                        <img src="{% static 'assets/images/gallery/egypt2.png ' %}" alt="Gallery Image">
-                    </div>
-                    <div class="content">
-                        <h3 class="title">A Nile Adventure:7 Days Enchanting Egypt Expedition: </h3>
-                        <a href="#">Adventure & Travel</a>
-                    </div>
-                </div>
-                <!--=== Gallery Item ===-->
-                <div class="single-gallery-item-two">
-                    <div class="img-holder">
-                        <img src="{% static 'assets/images/gallery/riftvalley2.jpg'%}" alt="Gallery Image">
-                    </div>
-                    <div class="content">
-                        <h3 class="title">8 Days exploring the Great Rift Valley</h3>
-                        <a href="#">Adventure & Travel</a>
-                    </div>
-                </div>
-                <!--=== Gallery Item ===-->
-                <div class="single-gallery-item-two">
-                    <div class="img-holder">
-                        <img src="{% static 'assets/images/gallery/amboseli.jpg' %}" alt="Gallery Image">
-                    </div>
-                    <div class="content">
-                        <h3 class="title">5 days Adventure in Amboseli: Kilimanjaro Views</h3>
-                        <a href="#">Adventure & Travel</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section><!--====== End Gallery Section ======-->
-
-
-{% include 'users/footer.html' %}
+    <!-- End of Slider section
+       ============================================= -->
 
        
-{% endblock %}
+  <!-- Start of about section
+       ============================================= -->
+       <div class="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="about-img-text w-100 h-100">
+                        <div class="about-img">
+                            <img src="{% static 'assets3/img/about/about-1.png ' %}" alt="img">
+                        </div>
+                        <div class="about-media m-0">
+                            <span>
+                                <b class="counter" data-from="0" data-to="25">25</b>
+                                Years of <br> Excellence
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 offset-lg-1">
+                    <div class="about-img-text mt-5 mt-lg-0">
+                        <div class="section-title headline">
+÷                            <h2>
+                                Navigate the World with Ease and Excellence with Aronia Travel
+                            </h2>
+                        </div>
+                        <div class="about-img-text-content">
+                            <p>Aronia Travel Ltd is a premier travel agency based in Nairobi, Kenya, specializing in global travel destinations. Our commitment to excellent customer service ensures an effortless journey from start to finish. With a passion for creating unique travel experiences, we continually expand our partnerships locally and globally.</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="about-info">
+                                        <div class="about-info-title">
+                                            <span class="about-info-icon bg-primary-1 text-white">1</span>
+                                        </div>
+                                        <div class="about-info-description">
+                                            <h5>
+                                                <a href="#">Fast and Smooth Travel</a>
+                                            </h5>
+                                            <p>Enjoy swift and hassle-free travel Planning, coupled with our teams commitment to excellence!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="about-info">
+                                        <div class="about-info-title">
+                                            <span class="about-info-icon bg-primary-1 text-white">2</span>
+                                        </div>
+                                        <div class="about-info-description">
+                                            <h5>
+                                                <a href="#">Highly Professional</a>
+                                            </h5>
+                                            <p>Our team takes care of your travel priority and responds quickly.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-sm-flex d-block align-items-center pt-5">
+                                <a href="#" class="about-btn">Learn More</a>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="features-section-2" style="margin-bottom: -90px; margin-top: -120px;">
+        <div class="container">
+            <div class="row clearfix">
+
+
+                <!-- Blocks Column -->
+                <div class="blocks-column col-lg-7 col-md-12 col-sm-12">
+                    <div class="inner-column">
+                        <div class="row clearfix">
+
+                            <!-- Feature Block -->
+                            <div class="feature-block col-lg-12 col-md-6 col-sm-12">
+                                <div class="inner-box">
+                                    <i class="icon flaticon-credit-card"></i>
+                                    <div class="content">
+                                        <h5><a href="#">Cost-Effective Travel planning</a></h5>
+                                        <div class="text">Budget-friendly journeys—expert advice, group discounts, and timely updates for efficient travel planning.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+               <!-- Title Column -->
+               <div class="title-column col-lg-5 col-md-12 col-sm-12">
+                <div class="section-title  headline title-style-two position-relative">
+                    <p class="title-watermark">Aronia Travel</p>
+                    <span>Best in Class Services</span>
+                    <h2>Enjoy swift and hassle-free travel planning. Coupled with our team's commitment to excellence! </h2>
+                   
+                </div>
+            </div> 
+
+            </div>
+        </div>
+    </section>
+    <!-- End of About section -->
+    <section class="features-section-2" style="margin-bottom: -120px;">
+        <div class="container">
+            <div class="row clearfix">
+
+               <!-- Title Column -->
+  <div class="title-column col-lg-5 col-md-12 col-sm-12">
+    <div class="section-title  headline title-style-two position-relative">
+        <p class="title-watermark">What we do</p>
+     
+        <h2>Let Us handle all the details of planning your next trip as you relax. </h2>
+       
+    </div>
+</div> 
+
+                <!-- Blocks Column -->
+                <div class="blocks-column col-lg-7 col-md-12 col-sm-12">
+                    <div class="inner-column">
+                        <div class="row clearfix">
+
+                            <!-- Feature Block -->
+                            <div class="feature-block col-lg-6 col-md-6 col-sm-12">
+                                <div class="inner-box">
+                                    <i class="icon flaticon-planet-earth"></i>
+                                    <div class="content">
+                                        <h5><a href="#">
+                                            Domestic and International Air Ticketing</a></h5>
+                                        <div class="text">Effortless travel with expert itineraries, cost-effective schedules, and personalized service for every destination..</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Feature Block -->
+                            <div class="feature-block col-lg-6 col-md-6 col-sm-12">
+                                <div class="inner-box">
+                                    <i class="icon flaticon-plane"></i>
+                                    <div class="content">
+                                        <h5><a href="#">
+                                            Streamlined Ticketing Services</a></h5>
+                                        <div class="text">Efficient, IATA-trained staff, 24/7 connectivity—ensuring precision, prompt responses, and stress-free travel arrangement</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                          
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+  
+ 
+ 
+
+    <!-- Start of location section
+       ============================================= -->
+
+    <section id="location" class="location-section" style="margin-top: -90px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-title headline">
+                        <span> Top Destinations</span>
+                        <h2>
+                            Locations with the most travel
+                            preferred by our customers.
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row location-content list-bunch image-grid">
+                <div class="col-xl-3 col-md-4 col-sm-6 location-item image-grid-item">
+                    <div class="destination-single">
+                        <div class="destination-img">
+                            <img src="{% static 'assets3/img/location/location-1.jpg'%}" alt="">
+                            <div class="destination-content">
+                                <div class="content-left">
+                                    <h5>Paris</h5>
+                                    <small>From 8 Jun 2021</small>
+                                </div>
+                                <div class="content-right">
+                                    <h5>$639</h5>
+                                    <span>Per Day</span>
+                                </div>
+                            </div>
+                            <div class="destination-btn">
+                                <a href="#">2 Activities</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-4 col-sm-6 location-item image-grid-item">
+                    <div class="destination-single">
+                        <div class="destination-img">
+                            <img src="{% static 'assets3/img/location/location-2.jpg'%}" alt="">
+                            <div class="destination-content">
+                                <div class="content-left">
+                                    <h5>Rome</h5>
+                                    <small>From 8 Jun 2021</small>
+                                </div>
+                                <div class="content-right">
+                                    <h5>$749</h5>
+                                    <span>Per Day</span>
+                                </div>
+                            </div>
+                            <div class="destination-btn">
+                                <a href="#">2 Activities</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-4 col-sm-6 location-item image-grid-item">
+                    <div class="destination-single">
+                        <div class="destination-img">
+                            <img src="{% static 'assets3/img/location/location-3.jpg'%}" alt="">
+                            <div class="destination-content">
+                                <div class="content-left">
+                                    <h5>Venice</h5>
+                                    <small>From 8 Jun 2021</small>
+                                </div>
+                                <div class="content-right">
+                                    <h5>$265</h5>
+                                    <span>Per Day</span>
+                                </div>
+                            </div>
+                            <div class="destination-btn">
+                                <a href="#">2 Activities</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-4 col-sm-6 location-item image-grid-item">
+                    <div class="destination-single">
+                        <div class="destination-img">
+                            <img src="{% static 'assets3/img/location/location-4.jpg'%}" alt="">
+                            <div class="destination-content">
+                                <div class="content-left">
+                                    <h5>Amsterdam</h5>
+                                    <small>From 8 Jun 2021</small>
+                                </div>
+                                <div class="content-right">
+                                    <h5>$868</h5>
+                                    <span>Per Day</span>
+                                </div>
+                            </div>
+                            <div class="destination-btn">
+                                <a href="#">2 Activities</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </section>
+
+    <!-- End of Location section
+       ============================================= -->
+  
+    <!-- Start of Activity section
+       ============================================= -->
+    <!-- <section id="activity" class="activity-section">
+        <div class="container">
+            <div class="activity-top">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="section-title headline">
+                            <span>Activities</span>
+                            <h2>
+                                Browse the most preferred categories and activities.
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="activity-title-text">
+                            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo rincididunt ut labore et dolore magna aliqua. Quis suspendisse onsectetur adipiscing.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="activity-filter-content">
+                <div class="button-group activity-filter-buttons text-center clearfix">
+                    <button class="filter-button is-checked" data-filter="*">All tours</button>
+                    <button class="filter-button" data-filter=".adventure">Adventure</button>
+                    <button class="filter-button" data-filter=".sightseeing"> Sightseeing</button>
+                    <button class="filter-button" data-filter=".culture">Culture</button>
+                    <button class="filter-button" data-filter=".nature">Nature  </button>
+                    <button class="filter-button" data-filter=".day-trips">Day Trips </button>
+                </div>
+                <div class="activity-filter-area grid clearfix" data-isotope="{ &quot;masonry&quot;: { &quot;columnWidth&quot;: 0 } }">
+                    <div class="grid-sizer"></div>
+                    <div class="grid-item grid-size-25 adventure sightseeing culture" data-category="adventure sightseeing culture">
+                        <div class="activity-card">
+                            <div class="activity-img position-relative">
+                                <span class="price-badge">$680</span>
+                                <img src="{% static 'assets3/img/activity/activity1.jpg'%}" alt="">
+                                <span class="activity-hover-icon"><a href="#"><i class="fas fa-plus"></i></a></span>
+                            </div>
+                            <div class="activity-text">
+                                <div class="activity-meta">
+                                    <a href="#"><i class="far fa-clock"></i>30 mins</a>
+                                    <a href="#"><i class="fa fa-map-marker-alt"></i>Italy</a>
+                                    <a href="#"><i class="fas fa-running"></i> Skip Line</a>
+                                </div>
+                                <div class="activity-tilte-head headline ul-li">
+                                    <h3><a href="#">Doge Palace Ticket</a></h3>
+                                    <ul>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                    </ul>
+                                    <span>(12 Reviews)</span>
+                                </div>
+                                <div class="activity-agent clearfix">
+                                    <div class="activity-agent-img float-left">
+                                        <img src="{% static 'assets3/img/activity/agent1.jpg'%}" alt="">
+                                    </div>
+                                    <div class="activity-agent-text">
+                                        <h4><a href="#">Hanry N.</a></h4>
+                                        <span>Example Agency</span>
+                                    </div>
+                                    <div class="activity-btn float-right">
+                                        <a href="#"><i class="fas fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-item grid-size-25 nature day-trips" data-category="nature day-trips">
+                        <div class="activity-card">
+                            <div class="activity-img position-relative">
+                                <span class="price-badge">$890</span>
+                                <img src="{% static 'assets3/img/activity/activity2.jpg'%}" alt="">
+                                <span class="activity-hover-icon"><a href="#"><i class="fas fa-plus"></i></a></span>
+                            </div>
+                            <div class="activity-text">
+                                <div class="activity-meta">
+                                    <a href="#"><i class="far fa-clock"></i>30 mins</a>
+                                    <a href="#"><i class="fa fa-map-marker-alt"></i>Italy</a>
+                                    <a href="#"><i class="fas fa-running"></i> Skip Line</a>
+                                </div>
+                                <div class="activity-tilte-head headline ul-li">
+                                    <h3>
+                                        <a href="#">
+                                            Ellis Island with Ferry
+                                        </a>
+                                    </h3>
+                                    <ul>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                    </ul>
+                                    <span>(12 Reviews)</span>
+                                </div>
+                                <div class="activity-agent clearfix">
+                                    <div class="activity-agent-img float-left">
+                                        <img src="{% static 'assets3/img/activity/agent2.jpg'%}" alt="">
+                                    </div>
+                                    <div class="activity-agent-text">
+                                        <h4><a href="#">Philip Edward</a></h4>
+                                        <span>Example Agency</span>
+                                    </div>
+                                    <div class="activity-btn float-right">
+                                        <a href="#"><i class="fas fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-item grid-size-25 culture day-trips sightseeing" data-category="culture day-trips sightseeing">
+                        <div class="activity-card">
+                            <div class="activity-img position-relative">
+                                <span class="price-badge">$680</span>
+                                <img src="{% static 'assets3/img/activity/activity15.jpg'%}" alt="">
+                                <span class="activity-hover-icon"><a href="#"><i class="fas fa-plus"></i></a></span>
+                            </div>
+                            <div class="activity-text">
+                                <div class="activity-meta">
+                                    <a href="#"><i class="far fa-clock"></i>30 mins</a>
+                                    <a href="#"><i class="fa fa-map-marker-alt"></i>Italy</a>
+                                    <a href="#"><i class="fas fa-running"></i> Skip Line</a>
+                                </div>
+                                <div class="activity-tilte-head headline ul-li">
+                                    <h3><a href="#">Venice: Gondola Ride</a></h3>
+                                    <ul>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                    </ul>
+                                    <span>(12 Reviews)</span>
+                                </div>
+                                <div class="activity-agent clearfix">
+                                    <div class="activity-agent-img float-left">
+                                        <img src="{% static 'assets3/img/activity/agent3.jpg'%}" alt="">
+                                    </div>
+                                    <div class="activity-agent-text">
+                                        <h4><a href="#">Linda Nick</a></h4>
+                                        <span>Example Agency</span>
+                                    </div>
+                                    <div class="activity-btn float-right">
+                                        <a href="#"><i class="fas fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-item grid-size-25 adventure nature adventure" data-category="adventure nature adventure">
+                        <div class="activity-card">
+                            <div class="activity-img position-relative">
+                                <span class="price-badge">$680</span>
+                                <img src="{% static 'assets3/img/activity/activity4.jpg'%}" alt="">
+                                <span class="activity-hover-icon"><a href="#"><i class="fas fa-plus"></i></a></span>
+                            </div>
+                            <div class="activity-text">
+                                <div class="activity-meta">
+                                    <a href="#"><i class="far fa-clock"></i>30 mins</a>
+                                    <a href="#"><i class="fa fa-map-marker-alt"></i>Italy</a>
+                                    <a href="#"><i class="fas fa-headphones"></i> Guided</a>
+                                </div>
+                                <div class="activity-tilte-head headline ul-li">
+                                    <h3><a href="#">Rome: Street Food Tour</a></h3>
+                                    <ul>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                    </ul>
+                                    <span>(12 Reviews)</span>
+                                </div>
+                                <div class="activity-agent clearfix">
+                                    <div class="activity-agent-img float-left">
+                                        <img src="{% static 'assets3/img/activity/agent4.jpg'%}" alt="">
+                                    </div>
+                                    <div class="activity-agent-text">
+                                        <h4><a href="#">Michael Jack</a></h4>
+                                        <span>Example Agency</span>
+                                    </div>
+                                    <div class="activity-btn float-right">
+                                        <a href="#"><i class="fas fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-item grid-size-25 day-trips sightseeing day-trips" data-category="day-trips sightseeing day-trips">
+                        <div class="activity-card">
+                            <div class="activity-img position-relative">
+                                <span class="price-badge">$680</span>
+                                <img src="{% static 'assets3/img/activity/activity5.jpg'%}" alt="">
+                                <span class="activity-hover-icon"><a href="#"><i class="fas fa-plus"></i></a></span>
+                            </div>
+                            <div class="activity-text">
+                                <div class="activity-meta">
+                                    <a href="#"><i class="far fa-clock"></i>30 mins</a>
+                                    <a href="#"><i class="fa fa-map-marker-alt"></i>Italy</a>
+                                    <a href="#"><i class="fas fa-headphones"></i> Guided</a>
+                                </div>
+                                <div class="activity-tilte-head headline ul-li">
+                                    <h3><a href="#">St. Mark's Basilica Tour</a></h3>
+                                    <ul>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                    </ul>
+                                    <span>(12 Reviews)</span>
+                                </div>
+                                <div class="activity-agent clearfix">
+                                    <div class="activity-agent-img float-left">
+                                        <img src="{% static 'assets3/img/activity/agent5.jpg'%}" alt="">
+                                    </div>
+                                    <div class="activity-agent-text">
+                                        <h4><a href="#">Michael Jack</a></h4>
+                                        <span>Example Agency</span>
+                                    </div>
+                                    <div class="activity-btn float-right">
+                                        <a href="#"><i class="fas fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-item grid-size-25 day-trips nature" data-category="day-trips nature">
+                        <div class="activity-card">
+                            <div class="activity-img position-relative">
+                                <span class="price-badge">$680</span>
+                                <img src="{% static 'assets3/img/activity/activity6.jpg'%}" alt="">
+                                <span class="activity-hover-icon"><a href="#"><i class="fas fa-plus"></i></a></span>
+                            </div>
+                            <div class="activity-text">
+                                <div class="activity-meta">
+                                    <a href="#"><i class="far fa-clock"></i>30 mins</a>
+                                    <a href="#"><i class="fa fa-map-marker-alt"></i>Italy</a>
+                                    <a href="#"><i class="fas fa-headphones"></i> Guided</a>
+                                </div>
+                                <div class="activity-tilte-head headline ul-li">
+                                    <h3><a href="#">Venice: Private Tour</a></h3>
+                                    <ul>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                    </ul>
+                                    <span>(12 Reviews)</span>
+                                </div>
+                                <div class="activity-agent clearfix">
+                                    <div class="activity-agent-img float-left">
+                                        <img src="{% static 'assets3/img/activity/agent6.jpg'%}" alt="">
+                                    </div>
+                                    <div class="activity-agent-text">
+                                        <h4><a href="#">Michael Jack</a></h4>
+                                        <span>Example Agency</span>
+                                    </div>
+                                    <div class="activity-btn float-right">
+                                        <a href="#"><i class="fas fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-item grid-size-25 adventure day-trips" data-category="adventure day-trips">
+                        <div class="activity-card">
+                            <div class="activity-img position-relative">
+                                <span class="price-badge">$680</span>
+                                <img src="{% static 'assets3/img/activity/activity1.jpg'%}" alt="">
+                                <span class="activity-hover-icon"><a href="#"><i class="fas fa-plus"></i></a></span>
+                            </div>
+                            <div class="activity-text">
+                                <div class="activity-meta">
+                                    <a href="#"><i class="fas fa-clock"></i>20 mins</a>
+                                    <a href="#"><i class="fas fa-bath"></i>2 Bath</a>
+                                    <a href="#"><i class="fas fa-running"></i> Skip Line</a>
+                                </div>
+                                <div class="activity-tilte-head headline ul-li">
+                                    <h3><a href="#">Madrid: Live Flamenco</a></h3>
+                                    <ul>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                    </ul>
+                                    <span>(12 Reviews)</span>
+                                </div>
+                                <div class="activity-agent clearfix">
+                                    <div class="activity-agent-img float-left">
+                                        <img src="{% static 'assets3/img/activity/agent5.jpg'%}" alt="">
+                                    </div>
+                                    <div class="activity-agent-text">
+                                        <h4><a href="#">Michael Jack</a></h4>
+                                        <span>Example Agency</span>
+                                    </div>
+                                    <div class="activity-btn float-right">
+                                        <a href="#"><i class="fas fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-item grid-size-25 nature sightseeing" data-category="nature sightseeing">
+                        <div class="activity-card">
+                            <div class="activity-img position-relative">
+                                <span class="price-badge">$680</span>
+                                <img src="{% static 'assets3/img/activity/activity8.jpg'%}" alt="">
+                                <span class="activity-hover-icon"><a href="#"><i class="fas fa-plus"></i></a></span>
+                            </div>
+                            <div class="activity-text">
+                                <div class="activity-meta">
+                                    <a href="#"><i class="fas fa-clock"></i>15 mins</a>
+                                    <a href="#"><i class="fa fa-map-marker-alt"></i>Italy</a>
+                                    <a href="#"><i class="fas fa-running"></i> Skip Line</a>
+                                </div>
+                                <div class="activity-tilte-head headline ul-li">
+                                    <h3><a href="#">Prado Museum Tour</a></h3>
+                                    <ul>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                        <li><i class="fas fa-star"></i></li>
+                                    </ul>
+                                    <span>(12 Reviews)</span>
+                                </div>
+                                <div class="activity-agent clearfix">
+                                    <div class="activity-agent-img float-left">
+                                        <img src="{% static 'assets3/img/activity/agent3.jpg'%}" alt="">
+                                    </div>
+                                    <div class="activity-agent-text">
+                                        <h4><a href="#">Michael Jack</a></h4>
+                                        <span>Example Agency</span>
+                                    </div>
+                                    <div class="activity-btn float-right">
+                                        <a href="#"><i class="fas fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-more-btn text-center">
+                    <a href="#">Load More <i class="fas fa-sync-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- End of Activity section
+       ============================================= -->
+    <!-- Start of agents section
+       ============================================= -->
+
+    <!-- End of agents section
+       ============================================= -->
+    <!--====== Start Faq section ======-->
+    <section class="faq-v2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-title headline">
+                        <span>Client’s questions</span>
+                        <h2>
+                            We are Very Happy to Answer Your Questions.
+                        </h2>
+                    </div>
+                    <div class="faq-wrapper">
+                        <div class="accordion" id="accordionone">
+                            <div class="card mb-30">
+                                <a class="collapsed card-header" id="heading1" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                    How can I book a trip with Aronia Travel Ltd?
+                                    <span class="toggle_btn"></span>
+                                </a>
+                                <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordionone">
+                                    <div class="card-body">
+                                        <p>
+                                            You can book a trip by visiting our website and selecting your desired travel package. Alternatively, you can contact our customer service team via phone or email for personalized assistance with your booking.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-30">
+                                <a class="collapsed card-header" id="heading2" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                    Can you help with visa applications?
+                                    <span class="toggle_btn"></span>
+                                </a>
+                                <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordionone">
+                                    <div class="card-body">
+                                        <p>
+                                            Yes, we provide visa consultation services to assist you with your visa application process. Our team will guide you through the necessary steps and documentation required for your destination.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-30">
+                                <a class="collapsed card-header" id="heading3" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                    Are there special packages for corporate clients?
+                                    <span class="toggle_btn"></span>
+                                </a>
+                                <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordionone">
+                                    <div class="card-body">
+                                        <p>
+                                            Absolutely! We offer tailored travel solutions for corporate clients, including business travel arrangements, conference and meeting planning, and more. Please contact our corporate travel team for more details.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-30">
+                                <a class="collapsed card-header" id="heading4" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                                    How do I know if my booking is confirmed?
+                                    <span class="toggle_btn"></span>
+                                </a>
+                                <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordionone">
+                                    <div class="card-body">
+                                        <p>
+                                            Once you complete your booking, you will receive a confirmation email with all the details of your trip. If you do not receive this email, please contact our customer service team for assistance.
+                                            
+                                            
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="faq-img float-right">
+                        <img src="{% static 'assets3/img/faq-1.png'%}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--====== End Faq section ======-->
+
+    <!-- Login-Sign Form -->
+    <div class="modal login-modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header position-relative" data-background="{% static 'assets3/img/banner/lg-bg.jpg' %}"html">
+                    <div class="login-head text-center pera-content">
+                        <a href="#"><img src="{% static 'assets3/img/logo/logo2.png ' %}" alt=""></a>
+                        <p>Lacinia at quis risus sed. Tempus egestas sed sed risus pretium quam vulputate dignissim.</p>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-signup-login-tab">
+                        <div class="tab-pane-btn ul-li">
+                            <ul id="tabs" class="nav text-center nav-tabs tab-pane-btn-area">
+                                <li class="nav-item"><a href="#" data-target="#login" data-toggle="tab" class="nav-link text-capitalize active"><i class="far fa-user"></i> Login</a></li>
+                                <li class="nav-item"><a href="#" data-target="#signUp" data-toggle="tab" class="nav-link text-capitalize"><i class="fa fa-key"></i> Sign Up</a></li>
+                            </ul>
+                        </div>
+                        <div id="tabsContent" class="tab-content">
+                            <div id="login" class="tab-pane fade active show">
+                                <div class="login-content pera-content text-center">
+                                    <form action="#" method="post">
+                                        <input type="text" placeholder="Username or email">
+                                        <input type="text" placeholder="Password">
+                                        <div class="login-label clearfix">
+                                            <span><input type="checkbox">Remember me</span>
+                                            <a href="#">Forget Password?</a>
+                                        </div>
+                                        <button type="submit">Submit</button>
+                                    </form>
+                                    <p>Don’t have any account? <a href="#">Signup</a></p>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-fb btn-block"><i class="fab fa-facebook-f float-left"></i> Log In via Facebook</button>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-googl btn-block"><i class="fab fa-google float-left"></i> Log In via Google+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="signUp" class="tab-pane fade">
+                                <div class="sign-up-content pera-content text-center">
+                                    <form action="#" method="post">
+                                        <input type="text" placeholder="First Name">
+                                        <input type="text" placeholder="Last Name">
+                                        <input type="email" placeholder="Email address">
+                                        <input type="text" placeholder="Username">
+                                        <input type="text" placeholder="Password">
+                                        <input type="text" placeholder="Confirm password">
+                                        <div class="login-label clearfix">
+                                            <span><input type="checkbox">By clicking signup you are agree to our terms of service</span>
+                                        </div>
+                                        <button type="submit">Submit</button>
+                                    </form>
+                                    <p>Already have an account? <a href="#">Log in</a></p>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-fb btn-block"><i class="fab fa-facebook-f float-left"></i> Sign up via Facebook</button>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-googl btn-block"><i class="fab fa-google float-left"></i> Sign up via Google+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% include 'users/footer.html' %}
+
+       
+    {% endblock %}

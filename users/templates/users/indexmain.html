@@ -1,0 +1,204 @@
+{% extends 'users/basemain.html' %}
+{% load static  %}
+
+
+{% block content %}
+       <!--====== Start Hero Section ======-->
+       <section class="hero-section">
+        <div class="hero-wrapper-three">
+            <div class="hero-arrows"></div>
+            <div class="hero-slider-three">
+                <!--=== Single Slider ===-->
+                <div class="single-slider">
+                    <div class="image-layer bg_cover" style="background-image: url({% static 'assets/images/hero/hero-three_img-1.jpg' %});"></div>
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-xl-8">
+                                <!--=== Hero Content ===-->
+                                <div class="hero-content text-white">
+                                    <!-- <span class="sub-title"></span> -->
+                                    <h1 data-animation="fadeInDown" data-delay=".4s">Simplify Your Corporate Journeys</h1>
+                                    <div class="hero-button" data-animation="fadeInRight" data-delay=".6s"> 
+                                        <a href="{% url 'users:corporatepage'%} " class="main-btn secondary-btn">Corporate Travel<i class="fas fa-paper-plane"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--=== Single Slider ===-->
+            
+                <div class="single-slider">
+                    <div class="image-layer bg_cover" style="background-image: url({% static 'assets/images/hero/hero-three_img-3.jpg' %});"></div>
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-xl-7">
+                                <!--=== Hero Content ===-->
+                                <div class="hero-content text-white">
+                                    <!-- <span class="sub-title">Aronia Travel</span> -->
+                                    <h1 data-animation="fadeInDown" data-delay=".4s">Best Accomodation
+                                        & Hotel Deals</h1>
+                                    <div class="hero-button" data-animation="fadeInRight" data-delay=".6s"> 
+                                        <a href="about.html" class="main-btn primary-btn">View all Hotels<i class="fas fa-paper-plane"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--=== Single Slider ===-->
+                <div class="single-slider">
+                    <div class="image-layer bg_cover" style="background-image: url({% static 'assets/images/hero/hero-three_img-2.jpg' %});"></div>
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-xl-7">
+                                <!--=== Hero Content ===-->
+                                <div class="hero-content text-white">
+                                    <!-- <span class="sub-title">Aronia Travel</span> -->
+                                    <h1 data-animation="fadeInDown" data-delay=".4s">Discover Blissful Getaways with Us</h1>
+                                    <div class="hero-button" data-animation="fadeInRight" data-delay=".6s"> 
+                                        <a href="{% url 'users:all_packages'%} " class="main-btn primary-btn">Explore all Packages<i class="fas fa-paper-plane"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!--====== End Hero Section ======-->
+    <!--====== Start Features Section ======-->
+    <section class="features-section pt-80 pb-50">
+        <div class="container">
+            <div class="row align-items-xl-center">
+                <div class="col-xl-6">
+                    <!--=== Features Content Box ===-->
+                    <div class="features-content-box pr-lg-10 mb-50">
+                        <!--=== Section Title ===-->
+                        <div class="section-title mb-30">
+                            <h1>Navigate the World with Ease and Excellence</h1>
+                        </div>
+                        <p class="mb-30">Aronia Travel Ltd is a travel specialist based in Nairobi, Kenya with a profound focus on worldwide destinations. Our customer service focus is at every touchpoint to ensure the customers journey in dealing with us is effortless which is key to excellent customer experience. With an unwavering commitment to offering unparalleled travel experiences, Aronia Travel has firmly established itself as a hub for explorers seeking to uncover the diverse and captivating beauty of various destinations worldwide. Aronia Travel is actively expanding its partnerships both within the local context and on a broader global scale.</p>
+                        <a href="{% url 'users:aboutus'%} " class="main-btn filled-btn">view All Services<i class="far fa-paper-plane"></i></a>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                     <div class="features-list_one">
+                            <!--=== Single Features List ===-->
+                            <div class="single-features-list mb-40">
+                                <div class="icon-inner d-flex align-items-center">
+                                
+                                    <div class="icon">
+                                        <i class="flaticon-travel"></i>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <h4>Domestic and International Air Ticketing </h4>
+                                    <p>Effortless travel with expert itineraries, cost-effective schedules, and personalized service for every destination.</p>
+                                </div>
+                            </div>
+                            <!--=== Single Features List ===-->
+                            <div class="single-features-list mb-40">
+                                <div class="icon-inner d-flex align-items-center">
+                                
+                                    <div class="icon">
+                                        <i class="flaticon-flight"></i>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <h4> Streamlined Ticketing Services </h4>
+                                    <p>Efficient, IATA-trained staff, 24/7 connectivity—ensuring precision, prompt responses, and stress-free travel arrangements.</p>
+                                </div>
+                            </div>
+                            <!--=== Single Features List ===-->
+                            <div class="single-features-list mb-40">
+                                <div class="icon-inner d-flex align-items-center">
+                                
+                                    <div class="icon">
+                                        <i class="flaticon-best-price"></i>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <h4>Cost-Effective Travel planning </h4>
+                                    <p>Budget-friendly journeys—expert advice, group discounts, and timely updates for efficient travel planning.</p>
+                                </div>
+                            </div>
+                            <div class="single-features-list mb-40">
+                                <div class="icon-inner d-flex align-items-center">
+                                
+                                    <div class="icon">
+                                        <i class="flaticon-tent"></i>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <h4>Exclusive Hotel Reservationse</h4>
+                                    <p> Elevate your stay with best rates, special packages, and early booking advantages worldwide.</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+ 
+
+    <!--====== Start Gallery Section ======-->
+    <section class="gallery-section-two pb-100">
+        <div class="container-fluid">
+            <!--=== Gallery Slider ===-->
+            <div class="col-lg-8">
+            <div class="section-title mb-60">
+         
+            <span class="sub-title">Top packages</span>
+            <h2>Best Picks for Your Unforgettable Journeys</h2>
+        </div>
+           </div>
+            <div class="slider-active-3-item-dot">
+                <!--=== Gallery Item ===-->
+                <div class="single-gallery-item-two">
+                    <div class="img-holder">
+                        <img src="{% static 'assets/images/gallery/maasaimara.jpg' %}" alt="Gallery Image">
+                    </div>
+                    <div class="content">
+                        <h3 class="title">5 Days 4 nights Safari Adventure @ Maasai Mara </h3>
+                        <a href="#">Adventure & Travel</a>
+                    </div>
+                </div>
+                <!--=== Gallery Item ===-->
+                <div class="single-gallery-item-two">
+                    <div class="img-holder">
+                        <img src="{% static 'assets/images/gallery/egypt2.png ' %}" alt="Gallery Image">
+                    </div>
+                    <div class="content">
+                        <h3 class="title">A Nile Adventure:7 Days Enchanting Egypt Expedition: </h3>
+                        <a href="#">Adventure & Travel</a>
+                    </div>
+                </div>
+                <!--=== Gallery Item ===-->
+                <div class="single-gallery-item-two">
+                    <div class="img-holder">
+                        <img src="{% static 'assets/images/gallery/riftvalley2.jpg'%}" alt="Gallery Image">
+                    </div>
+                    <div class="content">
+                        <h3 class="title">8 Days exploring the Great Rift Valley</h3>
+                        <a href="#">Adventure & Travel</a>
+                    </div>
+                </div>
+                <!--=== Gallery Item ===-->
+                <div class="single-gallery-item-two">
+                    <div class="img-holder">
+                        <img src="{% static 'assets/images/gallery/amboseli.jpg' %}" alt="Gallery Image">
+                    </div>
+                    <div class="content">
+                        <h3 class="title">5 days Adventure in Amboseli: Kilimanjaro Views</h3>
+                        <a href="#">Adventure & Travel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!--====== End Gallery Section ======-->
+
+
+{% include 'users/footer.html' %}
+
+       
+{% endblock %}
