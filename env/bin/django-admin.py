@@ -1,4 +1,4 @@
-#!/home/novustell/Desktop/APPS/aroniatravel/env/bin/python3
+#!/Users/djsean/Desktop/APPS2024/aroniatravel/env/bin/python3.12
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
