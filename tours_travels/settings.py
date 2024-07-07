@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'adminside',
     'users',
     'crispy_forms',
+    'rest_framework',
+
 ]
 
 MIDDLEWARE = [
@@ -71,6 +73,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'tours_travels.urls'
+
 
 TEMPLATES = [
     {
@@ -147,6 +150,18 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# settings.py
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}
 
 
 # Internationalization
