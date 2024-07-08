@@ -156,7 +156,7 @@ div#preloader {
   height: 100%;
   overflow: visible;
   background-color: #fff;
-  background: #fff url("../img/preloader.svg") no-repeat center center;
+  background: #fff url("../img/preloader-svg.svg") no-repeat center center;
 }
 
 [data-background] {
