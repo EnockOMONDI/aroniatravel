@@ -5,7 +5,7 @@
         <div class="header-top clearfix">
             <div class="container">
                 <div class="brand-logo float-left">
-                    <a href="#"><img src="{% static 'assets3/img/logo/logo1.png ' %}" alt=""></a>
+                    <a href="{% url 'users:users-home'%} "><img src="{% static 'assets3/img/logo/logo1.png ' %}" alt=""></a>
                 </div>
                 <div class="header-top-cta float-right clearfix ul-li">
                     <ul>
@@ -63,8 +63,8 @@
                                     <i class="flaticon-map-marker"></i>
                                 </div>
                                 <div class="top-content-text float-right headline">
-                                    <a href="#">Comboni, Kilimani, Nairobi. </a>
-                                    <h3>Next to House of Leather.</h3>
+                                    <a href="#">New People Media Center</a>
+                                    <h3>Kilimani Elgeyo Marakwet Rd</h3>
                                 </div>
                             </div>
                         </li>
@@ -123,7 +123,7 @@
                                         </li>
                                       
                                         <li class="">
-                                            <a href="">Contact Us</a>
+                                            <a href="{% url 'users:contactus'%} ">Contact Us</a>
                                             
                                         </li>
                                     </ul>
@@ -174,7 +174,7 @@
                             </li>
                           
                             <li class="">
-                                <a href="">Contact Us</a>
+                                <a href="{% url 'users:contactus'%} ">Contact Us</a>
                                 
                             </li>
                             <li class="dropdown">

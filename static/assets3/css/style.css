@@ -11182,20 +11182,21 @@ Footer CTA
     width: 100%;
     height: 70px;
     position: absolute;
-    background-color: #000a1f;
+    background-color: #092200;
 }
 
 .footer-cta-box {
     background-color: var(--thm-primary);
     display: flex;
     position: relative;
+    border-radius: 10%;
 }
 
 .footer-cta-box:after {
     content: "";
     height: 100%;
     width: 240px;
-    background: rgba(250, 84, 10, 0.2);
+    background:rgb(9, 34, 0);
     position: absolute;
     bottom: 0;
     z-index: 5;
