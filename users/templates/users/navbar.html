@@ -5,7 +5,7 @@
         <div class="header-top clearfix">
             <div class="container">
                 <div class="brand-logo float-left">
-                    <a href="#"><img src="{% static 'assets3/img/logo/logo1.png ' %}" alt=""></a>
+                    <a href="{% url 'users:users-home'%} "><img src="{% static 'assets3/img/logo/logo1.png ' %}" alt=""></a>
                 </div>
                 <div class="header-top-cta float-right clearfix ul-li">
                     <ul>
@@ -63,8 +63,8 @@
                                     <i class="flaticon-map-marker"></i>
                                 </div>
                                 <div class="top-content-text float-right headline">
-                                    <a href="#">Comboni, Kilimani, Nairobi. </a>
-                                    <h3>Next to House of Leather.</h3>
+                                    <a href="#">New People Media Center</a>
+                                    <h3>Kilimani Elgeyo Marakwet Rd</h3>
                                 </div>
                             </div>
                         </li>
@@ -113,17 +113,14 @@
                                         <li class="dropdown">
                                             <a href="#">Hotels</a>
                                             <ul class="dropdown-menu clearfix">
-                                                <li><a href="">Hotels</a></li>
+                                                <li><a href="{% url 'users:holidayspage'%} ">Hotels</a></li>
                                              
                                             </ul>
                                         </li>
-                                        <li class="">
-                                            <a href="">News</a>
-                                            
-                                        </li>
+                                      
                                       
                                         <li class="">
-                                            <a href="">Contact Us</a>
+                                            <a href="{% url 'users:contactus'%} ">Contact Us</a>
                                             
                                         </li>
                                     </ul>
@@ -141,7 +138,11 @@
                     <nav class="main-nav ul-li">
                         <ul id="main-nav" class="navbar-nav text-capitalize clearfix">
                           
-                           
+                            <li class="">
+                                <a href="{% url 'users:users-home'%} ">Home</a>
+                             
+                                 
+                            </li>
                             <li class="">
                                 <a href="{% url 'users:aboutus'%} ">About Us</a>
                              
@@ -164,17 +165,14 @@
                             <li class="dropdown">
                                 <a href="#">Hotels</a>
                                 <ul class="dropdown-menu clearfix">
-                                    <li><a href="">Hotels</a></li>
+                                    <li><a href="{% url 'users:holidayspage'%} ">Hotels</a></li>
                                  
                                 </ul>
                             </li>
-                            <li class="">
-                                <a href="">News</a>
-                                
-                            </li>
+                            
                           
                             <li class="">
-                                <a href="">Contact Us</a>
+                                <a href="{% url 'users:contactus'%} ">Contact Us</a>
                                 
                             </li>
                             <li class="dropdown">

@@ -21,7 +21,40 @@ from django.views import View
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from .forms import UserRegisterForm
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpRequest
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.views import APIView
+from . import models
 
+@method_decorator(csrf_exempt, name='dispatch')
+class AuthGoogle(APIView):
+    """
+    Google calls this URL after the user has signed in with their Google account.
+    """
+    def post(self, request, *args, **kwargs):
+        try:
+            user_data = self.get_google_user_data(request)
+        except ValueError:
+            return HttpResponse("Invalid Google token", status=403)
+
+        email = user_data["email"]
+        user, created = models.User.objects.get_or_create(
+            email=email, defaults={
+                "username": email, "sign_up_method": "google",
+                "first_name": user_data.get("given_name"),
+            }
+        )
+
+        # Add any other logic, such as setting a http only auth cookie as needed here.
+        return HttpResponse(status=200)
+
+    @staticmethod
+    def get_google_user_data(request: HttpRequest):
+        token = request.POST['credential']
+        return id_token.verify_oauth2_token(
+            token, requests.Request(), os.environ['GOOGLE_OAUTH_CLIENT_ID']
+        )
 
 
 
