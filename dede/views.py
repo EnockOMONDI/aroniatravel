@@ -672,12 +672,13 @@ def daytrip_booking_confirmation(request, booking_reference):
     return render(request, 'users/dede/daytrip-booking-confirmation.html', {'booking': booking})
     
 class AboutView(TemplateView):
-    template_name = 'users/dede/about.html'
+    template_name = 'users/aronia/about.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Add any additional context data you want to display on the about page
         return context
+    
 
 
 def destination_detail(request, slug):
@@ -701,12 +702,13 @@ def destination_detail(request, slug):
 #         return context
 
 class ContactView(TemplateView):
-    template_name = 'users/dede/contact.html'
+    template_name = 'users/aronia/contact.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Add any additional context data for the contact page
         return context
+    
 
     def post(self, request, *args, **kwargs):
         # Handle contact form submission

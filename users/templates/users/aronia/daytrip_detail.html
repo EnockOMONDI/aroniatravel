@@ -2,211 +2,357 @@
 {% load static %}
 
 {% block content %}
-<section class="place-details-section">
-    <!--=== Place Slider ===-->
-    <div class="place-slider-area overflow-hidden wow fadeInUp">
-        <div class="place-slider">
-            <div class="place-slider-item">
-                {% if daytrip.Image %}
-                    <div class="place-img">
-                        <img src="{{ daytrip.Image.cdn_url }}" alt="{{ daytrip.name }}">
+<!-- Hero Section -->
+<section id="slider" class="slider-section">
+    <div id="main-slider" class="main-slider-content owl-carousel">
+        {% if daytrip.Image %}
+        <div class="slider-main-item position-relative">
+            <div class="slider-main-img img-zooming" data-background="{{ daytrip.Image.cdn_url }}"></div>
+            <div class="slider-overlay"></div>
+            <div class="container">
+                <div class="slider-main-text headline pera-content">
+                    <span>Day Trip</span>
+                    <h1>{{ daytrip.name }}</h1>
+                    <p><i class="far fa-map-marker-alt"></i> {{ daytrip.pickup_location }}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% for image in daytrip.gallery_images %}
+            {% if image %}
+            <div class="slider-main-item position-relative">
+                <div class="slider-main-img img-zooming" data-background="{{ image.cdn_url }}"></div>
+                <div class="slider-overlay"></div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+<div class="about-section">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Quick Info -->
+                <div class="about-info mb-4">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="about-info-item">
+                                <i class="far fa-clock"></i>
+                                <h5>Pickup Time</h5>
+                                <p>{{ daytrip.pickup_time|time:"H:i" }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="about-info-item">
+                                <i class="far fa-users"></i>
+                                <h5>Group Size</h5>
+                                <p>{{ daytrip.group_size }} People</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="about-info-item">
+                                <i class="far fa-money-bill"></i>
+                                <h5>Price</h5>
+                                <p>KES {{ daytrip.price }}</p>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <!-- Overview -->
+                <div class="about-img-text mb-4">
+                    <div class="section-title headline">
+                        <h2>Trip Overview</h2>
+                    </div>
+                    <p>{{ daytrip.description }}</p>
+                </div>
+
+                <!-- Schedule -->
+                <div class="about-img-text mb-4">
+                    <div class="section-title headline">
+                        <h2>Trip Schedule</h2>
+                    </div>
+                    <div class="schedule-list">
+                        {% for item in daytrip.itinerary_items.all %}
+                        <div class="schedule-item d-flex align-items-start">
+                            <div class="time">{{ item.time|time:"H:i" }}</div>
+                            <div class="activity">
+                                <h5>{{ item.activity }}</h5>
+                                <p>{{ item.description }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Included Items -->
+                <div class="about-img-text mb-4">
+                    <div class="section-title headline">
+                        <h2>What's Included</h2>
+                    </div>
+                    <div class="row">
+                        {% for item in daytrip.included_items.all %}
+                        <div class="col-md-6 mb-3">
+                            <div class="included-item d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-3"></i>
+                                <div>
+                                    <h6 class="mb-0">{{ item.name }}</h6>
+                                    {% if item.description %}
+                                    <small class="text-muted">{{ item.description }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Optional Activities -->
+                {% if daytrip.optional_activities.exists %}
+                <div class="about-img-text">
+                    <div class="section-title headline">
+                        <h2>Optional Activities</h2>
+                    </div>
+                    <div class="row">
+                        {% for activity in daytrip.optional_activities.all %}
+                        <div class="col-md-6 mb-4">
+                            <div class="activity-info">
+                                <h5>{{ activity.name }}</h5>
+                                <p>{{ activity.description }}</p>
+                                {% if activity.price %}
+                                <span class="price">KES {{ activity.price }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
                 {% endif %}
             </div>
-            {% if daytrip.gallery_image1 %}
-            <div class="place-slider-item">
-                <div class="place-img">
-                    <img src="{{ daytrip.gallery_image1.cdn_url }}" alt="{{ daytrip.name }} Gallery 1">
-                </div>
-            </div>
-            {% endif %}
-            {% if daytrip.gallery_image2 %}
-            <div class="place-slider-item">
-                <div class="place-img">
-                    <img src="{{ daytrip.gallery_image2.cdn_url }}" alt="{{ daytrip.name }} Gallery 2">
-                </div>
-            </div>
-            {% endif %}
-            {% if daytrip.gallery_image3 %}
-            <div class="place-slider-item">
-                <div class="place-img">
-                    <img src="{{ daytrip.gallery_image3.cdn_url }}" alt="{{ daytrip.name }} Gallery 3">
-                </div>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-    <div class="container">
-        <!--=== Tour Details Wrapper ===-->
-        <div class="tour-details-wrapper pt-80">
-            <!--=== Tour Title Wrapper ===-->
-            <div class="tour-title-wrapper pb-30 wow fadeInUp">
-                <div class="row">
-                    <div class="col-xl-6">
-                        <div class="tour-title mb-20">
-                            <h3 class="title">{{ daytrip.name }}</h3>
-                            <p><i class="far fa-map-marker-alt"></i>{{ daytrip.pickup_location }}</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="tour-widget-info">
-                            <div class="info-box mb-20">
-                                <div class="icon">
-                                    <i class="fal fa-box-usd"></i>
-                                </div>
-                                <div class="info">
-                                    <h4><span>Price</span>KES {{ daytrip.price }}</h4>
-                                </div>
-                            </div>
-                            <div class="info-box mb-20">
-                                <div class="icon">
-                                    <i class="fal fa-clock"></i>
-                                </div>
-                                <div class="info">
-                                    <h4><span>Pickup Time</span>{{ daytrip.pickup_time|time:"H:i" }}</h4>
-                                </div>
-                            </div>
-                            <div class="info-box mb-20">
-                                <div class="icon">
-                                    <i class="fal fa-users"></i>
-                                </div>
-                                <div class="info">
-                                    <h4><span>Group Size</span>{{ daytrip.group_size }} People</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-xl-8">
-                    <!--=== Place Content Wrap ===-->
-                    <div class="place-content-wrap pt-45 wow fadeInUp">
-                        <h3 class="title">Trip Overview</h3>
-                        <p>{{ daytrip.description }}</p>
-                        
-                        <div class="trip-schedule mb-40">
-                            <h4>Trip Schedule</h4>
-                            <div class="schedule-list">
-                                {% for item in daytrip.itinerary_items.all %}
-                                <div class="schedule-item">
-                                    <span class="time">{{ item.time|time:"H:i" }}</span>
-                                    <h5>{{ item.activity }}</h5>
-                                    <p>{{ item.description }}</p>
-                                </div>
-                                {% endfor %}
-                            </div>
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="sidebar-widget booking-form-widget">
+                    <h4 class="widget-title">Book This Trip</h4>
+                    <form method="post" action="{% url 'dede:daytrip_booking' daytrip.slug %}" class="sidebar-booking-form">
+                        {% csrf_token %}
+                        <div class="booking-item mb-20">
+                            <label>Full Name</label>
+                            <input type="text" name="full_name" required>
                         </div>
-
-                        <!--=== What's Included ===-->
-                        <div class="included-wrapper mb-50">
-                            <h4>What's Included</h4>
-                            <ul class="included-list">
-                                {% for item in daytrip.included_items.all %}
-                                <li>
-                                    <i class="fas fa-check"></i>
-                                    {{ item.name }}
-                                    {% if item.description %}
-                                    <p class="item-description">{{ item.description }}</p>
-                                    {% endif %}
-                                </li>
+                        <div class="booking-item mb-20">
+                            <label>Email</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="booking-item mb-20">
+                            <label>Phone</label>
+                            <input type="tel" name="phone" required>
+                        </div>
+                        <div class="booking-item mb-20">
+                            <label>Travel Date</label>
+                            <select name="travel_date" required>
+                                {% for date in daytrip.get_available_dates %}
+                                <option value="{{ date|date:'Y-m-d' }}">{{ date|date:"l, F j, Y" }}</option>
                                 {% endfor %}
-                            </ul>
+                            </select>
+                        </div>
+                        <div class="booking-item mb-20">
+                            <label>Number of People</label>
+                            <input type="number" name="number_of_people" min="1" max="{{ daytrip.group_size }}" required>
                         </div>
 
                         {% if daytrip.optional_activities.exists %}
-                        <!--=== Optional Activities ===-->
-                        <div class="optional-activities mb-50">
-                            <h4>Optional Activities</h4>
-                            <div class="activities-list">
-                                {% for activity in daytrip.optional_activities.all %}
-                                <div class="activity-item">
-                                    <h5>{{ activity.name }}</h5>
-                                    <p>{{ activity.description }}</p>
-                                    {% if activity.price %}
-                                    <span class="price">KES {{ activity.price }}</span>
-                                    {% endif %}
-                                </div>
-                                {% endfor %}
+                        <div class="booking-item mb-20">
+                            <label>Optional Activities</label>
+                            {% for activity in daytrip.optional_activities.all %}
+                            <div class="activity-checkbox">
+                                <input type="checkbox" name="optional_activities" value="{{ activity.id }}" 
+                                       id="activity_{{ activity.id }}">
+                                <label for="activity_{{ activity.id }}">
+                                    {{ activity.name }} 
+                                    {% if activity.price %}(KES {{ activity.price }}){% endif %}
+                                </label>
                             </div>
+                            {% endfor %}
                         </div>
                         {% endif %}
-                    </div>
-                </div>
-                
-                <div class="col-xl-4">
-                    <!--=== Sidebar Widget Area ===-->
-                    <div class="sidebar-widget-area pt-60 pl-lg-30">
-                        <!--=== Booking Widget ===-->
-                        <div class="sidebar-widget booking-form-widget wow fadeInUp mb-40">
-                            <h4 class="widget-title">Book This Day Trip</h4>
-                            <form method="post" action="{% url 'daytrip_booking' daytrip.slug %}" class="sidebar-booking-form">
-                                {% csrf_token %}
-                                <div class="booking-item mb-20">
-                                    <label>Travel Date</label>
-                                    <div class="bk-item">
-                                        <select name="travel_date" required>
-                                            {% for date in daytrip.get_available_dates %}
-                                            <option value="{{ date|date:'Y-m-d' }}">{{ date|date:"l, F j, Y" }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="booking-item mb-20">
-                                    <label>Number of People</label>
-                                    <div class="bk-item">
-                                        <input type="number" name="number_of_people" min="1" max="{{ daytrip.group_size }}" required>
-                                    </div>
-                                </div>
-                                {% if daytrip.optional_activities.exists %}
-                                <div class="booking-item mb-20">
-                                    <label>Optional Activities</label>
-                                    {% for activity in daytrip.optional_activities.all %}
-                                    <div class="activity-checkbox">
-                                        <input type="checkbox" name="optional_activities" value="{{ activity.id }}" id="activity_{{ activity.id }}">
-                                        <label for="activity_{{ activity.id }}">
-                                            {{ activity.name }} {% if activity.price %}(KES {{ activity.price }}){% endif %}
-                                        </label>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                                {% endif %}
-                                <div class="booking-total mb-20">
-                                    <div class="total">
-                                        <label>Price per person</label>
-                                        <span class="price">KES {{ daytrip.price }}</span>
-                                    </div>
-                                </div>
-                                <div class="submit-button">
-                                    <button type="submit" class="main-btn primary-btn">Book Now<i class="far fa-paper-plane"></i></button>
-                                </div>
-                            </form>
+
+                        <div class="booking-item mb-20">
+                            <label>Special Requirements</label>
+                            <textarea name="special_requirements" rows="3"></textarea>
                         </div>
 
-                        <!--=== Trip Schedule Widget ===-->
-                        <div class="sidebar-widget schedule-widget wow fadeInUp mb-40">
-                            <h4 class="widget-title">Trip Schedule</h4>
-                            <div class="schedule-info">
-                                <p><i class="far fa-calendar-alt"></i> 
-                                {% if daytrip.recurrence == 'weekend' %}
-                                    Available every weekend
-                                {% elif daytrip.recurrence == 'saturday' %}
-                                    Available every Saturday
-                                {% elif daytrip.recurrence == 'sunday' %}
-                                    Available every Sunday
-                                {% else %}
-                                    One-time trip on {{ daytrip.start_date|date:"F j, Y" }}
-                                {% endif %}
-                                </p>
-                                <p><i class="far fa-clock"></i> Pickup time: {{ daytrip.pickup_time|time:"H:i" }}</p>
-                                <p><i class="far fa-map-marker-alt"></i> Pickup location: {{ daytrip.pickup_location }}</p>
+                        <div class="booking-total mb-20">
+                            <div class="total">
+                                <label>Price per person</label>
+                                <span class="price">KES {{ daytrip.price }}</span>
                             </div>
                         </div>
-                    </div>
+
+                        <div class="submit-button">
+                            <button type="submit" class="main-btn primary-btn">Book Now<i class="far fa-paper-plane"></i></button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
+
+<style>
+/* Quick Info Styling */
+.about-info-item {
+    text-align: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.about-info-item i {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+/* Schedule Styling */
+.schedule-list {
+    position: relative;
+    padding-left: 20px;
+}
+
+.schedule-item {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.schedule-item .time {
+    background: #007bff;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-right: 20px;
+    min-width: 100px;
+    text-align: center;
+}
+
+.schedule-item .activity {
+    flex: 1;
+}
+
+/* Included Items Styling */
+.included-item {
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.included-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Optional Activities Styling */
+.activity-info {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    height: 100%;
+}
+
+.activity-info .price {
+    display: inline-block;
+    background: #007bff;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+/* Booking Form Styling */
+.sidebar-widget {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.booking-item label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.booking-item input,
+.booking-item select,
+.booking-item textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.activity-checkbox {
+    margin: 10px 0;
+}
+
+.booking-total {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    margin: 20px 0;
+}
+
+.main-btn {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.main-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize price calculator
+    const form = document.querySelector('.sidebar-booking-form');
+    const peopleInput = form.querySelector('input[name="number_of_people"]');
+    const optionalActivities = form.querySelectorAll('input[name="optional_activities"]');
+    const priceDisplay = form.querySelector('.price');
+    
+    function updateTotalPrice() {
+        const basePrice = {{ daytrip.price }};
+        const people = parseInt(peopleInput.value) || 0;
+        let totalPrice = basePrice * people;
+        
+        optionalActivities.forEach(activity => {
+            if (activity.checked) {
+                const activityPrice = parseFloat(activity.dataset.price) || 0;
+                totalPrice += activityPrice * people;
+            }
+        });
+        
+        priceDisplay.textContent = `KES ${totalPrice.toLocaleString()}`;
+    }
+    
+    peopleInput.addEventListener('input', updateTotalPrice);
+    optionalActivities.forEach(activity => {
+        activity.addEventListener('change', updateTotalPrice);
+    });
+});
+</script>
 {% endblock %}
