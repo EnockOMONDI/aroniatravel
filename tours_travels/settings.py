@@ -247,8 +247,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 UPLOADCARE = {
   # Don't forget to set real keys when it gets real :)
 
-  'pub_key': '78d346d0c3fddd461d67',
-  'secret': 'e9badc357e7202f35ddb',
+  'pub_key': 'f5f5f628d0b8cfc28503', 
+  'secret': 'c0c9afb8537fffff775e',
 }
 
 TEMPLATE_DIRS = (

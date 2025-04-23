@@ -85,7 +85,7 @@ class DayTripListView(ListView):
 
 class DayTripDetailView(DetailView):
     model = DayTrip
-    template_name = 'users/dede/daytrip_detail.html'
+    template_name = 'users/aronia/daytrip_detail.html'
     context_object_name = 'daytrip'
     slug_url_kwarg = 'daytrip_slug'
 
@@ -195,7 +195,7 @@ def send_daytrip_confirmation_email(booking):
         <body>
             <div class="email-container">
                 <div class="header">
-                    <img src="https://kipekeetravel.onrender.com/static/assets3/img/logo/dedelogo1.png" alt="ARONIA" class="logo">
+                    <img src="https://www.aroniatravel.com/static/assets4/" alt="ARONIA" class="logo">
                 </div>
                 
                 <div class="content">
@@ -286,7 +286,7 @@ def send_daytrip_confirmation_email(booking):
         <body>
             <div class="email-container">
                 <div class="header">
-                    <img src="https://kipekeetravel.onrender.com/static/assets3/img/logo/dedelogo1.png" alt="ARONIA" class="logo">
+                    <img src="https://www.aroniatravel.com/static/assets4/" alt="ARONIA" class="logo">
                 </div>
                 
                 <div class="content">
@@ -492,7 +492,7 @@ def daytrip_booking(request, daytrip_slug):
                 <body>
                     <div class="email-container">
                         <div class="header">
-                            <img src="https://kipekeetravel.onrender.com/static/assets3/img/logo/dedelogo1.png" alt="ARONIA" class="logo">
+                            <img src="https://www.aroniatravel.com/static/assets4/img/logo/logo1.png" alt="ARONIA" class="logo">
                         </div>
                         
                         <div class="content">
@@ -583,7 +583,7 @@ def daytrip_booking(request, daytrip_slug):
                 <body>
                     <div class="email-container">
                         <div class="header">
-                            <img src="https://kipekeetravel.onrender.com/static/assets3/img/logo/dedelogo1.png" alt="ARONIA" class="logo">
+                            <img src="https://www.aroniatravel.com/static/assets4/img/logo/logo1.png" alt="ARONIA" class="logo">
                         </div>
                         
                         <div class="content">
@@ -758,7 +758,7 @@ class TourListView(ListView):
 
 class TourDetailView(DetailView):
     model = Tour
-    template_name = 'users/dede/tour-details.html'
+    template_name = 'users/aronia/tour-details.html'
     context_object_name = 'tour'
     slug_url_kwarg = 'tour_slug'  # Add this line to match the URL pattern
 
@@ -931,7 +931,7 @@ def tour_booking(request, tour_slug):
                 <body>
                     <div class="email-container">
                         <div class="header">
-                            <img src="https://kipekeetravel.onrender.com/static/assets3/img/logo/dedelogo1.png" alt="ARONIA" class="logo">
+                            <img src="https://www.aroniatravel.com/static/assets4/img/logo/logo1.png" alt="ARONIA" class="logo">
                         </div>
                         
                         <div class="content">
@@ -1019,7 +1019,7 @@ def tour_booking(request, tour_slug):
                 <body>
                     <div class="email-container">
                         <div class="header">
-                            <img src="https://kipekeetravel.onrender.com/static/assets3/img/logo/dedelogo1.png" alt="ARONIA" class="logo">
+                            <img src="https://www.aroniatravel.com/static/assets4/img/logo/logo1.png" alt="ARONIA" class="logo">
                         </div>
                         
                         <div class="content">

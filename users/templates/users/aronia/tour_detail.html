@@ -1,0 +1,223 @@
+{% extends 'users/aronia/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="place-details-section">
+    <!--=== Place Slider ===-->
+    <div class="place-slider-area overflow-hidden wow fadeInUp">
+        <div class="place-slider">
+            <div class="place-slider-item">
+                {% if tour.Image %}
+                    <div class="place-img">
+                        <img src="{{ tour.Image.cdn_url }}" alt="{{ tour.name }}">
+                    </div>
+                {% endif %}
+            </div>
+            {% if tour.gallery_image1 %}
+            <div class="place-slider-item">
+                <div class="place-img">
+                    <img src="{{ tour.gallery_image1.cdn_url }}" alt="{{ tour.name }} Gallery 1">
+                </div>
+            </div>
+            {% endif %}
+            {% if tour.gallery_image2 %}
+            <div class="place-slider-item">
+                <div class="place-img">
+                    <img src="{{ tour.gallery_image2.cdn_url }}" alt="{{ tour.name }} Gallery 2">
+                </div>
+            </div>
+            {% endif %}
+            {% if tour.gallery_image3 %}
+            <div class="place-slider-item">
+                <div class="place-img">
+                    <img src="{{ tour.gallery_image3.cdn_url }}" alt="{{ tour.name }} Gallery 3">
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
+        <!--=== Tour Details Wrapper ===-->
+        <div class="tour-details-wrapper pt-80">
+            <!--=== Tour Title Wrapper ===-->
+            <div class="tour-title-wrapper pb-30 wow fadeInUp">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="tour-title mb-20">
+                            <h3 class="title">{{ tour.name }}</h3>
+                            <p><i class="far fa-map-marker-alt"></i>{{ tour.destination.name }}</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="tour-widget-info">
+                            <div class="info-box mb-20">
+                                <div class="icon">
+                                    <i class="fal fa-box-usd"></i>
+                                </div>
+                                <div class="info">
+                                    <h4><span>From</span>KES {{ tour.price }}</h4>
+                                </div>
+                            </div>
+                            <div class="info-box mb-20">
+                                <div class="icon">
+                                    <i class="fal fa-clock"></i>
+                                </div>
+                                <div class="info">
+                                    <h4><span>Duration</span>{{ tour.duration }} Days</h4>
+                                </div>
+                            </div>
+                            <div class="info-box mb-20">
+                                <div class="icon">
+                                    <i class="fal fa-users"></i>
+                                </div>
+                                <div class="info">
+                                    <h4><span>Group Size</span>{{ tour.group_size }} People</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--=== Tour Area Nav ===-->
+            <div class="tour-area-nav pt-20 pb-20 wow fadeInUp">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="ratings-box">
+                            <ul class="ratings">
+                                {% for i in "12345"|make_list %}
+                                    {% if forloop.counter <= tour.rating %}
+                                        <li><i class="fas fa-star"></i></li>
+                                    {% else %}
+                                        <li><i class="far fa-star"></i></li>
+                                    {% endif %}
+                                {% endfor %}
+                                <li><a href="#reviews">({{ tour.reviews_count }} Reviews)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-8">
+                    <!--=== Place Content Wrap ===-->
+                    <div class="place-content-wrap pt-45 wow fadeInUp">
+                        <h3 class="title">Tour Overview</h3>
+                        <p>{{ tour.description }}</p>
+                        
+                        <h4>Tour Highlights</h4>
+                        <ul class="check-list">
+                            {% for highlight in tour.highlights.all %}
+                            <li><i class="fas fa-badge-check"></i>{{ highlight.highlight }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    
+                    <!--=== Days Area ===-->
+                    <div class="days-area mb-55 wow fadeInUp">
+                        <h4>Tour Itinerary</h4>
+                        <div class="accordion" id="tourDays">
+                            {% for day in tour.tour_days.all %}
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#day{{ day.day_number }}">
+                                        Day {{ day.day_number }}: {{ day.title }}
+                                    </button>
+                                </h2>
+                                <div id="day{{ day.day_number }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" data-bs-parent="#tourDays">
+                                    <div class="accordion-body">
+                                        {{ day.description }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!--=== What's Included ===-->
+                    <div class="included-wrapper mb-50 wow fadeInUp">
+                        <h4>What's Included/Excluded</h4>
+                        <ul class="included-list">
+                            {% for inclusion in tour.inclusions.all %}
+                            <li>
+                                {% if inclusion.is_included %}
+                                <i class="fas fa-check"></i>
+                                {% else %}
+                                <i class="fas fa-times"></i>
+                                {% endif %}
+                                {{ inclusion.item }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <!--=== Reviews Area ===-->
+                    <div id="reviews" class="reviews-wrapper mb-60 wow fadeInUp">
+                        <h3>Customer Reviews</h3>
+                        {% for review in tour.reviews.all %}
+                        <div class="review-item mb-30">
+                            <div class="review-content">
+                                <div class="reviewer-info">
+                                    <h4>{{ review.user_name }}</h4>
+                                    <span class="date">{{ review.created_at|date:"F d, Y" }}</span>
+                                    <div class="ratings">
+                                        {% for i in "12345"|make_list %}
+                                            {% if forloop.counter <= review.rating %}
+                                                <i class="fas fa-star"></i>
+                                            {% else %}
+                                                <i class="far fa-star"></i>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <p>{{ review.comment }}</p>
+                                <div class="rating-categories">
+                                    <span>Location: {{ review.location_rating }}/5</span>
+                                    <span>Price: {{ review.price_rating }}/5</span>
+                                    <span>Amenities: {{ review.amenities_rating }}/5</span>
+                                    <span>Services: {{ review.services_rating }}/5</span>
+                                    <span>Rooms: {{ review.rooms_rating }}/5</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="col-xl-4">
+                    <!--=== Sidebar Widget Area ===-->
+                    <div class="sidebar-widget-area pt-60 pl-lg-30">
+                        <!--=== Booking Widget ===-->
+                        <div class="sidebar-widget booking-form-widget wow fadeInUp mb-40">
+                            <h4 class="widget-title">Book This Tour</h4>
+                            <form method="post" action="{% url 'tour_booking' tour.slug %}" class="sidebar-booking-form">
+                                {% csrf_token %}
+                                <div class="booking-item mb-20">
+                                    <label>Travel Date</label>
+                                    <div class="bk-item">
+                                        <input type="date" name="travel_date" required>
+                                    </div>
+                                </div>
+                                <div class="booking-item mb-20">
+                                    <label>Number of People</label>
+                                    <div class="bk-item">
+                                        <input type="number" name="number_of_people" min="1" max="{{ tour.group_size }}" required>
+                                    </div>
+                                </div>
+                                <div class="booking-total mb-20">
+                                    <div class="total">
+                                        <label>Price per person</label>
+                                        <span class="price">KES {{ tour.price }}</span>
+                                    </div>
+                                </div>
+                                <div class="submit-button">
+                                    <button type="submit" class="main-btn primary-btn">Book Now<i class="far fa-paper-plane"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
