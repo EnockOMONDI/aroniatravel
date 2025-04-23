@@ -1,179 +1,73 @@
-{% extends 'users/base.html' %}
+{% extends 'users/basemain.html' %}
 {% load static  %}
 
 
 {% block content %}
 
 
-
-
-
-<!-- End of breadcrumb section
-   ============================================= -->
-<!-- Start of activity page section
-   ============================================= -->
-<section id="activity-page-activity" class="activity-page-activity-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
-                <div class="activity-page-activity-content-top">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="activity-grid-top-bar">
-                                <div class="activity-grid-showing-result">
-                                    <div class="activity-grid-list float-left">
-                                        <a href="#"><i class="fas fa-th"></i></a>
-                                        <a href="#"><i class="fas fa-list"></i></a>
-                                    </div>
-                                    <span class="show-result-text">Showing 0 of 0 results</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<section class="page-banner overlay pt-170 pb-60 bg_cover" style="background-image: url({% static 'assets/images/bg/page-bg.jpg' %});">    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="page-banner-content text-center text-white">
+                    <h1 class="page-title"style="background-color: #020333; padding: 15px; border-radius:10px;  display: inline-block;">Novustell Holidays</h1>
+               
+           <h6>
+            Just as we customize our other travel services, our Holidays are tailored to suit your preferences and schedule. Whether you're seeking a cultural excursion, an adventurous safari, or a tranquil escape, our offerings cater to a range of interests.
+           </h6>
                 </div>
-                <div class="activity-page-activities-item">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12">
-                            <div class="activity-item-card d-flex">
-                                <div class="col-lg-5 col-md-6 act-pl">
-                                    <div class="activity-item-img text-center">
-                                        <img src="assets/img/activity/activity-l1.jpg" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 col-md-12 act-pr">
-                                    <div class="activity-item-text">
-                                        <!-- <div class="activity-item-fee clearfix">
-                                            <span>Price:  </span>
-                                            <div class="activity-fee-amount">
-                                                <del>Kes59</del>
-                                                <strong>$680</strong>
-                                            </div>
-                                        </div> -->
-                                        <div class="activity-item-title headline">
-                                            <h3>
-                                                <a href="#">
-There Currently no Tour packages available                                                </a>
-                                            </h3>
-                                            <div class="activity-meta">
-                                                <!-- <a href="#"><i class="fa fa-clock"></i>30 mins</a>
-                                                <a href="#"><i class="fa fa-map-marker-alt"></i>Italy</a>
-                                                <a href="#"><i class="fas fa-running"></i> Skip Line</a>
-                                                <a href="#"><i class="fas fa-headphones"></i> Guided</a> -->
-                                            </div>
-                                        </div>
-                                        <!-- <div class="activity-rating clearfix">
-                                            <ul>
-                                                <li><i class="fas fa-star"></i></li>
-                                                <li><i class="fas fa-star"></i></li>
-                                                <li><i class="fas fa-star"></i></li>
-                                                <li><i class="fas fa-star"></i></li>
-                                                <li><i class="fas fa-star"></i></li>
-                                            </ul>
-                                            <span>4.3</span>
-                                            <div class="review">(12 Reviews)</div>
-                                        </div> -->
-                                        <div class="p-activity-btn float-right">
-                                            <a href="#"><i class="fas fa-arrow-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                     
-                    </div>
-                   
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="blog-sidebar">
-                    <div class="blog-widget-item">
-                        <div class="search-widget position-relative">
-                            <form action="#" method="post">
-                                <input type="text" placeholder="Search">
-                                <button type="submit"><i class="fas fa-search"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="blog-widget-item">
-                        <div class="category-widget headline ul-li-block position-relative">
-                            <h3 class="widget-title">Tour Types</h3>
-                            <ul>
-                                <li><a href="#">Adventure</a></li>
-                                <li><a href="#">Nature</a></li>
-                                <li><a href="#">Sightseeing</a></li>
-                                <li><a href="#">Culture</a></li>
-                                <li><a href="#">Discovery</a></li>
-                                <li><a href="#">Daily Tours</a></li>
-                                <li><a href="#">Honeymoon</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="blog-widget-item">
-                        <div class="recent-blog-widget clearfix">
-                            <h3 class="widget-title">Recent Activities</h3>
-                            <div class="recent-blog-content">
-                                <div class="recent-blog-img float-left">
-                                    <img src="assets/img/blog/blog-sml-1.jpg" alt="">
-                                </div>
-                                <div class="recent-blog-text">
-                                    <h3>
-                                        <a href="#">
-                                            Vatican Museum Private
-                                        </a>
-                                    </h3>
-                                    <span>Apr 16, 2021</span>
-                                </div>
-                            </div>
-                            <div class="recent-blog-content">
-                                <div class="recent-blog-img float-left">
-                                    <img src="assets/img/blog/blog-sml-2.jpg" alt="">
-                                </div>
-                                <div class="recent-blog-text">
-                                    <h3>
-                                        <a href="#">
-                                            Private Tour with a Guide
-                                        </a>
-                                    </h3>
-                                    <span>Apr 16, 2021</span>
-                                </div>
-                            </div>
-                            <div class="recent-blog-content">
-                                <div class="recent-blog-img float-left">
-                                    <img src="assets/img/blog/blog-sml-3.jpg" alt="">
-                                </div>
-                                <div class="recent-blog-text">
-                                    <h3>
-                                        <a href="#">
-                                            Activities You Will Do By Boat
-                                        </a>
-                                    </h3>
-                                    <span>Apr 16, 2021</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="blog-widget-item">
-                        <div class="blog-category-widget">
-                            <h3 class="widget-title">Popular Tags</h3>
-                            <div class="blog-category-tag ul-li">
-                                <a href="#">Discovery</a>
-                                <a href="#">Sightseeing</a>
-                                <a href="#">Culture</a>
-                                <a href="#">Nature</a>
-                                <a href="#">Activity</a>
-                                <a href="#">Adventure</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- End of activity page section
-   ============================================= -->
-<!-- Start of Footer  section
-   ============================================= -->
+
+<section class="blog-list-section black-bg pt-100 pb-70">
+    <div class="container">
+        <div class="row justify-content-center">
+           
+           
+                {% for package in packages %}
+                <div class="col-xl-4 col-md-6 col-sm-12">
+                    <div class="single-event-item mb-30 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                        <div class="img-holder">
+                            <img src="{{ package.Image.cdn_url }}" alt="Event Image">
+                        </div>
+                        <div class="content">
+                            <div class="meta">
+                                <span><i class="far fa-calendar-alt"></i><a href="{% url 'users:users-detail-package' package.id %}"> <strong> {{ package.number_of_days }} Days </strong> </a></span>
+                                <h3 class="title"><a href="{% url 'users:users-detail-package' package.id %}"> <strong>{{ package.package_name }} </strong>  </a></h3>
+                                <p class="location"><i class="far fa-map-marker-alt"></i> {{ package.destination.city }}, {{ package.destination.state }}</p>
+                                <p class="location"><i class="far fa-briefcase"></i> From KES {{ package.adult_price }}</p>
+                               
+                            </div>
+                            <br>
+                            {% if user.is_authenticated %}
+                            
+                                    <span><a href="{% url 'users:users-detail-package' package.id %}">Details<i class="far fa-long-arrow-right"></i></a></span>
+                                  {% else %}
+                                    <span><a href="{% url 'login' %}?next={% url 'users:users-detail-package' package.id %}"> Details<i class="far fa-long-arrow-right"></i></a></span>
+                                  {% endif %}
+                        </div>
+                    </div>
+        
+            </div>
+            {% endfor %}
+         
+            
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!--=== Gowilds Pagination ===-->
+                <ul class="gowilds-pagination wow fadeInUp text-center" style="visibility: visible; animation-name: fadeInUp;">
+                    <li><a href="#"><i class="far fa-arrow-left"></i></a></li>
+                    <li><a href="#" class="active">01</a></li>
+                  
+                    <li><a href="#"><i class="far fa-arrow-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 {% include 'users/footer.html' %}
@@ -181,4 +75,21 @@ There Currently no Tour packages available                                      
        
 {% endblock %}
 
-
+<div class="row justify-content-center">
+    <div class="col-xl-4 col-md-6 col-sm-12">
+        <div class="single-event-item mb-30 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+            <div class="img-holder">
+                <img src="assets/images/event/event-1.jpg" alt="Event Image">
+            </div>
+            <div class="content">
+                <div class="meta">
+                    <span><i class="far fa-calendar-alt"></i><a href="#">September 25, 2022</a></span>
+                    <h3 class="title"><a href="#">How To Enjoy Adventure
+                        Trip With Gowilds</a></h3>
+                    <p class="location"><i class="far fa-map-marker-alt"></i> Gaafu Dhaalu Atoll, Maldives</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</div>

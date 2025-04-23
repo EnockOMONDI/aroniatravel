@@ -1,8 +1,7 @@
-
 {% load crispy_forms_tags %}
 {% load static %}
 <head>
-    <title>Login | Aronia Travel</title>
+    <title>Login | Novustell Travel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Bootstrap CSS from CDN -->
@@ -17,14 +16,12 @@
 	
 	<link rel="stylesheet" href="{% static '/css/style.css' %}">
 <link rel="stylesheet" href="{% static '/css/pack-style.css' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css
-"> 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/sprites/brands.svg">
-<style>
+
+    <style>
 
 	.gradient-custom-2 {
 /* fallback for old browsers */
-background: #092200;
+background: #020333;
 /* For Chrome, Safari, and Opera */
 
 
@@ -45,7 +42,7 @@ border-bottom-right-radius: .3rem;
     </style>
 
 </head>
-<body style="background-color: #092200;">
+<body style="background-color: #020333;">
 	<section class="h-100 gradient-form" >
 		<div class="container py-5 h-100">
 		  <div class="row d-flex justify-content-center align-items-center h-100">
@@ -65,7 +62,7 @@ border-bottom-right-radius: .3rem;
 			<form method="POST">
 				{% csrf_token%}
 				<fieldset class="form-group">
-					<h1 style="color:#092200;font-weight: bolder; font-size:larger;">Login</h1>
+					<h1 style="color:#020333;font-weight: bolder; font-size:larger;">Login</h1>
 					<div class="">
 					
 						
@@ -78,12 +75,10 @@ border-bottom-right-radius: .3rem;
 					<button class="book-btn" type ='submit'>Log In </button>
 				</div>
 			</form>
-			<div class="form-group">
-				<button class="book-btn" type ='submit'> login with Google   <i class="fa-brands fa-google"></i></button>
-			</div>
-			<!-- <div class="text-center">
-				<p>Or Create Account <a href="{% url 'users:users-register'%}">Register</a></p>
-			  </div> -->
+	  
+			<div class="text-center">
+				<p>Not a member? <a href="{% url 'users:users-register'%}">Register</a></p>
+			  </div>
 	  
 					</div>
 				  </div>
@@ -122,4 +117,3 @@ border-bottom-right-radius: .3rem;
 
 
 </body>
-

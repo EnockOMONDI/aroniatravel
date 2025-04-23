@@ -2,7 +2,7 @@
 
 # Build the project
 set -o errexit  # exit on error
-echo "Building the project Aronia..."
+echo "Building the project JDA..."
 
 
 

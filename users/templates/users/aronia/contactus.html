@@ -1,0 +1,79 @@
+{% extends 'users/base.html' %}
+{% load static  %}
+
+
+
+
+{% block content %}
+
+  
+    <!-- End of breadcrumb section
+       ============================================= -->
+    <!-- Start of contact content section
+       ============================================= -->
+
+    <div id="contact-us" class="contact-us-area section-padding">
+        <div class="container">
+            <div class="contact-us-wrapper">
+                <div class="row no-gutters">
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="contact-us-inner">
+                            <div class="info-i"><span><i class="fa fa-globe-europe"></i></span></div>
+                            <h5>Address</h5>
+                            <p>New People Media Center, Kilimani</p>
+                            <a target="_blank" href="https://maps.app.goo.gl/onX9zwnDETkkgzUP8">Find us on map</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="contact-us-inner">
+                            <div class="info-i"><span><i class="far fa-clock"></i></span></div>
+                            <h5>Working</h5>
+                            <p>Monday-Friday <br>0800HRS-1700HRS</p>
+                            <a target="_blank" href="https://maps.app.goo.gl/onX9zwnDETkkgzUP8">Get Direction</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="contact-us-inner">
+                            <div class="info-i"><span><i class="fa fa-mobile-alt"></i></span></div>
+                            <h5>Phones</h5>
+                            <p>+254733591347<br>+254713677181</p>
+                            <a href="#">Call Now</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="contact-us-inner">
+                            <div class="info-i"><span><i class="far fa-envelope"></i></span></div>
+                            <h5>E-mail</h5>
+                            <p>info@aroniatravel.com
+                                <br>travel@aroniatravel.com</p>
+                            <a href="#">Mail Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End of contact content section
+       ============================================= -->
+    <!-- Start of contact map section
+       ============================================= -->
+    <div class="googlemap pt-5">
+        <div class="container">
+            <div class="section-title text-center headline title-style-two position-relative">
+                <span>Our Location </span>
+                <h2>
+                    You can easily find our office address on the map.
+                </h2>
+            </div>
+
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3988.792653788373!2d36.7735823!3d-1.2991924!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1b563010181d%3A0x60d1877352f373f4!2sNew%20People%20Media%20Centre!5e0!3m2!1sen!2ske!4v1720437187820!5m2!1sen!2ske" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+    <!-- End of contact map section
+       ============================================= -->
+    <!-- Start of Footer  section
+     ============================================= -->
+     {% include 'users/footer.html' %}
+
+    {% endblock %}

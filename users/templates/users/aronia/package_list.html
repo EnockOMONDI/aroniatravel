@@ -1,0 +1,149 @@
+{% extends 'users/aronia/base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="activity-page-activity" class="activity-page-activity-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="activity-page-activity-content-top">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="activity-grid-top-bar">
+                                <div class="activity-grid-showing-result">
+                                    <div class="activity-grid-list float-left">
+                                        <a href="#"><i class="fas fa-th"></i></a>
+                                        <a href="#"><i class="fas fa-list"></i></a>
+                                    </div>
+                                    <span class="show-result-text">Showing {{ tours|length }} of {{ tours|length }} results</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-page-activities-item">
+                    <div class="row">
+                        {% if tours %}
+                            {% for tour in tours %}
+                            <div class="col-lg-12 col-md-12">
+                                <div class="activity-item-card d-flex">
+                                    <div class="col-lg-5 col-md-6 act-pl">
+                                        <div class="activity-item-img text-center">
+                                            {% if tour.image %}
+                                                <img src="{{ tour.Image.cdn_url }}" alt="{{ tour.title }}">
+                                            {% else %}
+                                                <img src="{% static 'assets/img/activity/activity-l1.jpg' %}" alt="{{ tour.title }}">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-md-12 act-pr">
+                                        <div class="activity-item-text">
+                                            <div class="activity-item-fee clearfix">
+                                                <span>Price: </span>
+                                                <div class="activity-fee-amount">
+                                                    <strong>${{ tour.price }}</strong>
+                                                </div>
+                                            </div>
+                                            <div class="activity-item-title headline">
+                                                <h3>
+                                                    <a href="{% url 'tour_detail' tour_slug=tour.slug %}">
+                                                        {{ tour.title }}
+                                                    </a>
+                                                </h3>
+                                                <div class="activity-meta">
+                                                    <a href="#"><i class="fa fa-clock"></i>{{ tour.duration }} days</a>
+                                                    <a href="#"><i class="fa fa-map-marker-alt"></i>{{ tour.destination.name }}</a>
+                                                </div>
+                                            </div>
+                                            <div class="activity-rating clearfix">
+                                                {% if tour.avg_rating %}
+                                                <ul>
+                                                    {% for i in "12345"|make_list %}
+                                                        {% if forloop.counter <= tour.avg_rating %}
+                                                            <li><i class="fas fa-star"></i></li>
+                                                        {% else %}
+                                                            <li><i class="far fa-star"></i></li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                                <span>{{ tour.avg_rating|floatformat:1 }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="p-activity-btn float-right">
+                                                <a href="{% url 'tour_detail' tour_slug=tour.slug %}"><i class="fas fa-arrow-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-lg-12 col-md-12">
+                                <div class="activity-item-card d-flex">
+                                    <div class="col-lg-12">
+                                        <div class="activity-item-text text-center">
+                                            <h3>There are currently no tour packages available</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="blog-sidebar">
+                    <div class="blog-widget-item">
+                        <div class="search-widget position-relative">
+                            <form method="get">
+                                <input type="text" name="search" placeholder="Search tours" value="{{ request.GET.search }}">
+                                <button type="submit"><i class="fas fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="blog-widget-item">
+                        <div class="category-widget headline ul-li-block position-relative">
+                            <h3 class="widget-title">Tour Types</h3>
+                            <ul>
+                                {% for destination in destinations %}
+                                <li><a href="?destination={{ destination.slug }}">{{ destination.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    {% if featured_tours %}
+                    <div class="blog-widget-item">
+                        <div class="recent-blog-widget clearfix">
+                            <h3 class="widget-title">Featured Tours</h3>
+                            {% for tour in featured_tours %}
+                            <div class="recent-blog-content">
+                                <div class="recent-blog-img float-left">
+                                    {% if tour.image %}
+                                        <img src="{{ tour.image.url }}" alt="{{ tour.title }}">
+                                    {% else %}
+                                        <img src="{% static 'assets/img/blog/blog-sml-1.jpg' %}" alt="{{ tour.title }}">
+                                    {% endif %}
+                                </div>
+                                <div class="recent-blog-text">
+                                    <h3>
+                                        <a href="{% url 'tour_detail' tour_slug=tour.slug %}">
+                                            {{ tour.title }}
+                                        </a>
+                                    </h3>
+                                    <span>${{ tour.price }}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'users/aronia/footer.html' %}
+{% endblock %}
+
+

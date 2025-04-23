@@ -1,0 +1,222 @@
+{% extends 'users/base.html' %}
+{% load static  %}
+
+
+
+
+{% block content %}
+ 
+    <!-- Login-Sign Form -->
+    <div class="modal login-modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header position-relative" data-background="{% static 'assets3/img/banner/lg-bg.html" style="background-image: url(&quot;assets/img/banner/lg-bg.html&quot;);">
+                    <div class="login-head text-center pera-content">
+                        <p>Lacinia at quis risus sed. Tempus egestas sed sed risus pretium quam vulputate dignissim.</p>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-signup-login-tab">
+                        <div class="tab-pane-btn ul-li">
+                            <ul id="tabs" class="nav text-center nav-tabs tab-pane-btn-area">
+                                <li class="nav-item"><a href="#" data-target="#login" data-toggle="tab" class="nav-link text-capitalize active"><i class="far fa-user"></i> Login</a></li>
+                                <li class="nav-item"><a href="#" data-target="#signUp" data-toggle="tab" class="nav-link text-capitalize"><i class="fa fa-key"></i> Sign Up</a></li>
+                            </ul>
+                        </div>
+                        <div id="tabsContent" class="tab-content">
+                            <div id="login" class="tab-pane fade active show">
+                                <div class="login-content pera-content text-center">
+                                    <form action="#" method="post">
+                                        <input type="text" placeholder="Username or email">
+                                        <input type="text" placeholder="Password">
+                                        <div class="login-label clearfix">
+                                            <span><input type="checkbox">Remember me</span>
+                                            <a href="#">Forget Password?</a>
+                                        </div>
+                                        <button type="submit">Submit</button>
+                                    </form>
+                                    <p>Don’t have any account? <a href="#">Signup</a></p>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-fb btn-block"><i class="fab fa-facebook-f float-left"></i> Log In via Facebook</button>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-googl btn-block"><i class="fab fa-google float-left"></i> Log In via Google+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="signUp" class="tab-pane fade">
+                                <div class="sign-up-content pera-content text-center">
+                                    <form action="#" method="post">
+                                        <input type="text" placeholder="First Name">
+                                        <input type="text" placeholder="Last Name">
+                                        <input type="email" placeholder="Email address">
+                                        <input type="text" placeholder="Username">
+                                        <input type="text" placeholder="Password">
+                                        <input type="text" placeholder="Confirm password">
+                                        <div class="login-label clearfix">
+                                            <span><input type="checkbox">By clicking signup you are agree to our terms of service</span>
+                                        </div>
+                                        <button type="submit">Submit</button>
+                                    </form>
+                                    <p>Already have an account? <a href="#">Log in</a></p>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-fb btn-block"><i class="fab fa-facebook-f float-left"></i> Sign up via Facebook</button>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-googl btn-block"><i class="fab fa-google float-left"></i> Sign up via Google+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Start of header section
+       ============================================= -->
+    <!-- Start of breadcrumb section
+       ============================================= -->
+    <!-- <section id="breadcrumb" class="breadcrumb-section position-relative" data-background="{% static 'assets3/img/banner/banner-bg.jpg' %}" style="background-image: url(&quot;assets/img/banner/banner-bg.jpg&quot;);">
+        <span class="breadcrumb-overlay position-absolute"></span>
+        <div class="container">
+            <div class="breadcrumb-content text-center headline">
+                <h2>About Us</h2>
+                <div class="breadcrumb-item ul-li">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- End of breadcrumb section
+       ============================================= -->
+    <!-- Start of about us section
+       ============================================= -->
+
+       <section class="about-section-2">
+        <div class="pattern-layer"></div>
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-lg-6 col-md-12 col-sm-12 image-column">
+                    <div class="about-image">
+                        <div class="image-box">
+                            <figure class="image image-1">
+                                <img src="{% static 'assets3/img/corporate.png' %}" alt="">
+                            </figure>
+                          
+                            <figure class="image image-2"><img src="{% static 'assets3/img/about/about-2.jpg' %}"  alt=""></figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 content-column">
+                    <div class="about-content">
+                        <div class="content-box">
+                            <div class="section-title headline">
+                                <span>Corporate Travel & Services
+                                </span>
+                                <h2>
+                                    World-class travel services at the lowest cost possible.
+                                </h2>
+                            </div>
+                            <div class="text">
+                                <p>                               Aronia Travel Ltd offers specialized corporate travel services designed to meet the unique needs of businesses, Ngo's and government entities, We recognize the evolving requirements of modern businesses when it comes to seamless travel arrangements. We continually search out and provide the most cost-effective travel packages available to your organization. 
+
+
+                                </p>                            </div>
+                            <ul class="list clearfix">
+                                <li>  <strong>Flight Ticketing:</strong> Domestic and international flights with competitive rates.
+                                </li>
+                                <li><strong>Hotel Reservations:</strong> Negotiated rates with top hotels to ensure comfort and convenience.
+                                </li>
+                                <li><strong>Conference and Meeting Arrangements:</strong> Comprehensive planning for your business events.
+                                </li>
+                                <li><strong>Car Hire and Airport Transfers: </strong>Reliable transportation solutions for your corporate needs.
+                                </li>
+                                <li><strong>Visa Consultation: </strong>Expert advice and assistance for international travel.
+
+                                </li>
+                                <li><strong>Frequent Flyer Program Registration:</strong> Maximizing benefits for your frequent travelers.
+                                </li>
+                            </ul>
+                  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section-2" style="margin-top: -40px;">
+        <div class="pattern-layer"></div>
+        <div class="container">
+            <div class="row clearfix">
+              
+                <div class="col-lg-6 col-md-12 col-sm-12 content-column">
+                    <div class="about-content">
+                        <div class="content-box">
+                            <div class="section-title headline">
+                                <span>Why Us
+                                </span>
+                                <h2>
+                                    Why Choose Aronia Travel for Corporate Travel
+                                </h2>
+                            </div>
+                            <div class="text">
+                                <p>We aim to make the travel planning process as convenient as possible, giving your travelers the peace of mind they need to complete their responsibilities. Our dedicated team ensures that every aspect of your corporate travel is handled with the utmost professionalism and efficiency.
+                                    
+                               
+
+                                </p>                            </div>
+                            <ul class="list clearfix">
+                                <li>  <strong>Quality:</strong>  High-quality service that stands out in the market.
+                                </li>
+                                <li><strong>Best Prices:</strong>  Affordable fares and rates.
+
+                                </li>
+                                <li><strong>Flexibility:</strong>  Our flexible working hours ensure effective handling of requests.
+
+                                </li>
+                                <li><strong>Teamwork: </strong>Collaboration and passion drive our success.
+                                </li>
+                                <li><strong>Confidentiality:</strong> We uphold integrity and confidentiality in all our dealings.
+
+
+                                </li>
+                                <li><strong>Customer Service: </strong> Maintaining a good working relationship and providing high-quality service for a personal connection.
+                                </li>
+                            </ul>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 image-column">
+                    <div class="about-image">
+                        <div class="image-box">
+                            <figure class="image image-1">
+                                <img src="{% static 'assets3/img/about/corp.jpg' %}" alt="">
+                            </figure>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  
+ 
+  
+
+      
+
+    {% include 'users/footer.html' %}
+
+    {% endblock %}

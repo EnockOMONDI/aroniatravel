@@ -1,14 +1,27 @@
-import os
-import jwt
-from django.shortcuts import render,redirect,HttpResponse
+import logging
+from django.urls import reverse
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.http import Http404
+import os
+import smtplib
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import UserBookings
+
+
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 from django.contrib import messages
 from adminside.models import *
 from users.models import *
 from .forms import UserRegisterForm
+from .forms import UserBookingsForm
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
+from django.core.mail import send_mail 
+from django.conf import settings
 # Create your views here.
 
 from tours_travels import mail as mail_f
@@ -20,104 +33,233 @@ from .utils import generate_token
 from django.views import View
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from .forms import UserRegisterForm
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpRequest
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.views import APIView
-from . import models
 
-@method_decorator(csrf_exempt, name='dispatch')
-class AuthGoogle(APIView):
-    """
-    Google calls this URL after the user has signed in with their Google account.
-    """
-    def post(self, request, *args, **kwargs):
-        try:
-            user_data = self.get_google_user_data(request)
-        except ValueError:
-            return HttpResponse("Invalid Google token", status=403)
-
-        email = user_data["email"]
-        user, created = models.User.objects.get_or_create(
-            email=email, defaults={
-                "username": email, "sign_up_method": "google",
-                "first_name": user_data.get("given_name"),
-            }
-        )
-
-        # Add any other logic, such as setting a http only auth cookie as needed here.
-        return HttpResponse(status=200)
-
-    @staticmethod
-    def get_google_user_data(request: HttpRequest):
-        token = request.POST['credential']
-        return id_token.verify_oauth2_token(
-            token, requests.Request(), os.environ['GOOGLE_OAUTH_CLIENT_ID']
-        )
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .utils import send_booking_confirmation_email
+from events.views import EventListView
+from .forms import ProfileForm
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_protect
+from django.http import JsonResponse
+from django.contrib.auth import login
+from django.conf import settings
+from google.oauth2 import id_token
+from google.auth.transport import requests
+from .models import User, Profile
+import json
+from django.views import View
+from django.utils.http import urlsafe_base64_decode
 
 
 
-def sign_in(request):
-    return render(request, 'sign_in.html')
 
 
-@csrf_exempt
-def auth_receiver(request):
-    """
-    Google calls this URL after the user has signed in with their Google account.
-    """
-    token = request.POST['credential']
+# logger = logging.getLogger(__name__)
 
-    try:
-        user_data = id_token.verify_oauth2_token(
-            token, requests.Request(), os.environ['GOOGLE_OAUTH_CLIENT_ID']
-        )
-    except ValueError:
-        return HttpResponse(status=403)
+# users/views.py
+# @csrf_protect
+# def google_one_tap_login(request):
+#     if request.method == 'POST':
+#         try:
+#             logger.debug('Received Google One Tap request')
+#             logger.debug(f'Request body: {request.body}')
+            
+#             data = json.loads(request.body)
+#             credential = data.get('credential')
+            
+#             if not credential:
+#                 logger.error('No credential provided in request')
+#                 return JsonResponse({
+#                     'success': False,
+#                     'error': 'No credential provided'
+#                 })
 
-    # In a real app, I'd also save any new user here to the database. See below for a real example I wrote for Photon Designer.
-    # You could also authenticate the user here using the details from Google (https://docs.djangoproject.com/en/4.2/topics/auth/default/#how-to-log-a-user-in)
-    request.session['user_data'] = user_data
+#             try:
+#                 idinfo = id_token.verify_oauth2_token(
+#                     credential,
+#                     requests.Request(),
+#                     settings.GOOGLE_CLIENT_ID
+#                 )
+#                 logger.debug('Token verified successfully')
+                
+#                 # Get user info from the token
+#                 email = idinfo['email']
+#                 first_name = idinfo.get('given_name', '')
+#                 last_name = idinfo.get('family_name', '')
+                
+#                 # Check if user exists
+#                 try:
+#                     user = User.objects.get(email=email)
+#                     logger.debug(f'Existing user found: {email}')
+#                 except User.DoesNotExist:
+#                     # Create new user
+#                     logger.debug(f'Creating new user for: {email}')
+#                     user = User.objects.create_user(
+#                         username=email,  # Using email as username
+#                         email=email,
+#                         first_name=first_name,
+#                         last_name=last_name,
+#                         is_active=True  # Google users are pre-verified
+#                     )
+#                     # Create profile for new user
+#                     Profile.objects.create(user=user)
+#                     logger.debug(f'Created new user profile for: {email}')
 
-    return redirect('sign_in')
+#                 # Log the user in
+#                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+#                 logger.debug(f'User logged in successfully: {email}')
 
+#                 # Generate absolute redirect URL
+#                 redirect_url = request.build_absolute_uri(reverse('dede:home'))
+#                 logger.debug(f'Generated redirect URL: {redirect_url}')
 
-def sign_out(request):
-    del request.session['user_data']
-    return redirect('sign_in')
+#                 return JsonResponse({
+#                     'success': True,
+#                     'redirect_url': redirect_url,
+#                     'message': f'Welcome {first_name}! Login successful.'
+#                 })
 
+#             except ValueError as e:
+#                 logger.error(f'Token verification failed: {str(e)}')
+#                 return JsonResponse({
+#                     'success': False,
+#                     'error': 'Invalid token'
+#                 })
 
+#         except json.JSONDecodeError as e:
+#             logger.error(f'JSON decode error: {str(e)}')
+#             return JsonResponse({
+#                 'success': False,
+#                 'error': 'Invalid JSON data'
+#             })
+#         except Exception as e:
+#             logger.error(f'Unexpected error: {str(e)}')
+#             return JsonResponse({
+#                 'success': False,
+#                 'error': str(e)
+#             })
+
+#     return JsonResponse({
+#         'success': False,
+#         'error': 'Invalid request method'
+#     })
+
+# def register(request):
+#     if request.method == 'POST':
+#         form = UserRegisterForm(request.POST)
+
+#         if form.is_valid():
+#             user = form.save(commit=False)  # Save the user object in memory
+#             user.is_active = False
+
+#             # Save the user object to the database only when the form is valid
+#             user.save()
+
+#             current_site = get_current_site(request)
+#             uid64 = urlsafe_base64_encode(force_bytes(user.pk))
+#             token = PasswordResetTokenGenerator().make_token(user)
+#             activation_link = f'http://{current_site.domain}/users/activate/{uid64}/{token}/'
+
+#             mail_f.verification_mail(activation_link, user)
+
+#             # Store username and email in session
+#             request.session['username'] = form.cleaned_data['username']
+#             request.session['email'] = form.cleaned_data['email']
+
+#             # Redirect to the success message page
+#             return redirect('users:success')
+
+#     else:
+#         form = UserRegisterForm()
 
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
 
         if form.is_valid():
-            user = form.save(commit=False)  # Save the user object in memory
+            user = form.save(commit=False)  
             user.is_active = False
-
-            # Save the user object to the database only when the form is valid
             user.save()
 
             current_site = get_current_site(request)
             uid64 = urlsafe_base64_encode(force_bytes(user.pk))
-            token = PasswordResetTokenGenerator().make_token(user)
-            activation_link = f'http://{current_site}/activate/{uid64}/{token}'
+            token = generate_token.make_token(user)
+            # Update the activation link to use the users namespace
+            activation_link = f'http://{current_site.domain}/users/activate/{uid64}/{token}/'
 
-            mail_f.verification_mail(activation_link, user)
+            # Send verification email
+            try:
+                s = smtplib.SMTP('smtp.gmail.com', 587)
+                s.starttls()
+                s.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+                
+                msg = MIMEMultipart('alternative')
+                msg['From'] = "ARONIA TRAVEL <aroniatravelke@gmail.com>"
+                msg['To'] = user.email
+                msg['Subject'] = "Activate Your ARONIA TRAVEL Account"
+                
+                html = f"""
+                <html>
+                <head>
+                    <style>
+                        body {{ font-family: Arial, sans-serif; line-height: 1.6; }}
+                        .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+                        .header {{ background-color: #f8f9fa; padding: 20px; text-align: center; }}
+                        .content {{ padding: 20px; }}
+                        .button {{ 
+                            background-color: #007bff;
+                            color: white;
+                            padding: 10px 20px;
+                            text-decoration: none;
+                            border-radius: 5px;
+                            display: inline-block;
+                        }}
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <div class="header">
+                            <h2>Welcome to ARONIA TRAVEL!</h2>
+                        </div>
+                        <div class="content">
+                            <p>Hi {user.username},</p>
+                            <p>Thank you for registering with ARONIA TRAVEL. To activate your account, please click the button below:</p>
+                            <p style="text-align: center;">
+                                <a href="{activation_link}" class="button" style="color: white;">Activate Account</a>
+                            </p>
+                            <p>If the button doesn't work, copy and paste this link into your browser:</p>
+                            <p>{activation_link}</p>
+                            <p>This link will expire in 24 hours.</p>
+                            <p>Best regards,<br>The ARONIA TRAVEL Team</p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+                """
+                
+                msg.attach(MIMEText(html, 'html'))
+                s.send_message(msg)
+                s.quit()
+                
+            except Exception as e:
+                print(f"Error sending email: {str(e)}")
+                messages.error(request, "There was an error sending the activation email. Please try again.")
+                user.delete()  # Delete the user if email sending fails
+                return render(request, 'users/register.html', {'form': form})
 
             # Store username and email in session
             request.session['username'] = form.cleaned_data['username']
             request.session['email'] = form.cleaned_data['email']
 
-            # Redirect to the success message page
             return redirect('users:success')
 
     else:
         form = UserRegisterForm()
 
-    return render(request, 'users/register.html', {'form': form})
+    return render(request, 'users/dede/register.html', {'form': form})
 
 
 
@@ -134,13 +276,44 @@ def success(request):
 
     return render(request, 'users/success.html')
 
+
+
+@login_required
+def profile(request):
+    return render(request, 'users/dede/profile.html', {'user': request.user})
+
+@login_required
+def profile_edit(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated successfully!')
+            return redirect('users:users-profile')
+    else:
+        form = ProfileForm(instance=request.user.profile)
+    return render(request, 'users/dede/profile_edit.html', {'form': form})
+
+
+
+
+
+
+
+
 def aboutus(request):
     
-    return render(request, 'users/about.html')
+    return render(request, 'users/aboutus.html')
+
+
 
 def corporate(request):
     
     return render(request, 'users/corporate.html')
+
+def micepage(request):
+    
+    return render(request, 'users/mice.html')
 
 def holidays(request):
     
@@ -183,6 +356,8 @@ def home(request):
 
 	
 	return render(request,'users/index.html',context)
+
+
 
 
 
@@ -237,7 +412,7 @@ def all_packages(request):
 def detail_package(request, package_id):
     if request.user.is_authenticated:
         try:
-            package = Package.objects.get(pk=package_id)
+            package = get_object_or_404(Package, id=package_id)
             package_name = package.package_name
             destination_name = package.destination.name
             booked = package.number_of_times_booked
@@ -249,8 +424,8 @@ def detail_package(request, package_id):
             travel_mode = package.travel.travelling_mode
             travel_price = package.travel.price_per_person
 
-            # Accommodation Details
-            hotel_name = package.accomodation.hotel_name
+            # accomodation Details
+            hotel_name = package.accomodation.hotel_name if package.accomodation else "N/A"
             hotel_description = package.accomodation.hotel_description
             price_per_room = package.accomodation.price_per_room
 
@@ -259,7 +434,7 @@ def detail_package(request, package_id):
             exclusive = package.exclusive
 
             # Itinerary
-            itinerary = Itinerary.objects.get(package=package)
+            itinerary = get_object_or_404(Itinerary, package=package)
             itinerary_description = itinerary.itinerarydescription_set.all() # list of itinerary days
 
             # Images
@@ -293,60 +468,156 @@ def detail_package(request, package_id):
         # Handle the case when the user is not authenticated
         return HttpResponse("<h1>You need to be logged in to view this page.</h1>")
 
-    return render(request, 'users/packagedetail.html', context)
+    return render(request, 'users/packagedetail2.html', context)
 
 
-def bookings(request):
-	user_id=request.user.id
-	context = {}
-	if request.method == 'POST':
-		user=user_id
-		package=request.POST['package_id']
-		package=Package.objects.get(pk=package)
-		number_of_adults = request.POST['adults']
-		number_of_children =request.POST['children']
-		number_of_rooms =request.POST['rooms']
-		booking_date=request.POST['date']
-		include_travelling=request.POST.get('travel')
-		if include_travelling:
-			include_travelling=True
-			total_amount=(package.adult_price * int(number_of_adults)) + (package.child_price * int(number_of_children)) + (package.travel.price_per_person *(int(number_of_adults)+int(number_of_children)))+(package.accomodation.price_per_room*int(number_of_rooms))
-			print(total_amount)
-		else:
-			include_travelling=False
-			total_amount=(package.adult_price * int(number_of_adults)) + (package.child_price * int(number_of_children)) + (package.accomodation.price_per_room*int(number_of_rooms))
-			print(total_amount)
-		bookings=UserBookings(user=request.user,package=package,number_of_adults=number_of_adults,number_of_children=number_of_children,number_of_rooms=number_of_rooms,booking_date=booking_date,include_travelling=include_travelling,paid=False,total_amount=total_amount)
-		bookings.save()
-		
-		return redirect('users:users-home')
-		
-	else:
-		return redirect('users:users-home')
+ 
+
+
+@login_required
+def bookings(request, package_id):
+    package = get_object_or_404(Package, id=package_id)
+    form = UserBookingsForm(request.POST or None)
+    context = {'form': form, 'package': package}
+
+    if request.method == 'POST':
+        if form.is_valid():
+            print("Form is valid!")  # Debug print
+            try:
+                # Create the booking
+                booking = UserBookings.objects.create(
+                    user=request.user,
+                    package=package,
+                    full_name=form.cleaned_data['full_name'],
+                    phone_number=form.cleaned_data['phone_number'],
+                    number_of_adults=form.cleaned_data['number_of_adults'],
+                    number_of_children=form.cleaned_data.get('number_of_children', 0),
+                    number_of_rooms=form.cleaned_data['number_of_rooms'],
+                    include_travelling=form.cleaned_data['include_travelling'],
+                )
+
+                # Send email notification
+                send_booking_email(booking)
+
+                return redirect('users:users-booking-success', booking_id=booking.id)
+
+            except Exception as e:
+                print(f"Booking creation error: {e}")
+                messages.error(request, f'Error creating booking: {e}')
+        else:
+            print("Form is NOT valid!")
+            print(form.errors)
+            messages.error(request, 'Please correct the form errors.')
+
+    return render(request, 'users/UserBookingsForm.html', context)
+
+
+def send_booking_email(booking):
+    """Send an email notification about the new booking."""
+    try:
+        s = smtplib.SMTP('smtp.gmail.com', 587)
+        s.starttls()
+
+        # Email credentials
+        sender_email = "aroniatravelke@gmail.com"
+        password = "jzuy eqkw ovpu wcxv"
+
+        s.login(sender_email, password)
+
+        # Email content
+        msg = MIMEMultipart()
+        msg['From'] = "Novustell Travel"
+        msg['To'] = "info@dedeexpeditions.com"
+        msg['Subject'] = f"New Booking: {booking.full_name} for {booking.package.name}"
+
+        message = f"""
+        <p><strong>New Booking Alert</strong></p>
+        <p><strong>Customer Name:</strong> {booking.full_name}</p>
+        <p><strong>Phone Number:</strong> {booking.phone_number}</p>
+        <p><strong>Package:</strong> {booking.package.name}</p>
+        <p><strong>Adults:</strong> {booking.number_of_adults}</p>
+        <p><strong>Children:</strong> {booking.number_of_children}</p>
+        <p><strong>Rooms:</strong> {booking.number_of_rooms}</p>
+        <p><strong>Include Travelling:</strong> {'Yes' if booking.include_travelling else 'No'}</p>
+        """
+
+        msg.attach(MIMEText(message, 'html'))
+
+        # Send the email
+        s.send_message(msg)
+        s.quit()
+        print("Booking email sent successfully!")
+
+    except Exception as e:
+        print(f"Error sending booking email: {e}")
+
+def booking_success(request, booking_id):
+    booking = get_object_or_404(UserBookings, id=booking_id)
+    return render(request, 'users/booking_success.html', {'booking': booking})
+
+
+
+def send_mice_email(request):
+    if request.method == 'POST':
+        # Get form data
+        company_name = request.POST.get('company_name')
+        contact_person = request.POST.get('contact_person')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        event_type = request.POST.get('event_type')
+        attendees = request.POST.get('attendees')
+        event_details = request.POST.get('event_details')
+
+        # Compose email message
+        subject = f'New MICE Inquiry from {company_name}'
+        message = f"""
+        New MICE Event Request Details:
+        
+        Company Name: {company_name}
+        Contact Person: {contact_person}
+        Email: {email}
+        Phone: {phone}
+        Event Type: {event_type}
+        Expected Attendees: {attendees}
+        
+        Event Details:
+        {event_details}
+        """
+
+        try:
+            # Send email
+            send_mail(
+                subject,
+                message,
+                settings.EMAIL_HOST_USER,
+                ['info@novustelltravel.com'],
+                fail_silently=False,
+            )
+            messages.success(request, 'Thank you! Your request has been submitted successfully. We will contact you soon.')
+        except Exception as e:
+            messages.error(request, 'Sorry, there was an error sending your request. Please try again later.')
+            
+        return redirect('users:homepage')
+
+    return redirect('users:micepage')
 
 
 class ActivateAccountView(View):
-	def get(self,request,uid64,token):
-		try:
-			uid = urlsafe_base64_decode(uid64).decode('utf-8')
-			user=User.objects.get(pk=uid)
-			print(uid)
-		except Exception as identifire :
-			user=None
+    def get(self, request, uid64, token):
+        try:
+            uid = urlsafe_base64_decode(uid64).decode('utf-8')
+            user = User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist) as e:
+            print(f"Activation error: {str(e)}")  # For debugging
+            user = None
 
-		if user is not None and generate_token.check_token(user,token):
-			user.is_active=True 
-			user.save()
-			messages.success(request, 'account activated successfully')
-
-			return redirect('login')
-		return HttpResponse('THIS VERIFICATION CODE HAS ALREADY BEEN USED USE ANOTHER EMAIL TO CREATE AN ACCOUNT OR LOG IN WITH YOUR DETAILS')
-
-
-
-
-
-
-
-
-     
+        if user is not None and generate_token.check_token(user, token):
+            if not user.is_active:
+                user.is_active = True
+                user.save()
+                messages.success(request, 'Your account has been activated successfully! You can now log in.')
+                return redirect('users:users-login')
+            else:
+                messages.info(request, 'Your account is already activated. You can log in.')
+        else:
+            return redirect('users:activation_failed')

@@ -1,0 +1,217 @@
+{% load static %}
+    <!-- Start of header section
+       ============================================= -->
+
+
+
+
+       <header id="header" class="header-main">
+        <div class="header-top clearfix">
+            <div class="container">
+                <div class="brand-logo float-left">
+                    <a href="{% url 'dede:home' %} "><img src="{% static 'assets3/img/logo/logo1.png ' %}" alt=""></a>
+                </div>
+                <div class="header-top-cta float-right clearfix ul-li">
+                    <ul>
+                        <li>
+                            <div class="header-top-content">
+                                <div class="top-content-icon float-left">
+                                    <i class="flaticon-email"></i>
+                                </div>
+                                <div class="top-content-text float-right headline">
+                                    <a href="#">info@aroniatravel.com 
+                                       </a> 
+                                   
+                                    <h3>Mail Us</h3>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header-top-content">
+                                <div class="top-content-icon float-left">
+                                    <i class="flaticon-email"></i>
+                                </div>
+                                <div class="top-content-text float-right headline">
+                                  
+                                        <a href="#">
+                                            travel@aroniatravel.com</a>
+                                    <h3>Mail Us</h3>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header-top-content">
+                                <div class="top-content-icon float-left">
+                                    <i class="flaticon-phone"></i>
+                                </div>
+                                <div class="top-content-text float-right headline">
+                                    <a href="#">+254733591347</a>
+                                    <h3>Call Us</h3>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- <li>
+                            <div class="header-top-content">
+                                <div class="top-content-icon float-left">
+                                    <i class="flaticon-clock-1"></i>
+                                </div>
+                                <div class="top-content-text float-right headline">
+                                    <a href="#">Sunday - Friday:</a>
+                                    <h3>8am - 5pm</h3>
+                                </div>
+                            </div>
+                        </li> -->
+                        <li>
+                            <div class="header-top-content">
+                                <div class="top-content-icon float-left">
+                                    <i class="flaticon-map-marker"></i>
+                                </div>
+                                <div class="top-content-text float-right headline">
+                                    <a href="#">New People Media Center</a>
+                                    <h3>Kilimani Elgeyo Marakwet Rd</h3>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mobile-menu-navbar">
+                    <div class="mobile-menu position-relative">
+                        <div class="mobile-menu-button nav-mobile-menu">
+                            <i class="fas fa-bars"></i>
+                        </div>
+                        <div class="mobile-menu-navbar">
+                            <div class="mobile-menu-overlay nav-mobile-menu"></div>
+                            <div class="mobile-menu-content">
+                                <div class="close-mobile-menu nav-mobile-menu">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                                <div class="m-brand-logo text-center">
+                                    <a href="#"><img src="{% static 'assets3/img/logo/logo2.png ' %}" alt=""></a>
+                                </div>
+                                <nav class="mobile-main-nav  clearfix ul-li">
+                                    <ul id="m-main-nav" class="navbar-nav text-capitalize clearfix">
+                                        <li class="">
+                                            <a href="{% url 'dede:home' %}">Home</a>
+                                          
+                                        </li>
+                                       
+                                        <li class="">
+                                            <a href="{% url 'dede:about' %}">About Us</a>
+                                         
+                                             
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#">Corporate Travel</a>
+                                            <ul class="dropdown-menu clearfix">
+                                                <li><a href="{% url 'users:corporatepage'%} ">Corporate Travel</a></li>
+                                             
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#">Tour packages</a>
+                                            <ul class="dropdown-menu clearfix">
+                                                <li><a href="{% url 'dede:tour_list' %}">Tour packages</a></li>
+                                                
+                                                <li><a href="{% url 'dede:daytrip_list' %}">Day Trips</a></li>
+                                             
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#">Hotels</a>
+                                            <ul class="dropdown-menu clearfix">
+                                                <li><a href="{% url 'dede:tour_list' %}">Hotels</a></li>
+                                             
+                                            </ul>
+                                        </li>
+                                      
+                                      
+                                        <li class="">
+                                            <a href="{% url 'users:contactus'%} ">Contact Us</a>
+                                            
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Mobile-Menu -->
+                </div>
+            </div>
+        </div>
+        <div class="header-menu-wrap clearfix">
+            <div class="container">
+                <div class="main-navigation  float-left">
+                    <nav class="main-nav ul-li">
+                        <ul id="main-nav" class="navbar-nav text-capitalize clearfix">
+                          
+                            <li class="">
+                                <a href="{% url 'dede:home'%} ">Home</a>
+                             
+                                 
+                            </li>
+                            <li class="">
+                                <a href="{% url 'dede:about' %} ">About Us</a>
+                             
+                                 
+                            </li>
+                            <li class="dropdown">
+                                <a href="#">Corporate Travel</a>
+                                <ul class="dropdown-menu clearfix">
+                                    <li><a href="{% url 'users:corporatepage'%} ">Corporate Travel</a></li>
+                                 
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#">Tour packages</a>
+                                <ul class="dropdown-menu clearfix">
+                                    <li><a href="{% url 'dede:tour_list' %}">Tour packages</a></li>
+                                                
+                                    <li><a href="{% url 'dede:daytrip_list' %}">Day Trips</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#">Hotels</a>
+                                <ul class="dropdown-menu clearfix">
+                                    <li><a href="{% url 'users:holidayspage'%} ">Hotels</a></li>
+                                 
+                                </ul>
+                            </li>
+                            
+                          
+                            <li class="">
+                                <a href="{% url 'users:contactus'%} ">Contact Us</a>
+                                
+                            </li>
+                            <li class="dropdown">
+                                <a href="#">My Account</a>
+                                {% if user.is_authenticated %}
+
+                                <ul class="dropdown-menu clearfix">
+
+                                    <li><a href="/logout">Log Out</a></li>
+                                 
+                                </ul>
+                                {% else %}
+
+                                <ul class="dropdown-menu clearfix">
+                                    <li><a href="/login">Login</a></li>
+                                 
+                                </ul>
+                                {% endif %}
+                            </li>
+                            
+                        </ul>
+                    </nav>
+                       <div class="header-social float-right ul-li">
+                    <ul>
+                     
+                  
+                    </ul>
+                </div>
+                </div>
+             
+            </div>
+        </div>
+    </header>
+    <!-- End of header section
+       ============================================= -->

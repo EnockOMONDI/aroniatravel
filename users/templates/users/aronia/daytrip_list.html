@@ -1,0 +1,154 @@
+{% extends 'users/aronia/base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="activity-page-activity" class="activity-page-activity-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="activity-page-activity-content-top">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="activity-grid-top-bar">
+                                <div class="activity-grid-showing-result">
+                                    <div class="activity-grid-list float-left">
+                                        <a href="#"><i class="fas fa-th"></i></a>
+                                        <a href="#"><i class="fas fa-list"></i></a>
+                                    </div>
+                                    <span class="show-result-text">Showing {{ daytrips|length }} of {{ daytrips|length }} results</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-page-activities-item">
+                    <div class="row">
+                        {% if daytrips %}
+                            {% for daytrip in daytrips %}
+                            <div class="col-lg-12 col-md-12">
+                                <div class="activity-item-card d-flex">
+                                    <div class="col-lg-5 col-md-6 act-pl">
+                                        <div class="activity-item-img text-center">
+                                            {% if daytrip.Image %}
+                                                <img src="{{ daytrip.Image.cdn_url }}" alt="{{ daytrip.name }}">
+                                            {% else %}
+                                                <img src="{% static 'assets/img/activity/activity-l1.jpg' %}" alt="{{ daytrip.name }}">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-md-12 act-pr">
+                                        <div class="activity-item-text">
+                                            <div class="activity-item-fee clearfix">
+                                                <span>Price: </span>
+                                                <div class="activity-fee-amount">
+                                                    <strong>KES {{ daytrip.price }}</strong>
+                                                    {% if daytrip.original_price %}
+                                                        <del>KES {{ daytrip.original_price }}</del>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="activity-item-title headline">
+                                                <h3>
+                                                    <a href="{% url 'dede:daytrip_detail' daytrip_slug=daytrip.slug %}">
+                                                        {{ daytrip.name }}
+                                                    </a>
+                                                </h3>
+                                                <div class="activity-meta">
+                                                    <a href="#"><i class="fa fa-clock"></i>{{ daytrip.duration }}</a>
+                                                    <a href="#"><i class="fa fa-map-marker-alt"></i>{{ daytrip.pickup_location }}</a>
+                                                    {% if daytrip.is_guided %}
+                                                        <a href="#"><i class="fas fa-user-tie"></i>Guided</a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="activity-description">
+                                                <p>{{ daytrip.short_description|truncatewords:30 }}</p>
+                                            </div>
+                                            <div class="activity-availability">
+                                                {% if daytrip.recurrence == 'weekend' %}
+                                                    <span class="badge badge-info">Available on Weekends</span>
+                                                {% elif daytrip.recurrence == 'saturday' %}
+                                                    <span class="badge badge-info">Available on Saturdays</span>
+                                                {% elif daytrip.recurrence == 'sunday' %}
+                                                    <span class="badge badge-info">Available on Sundays</span>
+                                                {% else %}
+                                                    <span class="badge badge-info">One-time Trip on {{ daytrip.start_date }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="p-activity-btn float-right">
+                                                <a href="{% url 'dede:daytrip_detail' daytrip_slug=daytrip.slug %}"><i class="fas fa-arrow-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-lg-12 col-md-12">
+                                <div class="activity-item-card d-flex">
+                                    <div class="col-lg-12">
+                                        <div class="activity-item-text text-center">
+                                            <h3>There are currently no day trips available</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="blog-sidebar">
+                    <div class="blog-widget-item">
+                        <div class="search-widget position-relative">
+                            <form method="get">
+                                <input type="text" name="search" placeholder="Search day trips" value="{{ request.GET.search }}">
+                                <button type="submit"><i class="fas fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="blog-widget-item">
+                        <div class="category-widget headline ul-li-block position-relative">
+                            <h3 class="widget-title">Trip Types</h3>
+                            <ul>
+                                <li><a href="?recurrence=weekend">Weekend Trips</a></li>
+                                <li><a href="?recurrence=saturday">Saturday Trips</a></li>
+                                <li><a href="?recurrence=sunday">Sunday Trips</a></li>
+                                <li><a href="?is_guided=true">Guided Trips</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% if featured_daytrips %}
+                    <div class="blog-widget-item">
+                        <div class="recent-blog-widget clearfix">
+                            <h3 class="widget-title">Featured Day Trips</h3>
+                            {% for daytrip in featured_daytrips %}
+                            <div class="recent-blog-content">
+                                <div class="recent-blog-img float-left">
+                                    {% if daytrip.Image %}
+                                        <img src="{{ daytrip.Image.cdn_url }}" alt="{{ daytrip.name }}">
+                                    {% else %}
+                                        <img src="{% static 'assets/img/blog/blog-sml-1.jpg' %}" alt="{{ daytrip.name }}">
+                                    {% endif %}
+                                </div>
+                                <div class="recent-blog-text">
+                                    <h3>
+                                        <a href="{% url 'dede:daytrip_detail' daytrip_slug=daytrip.slug %}">
+                                            {{ daytrip.name }}
+                                        </a>
+                                    </h3>
+                                    <span>KES {{ daytrip.price }}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'users/aronia/footer.html' %}
+{% endblock %}
