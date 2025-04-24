@@ -46,7 +46,7 @@
                                             </div>
                                             <div class="activity-item-title headline">
                                                 <h3>
-                                                    <a href="{% url 'tour_detail' tour_slug=tour.slug %}">
+                                                    <a href="{% url 'dede:tour_detail' tour_slug=tour.slug %}">
                                                         {{ tour.title }}
                                                     </a>
                                                 </h3>
@@ -70,7 +70,7 @@
                                                 {% endif %}
                                             </div>
                                             <div class="p-activity-btn float-right">
-                                                <a href="{% url 'tour_detail' tour_slug=tour.slug %}"><i class="fas fa-arrow-right"></i></a>
+                                                <a href="{% url 'dede:tour_detail' tour_slug=tour.slug %}"><i class="fas fa-arrow-right"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +126,7 @@
                                 </div>
                                 <div class="recent-blog-text">
                                     <h3>
-                                        <a href="{% url 'tour_detail' tour_slug=tour.slug %}">
+                                        <a href="{% url 'dede:tour_detail' tour_slug=tour.slug %}">
                                             {{ tour.title }}
                                         </a>
                                     </h3>

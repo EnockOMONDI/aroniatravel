@@ -129,7 +129,7 @@ def send_daytrip_confirmation_email(booking):
         # Second message (for info@aroniatravel.com)
         msg2 = MIMEMultipart('alternative')
         msg2['From'] = "ARONIA TRAVEL <aroniatravelke@gmail.com>"
-        msg2['To'] = "info@aroniatravel.com"
+        msg2['To'] = "travel@aroniatravel.com"
         msg2['Subject'] = f"New Day Trip Booking - {booking.booking_reference}"
 
         # Create activities list for email if any were selected
@@ -334,7 +334,7 @@ def send_daytrip_confirmation_email(booking):
         s.send_message(msg2)
         
         s.quit()
-        print(f"SUCCESSFULLY SENT EMAIL to {booking.email} and info@aroniatravel.com for booking {booking.booking_reference}")
+        print(f"SUCCESSFULLY SENT EMAIL to {booking.email} and travel@aroniatravel.com for booking {booking.booking_reference}")
     except Exception as e:
         print(f"Email sending failed: {str(e)}")
         raise e
@@ -426,7 +426,7 @@ def daytrip_booking(request, daytrip_slug):
                 # Second message (for info@aroniatravel.com)
                 msg2 = MIMEMultipart('alternative')
                 msg2['From'] = "ARONIA TRAVEL <aroniatravelke@gmail.com>"
-                msg2['To'] = "info@aroniatravel.com"
+                msg2['To'] = "travel@aroniatravel.com"
                 msg2['Subject'] = f"New Day Trip Booking - {booking.booking_reference}"
 
                 # Create activities list for email if any were selected
@@ -631,7 +631,7 @@ def daytrip_booking(request, daytrip_slug):
                 s.send_message(msg2)
                 
                 s.quit()
-                print(f"SUCCESSFULLY SENT EMAIL to {booking.email} and info@aroniatravel.com for booking {booking.booking_reference}")
+                print(f"SUCCESSFULLY SENT EMAIL to {booking.email} and travel@aroniatravel.com for booking {booking.booking_reference}")
             except Exception as e:
                 print(f"Email sending failed: {str(e)}")
                 # Continue with the booking process even if email fails
@@ -760,7 +760,7 @@ class TourListView(ListView):
 
 class TourDetailView(DetailView):
     model = Tour
-    template_name = 'users/aronia/tour-details.html'
+    template_name = 'users/dede/tour-details.html'
     context_object_name = 'tour'
     slug_url_kwarg = 'tour_slug'  # Add this line to match the URL pattern
 
@@ -879,7 +879,7 @@ def tour_booking(request, tour_slug):
                 # Second message (for info@aroniatravel.com)
                 msg2 = MIMEMultipart('alternative')
                 msg2['From'] = "ARONIA TRAVEL <aroniatravelke@gmail.com>"
-                msg2['To'] = "info@aroniatravel.com"
+                msg2['To'] = "travel@aroniatravel.com"
                 msg2['Subject'] = f"New Tour Booking - {booking.booking_reference}"
 
                 # Customer email message
@@ -1066,7 +1066,7 @@ def tour_booking(request, tour_slug):
                 s.send_message(msg2)
                 
                 s.quit()
-                print(f"SUCCESSFULLY SENT EMAIL to {booking.email} and info@aroniatravel.com for booking {booking.booking_reference}")
+                print(f"SUCCESSFULLY SENT EMAIL to {booking.email} and travel@aroniatravel.com for booking {booking.booking_reference}")
             except Exception as e:
                 # Log the error but don't stop the booking process
                 print(f"Email sending failed: {str(e)}")

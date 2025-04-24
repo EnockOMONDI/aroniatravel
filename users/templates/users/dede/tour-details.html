@@ -1,11 +1,9 @@
-{% extends 'users/aronia/base.html' %}
+{% extends 'users/dede/basemain.html' %}
 {% load static %}
 
 {% block content %}
 <!-- Breadcrumb Area -->
-<div class="tg-breadcrumb-spacing-3 include-bg p-relative fix" data-background="{% static 'assets3/img/breadcrumb/breadcrumb-2.jpg' %}">
-    <div class="tg-hero-top-shadow"></div>
-</div>
+
 <div class="tg-breadcrumb-list-2-wrap">
     <div class="container">
         <div class="row">
@@ -14,7 +12,7 @@
                     <ul>
                         <li><a href="{% url 'dede:home' %}">Home</a></li>
                         <li><i class="fa-sharp fa-solid fa-angle-right"></i></li>
-                        <li><a href="{% url 'dede:tour_list' %}">Tour Grid</a></li>
+                        <li><a href="{% url 'dede:tour_list' %}">All Tours</a></li>
                         <li><i class="fa-sharp fa-solid fa-angle-right"></i></li>
                         <li><span>{{ tour.name }}</span></li>
                     </ul>
@@ -100,22 +98,14 @@
                                     <span class="duration">{{ tour.duration }} days</span>
                                 </div>
                             </li>
-                            <li>
-                                <span class="icon">
-                                    <i class="fa-regular fa-user"></i>
-                                </span>
-                                <div>
-                                    <span class="title">Group Size</span>
-                                    <span class="duration">{{ tour.group_size }} People</span>
-                                </div>
-                            </li>
+                         
                             <li>
                                 <span class="icon">
                                     <i class="fa-regular fa-star"></i>
                                 </span>
                                 <div>
                                     <span class="title">Rating</span>
-                                    <span class="duration">{{ tour.rating }}/5</span>
+                                    <span class="duration">{{ tour.rating }}</span>
                                 </div>
                             </li>
                         </ul>
@@ -126,11 +116,7 @@
                         <p>From <span>KES {{ tour.price }}</span> / Person</p>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="tg-tour-details-video-feature-price mb-15">
-                        <a href="#booking-form" class="tg-btn">Book Now</a>
-                    </div>
-                </div>
+               
             </div>
         </div>
 
