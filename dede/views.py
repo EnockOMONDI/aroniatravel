@@ -727,7 +727,7 @@ class ContactView(TemplateView):
 
 class TourListView(ListView):
     model = Tour
-    template_name = 'users/aronia/package_list.html'
+    template_name = 'users/dede/tour-grid-1.html'
     context_object_name = 'tours'
     paginate_by = 9
 
