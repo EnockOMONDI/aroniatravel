@@ -141,7 +141,7 @@ def send_daytrip_confirmation_email(booking):
                 <ul>
             """
             for activity in booking.optional_activities.all():
-                activities_html += f"<li>{activity.name} - KES {activity.price} per person</li>"
+                activities_html += f"<li>{activity.name} - USD {activity.price} per person</li>"
             activities_html += "</ul></div>"
 
         # Customer email message
@@ -212,7 +212,7 @@ def send_daytrip_confirmation_email(booking):
                         <p><strong>Pickup Time:</strong> {booking.daytrip.pickup_time}</p>
                         <p><strong>Pickup Location:</strong> {booking.daytrip.pickup_location}</p>
                         <p><strong>Number of People:</strong> {booking.number_of_people}</p>
-                        <p><strong>Total Price:</strong> KES {booking.total_price}</p>
+                        <p><strong>Total Price:</strong> USD {booking.total_price}</p>
                     </div>
                     
                     {activities_html}
@@ -306,7 +306,7 @@ def send_daytrip_confirmation_email(booking):
                         <p><strong>Pickup Time:</strong> {booking.daytrip.pickup_time}</p>
                         <p><strong>Pickup Location:</strong> {booking.daytrip.pickup_location}</p>
                         <p><strong>Number of People:</strong> {booking.number_of_people}</p>
-                        <p><strong>Total Price:</strong> KES {booking.total_price}</p>
+                        <p><strong>Total Price:</strong> USD {booking.total_price}</p>
                         
                         <h3>Special Requirements:</h3>
                         <p>{booking.special_requirements if booking.special_requirements else 'None specified'}</p>
@@ -438,7 +438,7 @@ def daytrip_booking(request, daytrip_slug):
                         <ul>
                     """
                     for activity in booking.optional_activities.all():
-                        activities_html += f"<li>{activity.name} - KES {activity.price} per person</li>"
+                        activities_html += f"<li>{activity.name} - USD {activity.price} per person</li>"
                     activities_html += "</ul></div>"
 
                 # Customer email message
@@ -509,7 +509,7 @@ def daytrip_booking(request, daytrip_slug):
                                 <p><strong>Pickup Time:</strong> {booking.daytrip.pickup_time}</p>
                                 <p><strong>Pickup Location:</strong> {booking.daytrip.pickup_location}</p>
                                 <p><strong>Number of People:</strong> {booking.number_of_people}</p>
-                                <p><strong>Total Price:</strong> KES {booking.total_price}</p>
+                                <p><strong>Total Price:</strong> USD {booking.total_price}</p>
                             </div>
                             
                             {activities_html}
@@ -603,7 +603,7 @@ def daytrip_booking(request, daytrip_slug):
                                 <p><strong>Pickup Time:</strong> {booking.daytrip.pickup_time}</p>
                                 <p><strong>Pickup Location:</strong> {booking.daytrip.pickup_location}</p>
                                 <p><strong>Number of People:</strong> {booking.number_of_people}</p>
-                                <p><strong>Total Price:</strong> KES {booking.total_price}</p>
+                                <p><strong>Total Price:</strong> USD {booking.total_price}</p>
                                 
                                 <h3>Special Requirements:</h3>
                                 <p>{booking.special_requirements if booking.special_requirements else 'None specified'}</p>
@@ -949,7 +949,7 @@ def tour_booking(request, tour_slug):
                                 <p><strong>Travel Date:</strong> {booking.travel_date}</p>
                                 <p><strong>Duration:</strong> {tour.duration} days</p>
                                 <p><strong>Number of People:</strong> {booking.number_of_people}</p>
-                                <p><strong>Total Price:</strong> KES {booking.total_price}</p>
+                                <p><strong>Total Price:</strong> USD {booking.total_price}</p>
                             </div>
                             
                             <p>Your booking status is currently <strong>pending</strong>. Our team will contact you shortly regarding payment and final confirmation.</p>
@@ -1040,7 +1040,7 @@ def tour_booking(request, tour_slug):
                                 <p><strong>Travel Date:</strong> {booking.travel_date}</p>
                                 <p><strong>Duration:</strong> {tour.duration} days</p>
                                 <p><strong>Number of People:</strong> {booking.number_of_people}</p>
-                                <p><strong>Total Price:</strong> KES {booking.total_price}</p>
+                                <p><strong>Total Price:</strong> USD {booking.total_price}</p>
                                 
                                 <h3>Special Requirements:</h3>
                                 <p>{booking.special_requirements if booking.special_requirements else 'None specified'}</p>

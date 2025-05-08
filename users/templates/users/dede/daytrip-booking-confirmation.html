@@ -46,7 +46,7 @@
                                 <li><span>Email:</span> {{ booking.email }}</li>
                                 <li><span>Phone:</span> {{ booking.phone }}</li>
                                 <li><span>Number of People:</span> {{ booking.number_of_people }}</li>
-                                <li><span>Total Price:</span> KES {{ booking.total_price }}</li>
+                                <li><span>Total Price:</span> USD {{ booking.total_price }}</li>
                             </ul>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                             <h4>Optional Activities Booked</h4>
                             <ul>
                                 {% for activity in booking.optional_activities.all %}
-                                <li>{{ activity.name }} - KES {{ activity.price }}</li>
+                                <li>{{ activity.name }} - USD {{ activity.price }}</li>
                                 {% endfor %}
                             </ul>
                         </div>

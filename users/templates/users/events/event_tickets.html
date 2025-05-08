@@ -96,7 +96,7 @@
                                             <h5>{{ ticket_type.name }}</h5>
                                             <p>{{ ticket_type.description }}</p>
                                             <div class="ticket-type-meta mt-3">
-                                                <span class="badge bg-primary">Price: KES {{ ticket_type.price|floatformat:2 }}</span>
+                                                <span class="badge bg-primary">Price: USD {{ ticket_type.price|floatformat:2 }}</span>
                                                 <span class="badge bg-info">Available: {{ ticket_type.available_tickets }}</span>
                                                 <span class="badge bg-success">Sold: {{ ticket_type.tickets_sold }}</span>
                                             </div>

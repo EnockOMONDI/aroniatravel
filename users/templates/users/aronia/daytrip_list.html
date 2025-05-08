@@ -41,9 +41,9 @@
                                             <div class="activity-item-fee clearfix">
                                                 <span>Price: </span>
                                                 <div class="activity-fee-amount">
-                                                    <strong>KES {{ daytrip.price }}</strong>
+                                                    <strong>USD {{ daytrip.price }}</strong>
                                                     {% if daytrip.original_price %}
-                                                        <del>KES {{ daytrip.original_price }}</del>
+                                                        <del>USD {{ daytrip.original_price }}</del>
                                                     {% endif %}
                                                 </div>
                                             </div>
@@ -137,7 +137,7 @@
                                             {{ daytrip.name }}
                                         </a>
                                     </h3>
-                                    <span>KES {{ daytrip.price }}</span>
+                                    <span>USD {{ daytrip.price }}</span>
                                 </div>
                             </div>
                             {% endfor %}

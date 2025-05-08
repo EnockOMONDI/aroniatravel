@@ -37,7 +37,7 @@
                                 <span><i class="far fa-calendar-alt"></i><a href="{% url 'users:users-detail-package' package.id %}"> <strong> {{ package.number_of_days }} Days </strong> </a></span>
                                 <h3 class="title"><a href="{% url 'users:users-detail-package' package.id %}"> <strong>{{ package.package_name }} </strong>  </a></h3>
                                 <p class="location"><i class="far fa-map-marker-alt"></i> {{ package.destination.city }}, {{ package.destination.state }}</p>
-                                <p class="location"><i class="far fa-briefcase"></i> From KES {{ package.adult_price }}</p>
+                                <p class="location"><i class="far fa-briefcase"></i> From USD {{ package.adult_price }}</p>
                                
                             </div>
                             <br>

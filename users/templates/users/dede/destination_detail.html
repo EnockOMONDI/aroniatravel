@@ -23,7 +23,7 @@
                                 <div class="tg-tour-content">
                                     <h4>{{ tour.name }}</h4>
                                     <p>{{ tour.description|truncatewords:20 }}</p>
-                                    <p>Price: KES {{ tour.price }}</p>
+                                    <p>Price: USD {{ tour.price }}</p>
                                     <a href="{% url 'dede:tour_detail' tour.slug %}" class="tg-btn">View Tour</a>
                                 </div>
                             </div>

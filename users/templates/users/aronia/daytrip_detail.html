@@ -55,7 +55,7 @@
                             <div class="about-info-item">
                                 <i class="far fa-money-bill"></i>
                                 <h5>Price</h5>
-                                <p>KES {{ daytrip.price }}</p>
+                                <p>USD {{ daytrip.price }}</p>
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                                 <h5>{{ activity.name }}</h5>
                                 <p>{{ activity.description }}</p>
                                 {% if activity.price %}
-                                <span class="price">KES {{ activity.price }}</span>
+                                <span class="price">USD {{ activity.price }}</span>
                                 {% endif %}
                             </div>
                         </div>
@@ -172,7 +172,7 @@
                                        id="activity_{{ activity.id }}">
                                 <label for="activity_{{ activity.id }}">
                                     {{ activity.name }} 
-                                    {% if activity.price %}(KES {{ activity.price }}){% endif %}
+                                    {% if activity.price %}(USD {{ activity.price }}){% endif %}
                                 </label>
                             </div>
                             {% endfor %}
@@ -187,7 +187,7 @@
                         <div class="booking-total mb-20">
                             <div class="total">
                                 <label>Price per person</label>
-                                <span class="price">KES {{ daytrip.price }}</span>
+                                <span class="price">USD {{ daytrip.price }}</span>
                             </div>
                         </div>
 
@@ -346,7 +346,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        priceDisplay.textContent = `KES ${totalPrice.toLocaleString()}`;
+        priceDisplay.textContent = `USD ${totalPrice.toLocaleString()}`;
     }
     
     peopleInput.addEventListener('input', updateTotalPrice);
