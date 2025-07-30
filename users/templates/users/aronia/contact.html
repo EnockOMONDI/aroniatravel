@@ -58,18 +58,116 @@
        ============================================= -->
     <!-- Start of contact map section
        ============================================= -->
-    <div class="googlemap pt-5">
+  <!-- End of contact map section
+       ============================================= -->
+    
+    <!-- Start of Review section
+       ============================================= -->
+       <div class="review-section pt-5 pb-5">
         <div class="container">
             <div class="section-title text-center headline title-style-two position-relative">
-                <span>Our Location </span>
-                <h2>
-                    You can easily find our office address on the map.
-                </h2>
+                <span>Customer Reviews</span>
+                <h2>Share Your Experience With Us</h2>
             </div>
-
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3988.792653788373!2d36.7735823!3d-1.2991924!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1b563010181d%3A0x60d1877352f373f4!2sNew%20People%20Media%20Centre!5e0!3m2!1sen!2ske!4v1720437187820!5m2!1sen!2ske" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="review-form-wrapper">
+                        <form action="#" method="post" class="review-form">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group mb-3">
+                                        <select name="rating" class="form-control" required>
+                                            <option value="">Overall Rating</option>
+                                            <option value="5">5 Stars - Excellent</option>
+                                            <option value="4">4 Stars - Very Good</option>
+                                            <option value="3">3 Stars - Good</option>
+                                            <option value="2">2 Stars - Fair</option>
+                                            <option value="1">1 Star - Poor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group mb-3">
+                                        <textarea name="comment" class="form-control" rows="5" placeholder="Your Review" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Display existing reviews -->
+            <div class="reviews-display mt-5">
+                <h3 class="text-center mb-4">What Our Customers Say</h3>
+                <div class="row">
+                    <!-- Sample reviews - these would be replaced with dynamic content -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="review-card p-4 h-100">
+                            <div class="review-rating mb-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h5>John Doe</h5>
+                            <p class="review-date">June 15, 2023</p>
+                            <p class="review-text">Amazing service! The team at Aronia Travel made our trip to Mombasa unforgettable. Highly recommended!</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="review-card p-4 h-100">
+                            <div class="review-rating mb-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <h5>Jane Smith</h5>
+                            <p class="review-date">May 22, 2023</p>
+                            <p class="review-text">Great experience with Aronia Travel. They handled everything professionally and made our safari tour perfect.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="review-card p-4 h-100">
+                            <div class="review-rating mb-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <h5>Michael Johnson</h5>
+                            <p class="review-date">April 10, 2023</p>
+                            <p class="review-text">Excellent customer service! The team was responsive and helped us plan a perfect vacation within our budget.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <!-- End of Review section
+       ============================================= -->
+    
+    <!-- Start of Footer  section
+     ============================================= -->
     <!-- End of contact map section
        ============================================= -->
     <!-- Start of Footer  section

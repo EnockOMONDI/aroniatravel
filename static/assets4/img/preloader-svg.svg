@@ -7,5 +7,5 @@
 		.s0 { fill: none;stroke: #ff6525;stroke-linecap: round;stroke-width: 6.4;stroke-dasharray: 34.21185709635417 } 
 	</style>
 	<path id="Layer" fill-rule="evenodd" class="s0" d="m30.4 40c-10.3 0-15.4 10.6-15.4 16 0 5.4 5.1 16 15.4 16 15.5 0 25.7-32 41.2-32 10.3 0 15.4 10.6 15.4 16 0 5.4-5.1 16-15.4 16-15.5 0-25.7-32-41.2-32z"/>
-	<use id="Novustell company 2 (2000 x 2000 px)" href="#img1" transform="matrix(.1,0,0,.1,0,0)"/>
+	<use id="Aronia company 2 (2000 x 2000 px)" href="#img1" transform="matrix(.1,0,0,.1,0,0)"/>
 </svg>

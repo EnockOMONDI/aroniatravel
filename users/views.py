@@ -526,7 +526,7 @@ def send_booking_email(booking):
 
         # Email content
         msg = MIMEMultipart()
-        msg['From'] = "Novustell Travel"
+        msg['From'] = "Aronia Travel"
         msg['To'] = "info@dedeexpeditions.com"
         msg['Subject'] = f"New Booking: {booking.full_name} for {booking.package.name}"
 
@@ -590,7 +590,7 @@ def send_mice_email(request):
                 subject,
                 message,
                 settings.EMAIL_HOST_USER,
-                ['info@novustelltravel.com'],
+                ['info@aroniatravel.com'],
                 fail_silently=False,
             )
             messages.success(request, 'Thank you! Your request has been submitted successfully. We will contact you soon.')
