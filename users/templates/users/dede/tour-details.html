@@ -1,0 +1,149 @@
+{% extends 'users/dede/basemain.html' %}
+{% load static %}
+
+{% block content %}
+        <!-- tg-breadcrumb-area-start -->
+        <div class="tg-breadcrumb-area tg-breadcrumb-spacing fix p-relative z-index-1 include-bg" data-background="{% static 'assets3/img/breadcrumb/breadcrumb.jpg' %}  ">
+            <div class="tg-hero-top-shadow"></div>
+            <div class="tg-breadcrumb-shadow"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tg-breadcrumb-content text-center">
+                            <h2 class="tg-breadcrumb-title mb-15">{{ tour.name }}</h2>
+                            <div class="tg-breadcrumb-list">
+                                <span><a href="{% url 'dede:home' %}">Home</a></span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span><a href="{% url 'dede:tour_list' %}">Tours</a></span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span>{{ tour.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- tg-breadcrumb-area-end -->
+
+        <!-- tour-details-area-start -->
+        <div class="tg-tour-details-area pt-80 pb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8">
+                        <div class="tg-tour-details-wrapper">
+                            <!-- Tour Image -->
+                            <div class="tg-tour-details-thumb mb-30">
+                                {% if tour.Image %}
+                                    <img class="w-100" src="{{ tour.Image.cdn_url }}" alt="{{ tour.name }}">
+                                {% else %}
+                                    <img class="w-100" src="{% static 'assets3/img/default-tour.jpg' %}" alt="{{ tour.name }}">
+                                {% endif %}
+                            </div>
+
+                            <!-- Tour Content -->
+                            <div class="tg-tour-details-content">
+                                <h3 class="tg-tour-details-title mb-20">{{ tour.name }}</h3>
+                                
+                                <!-- Tour Info -->
+                                <div class="tg-tour-details-info mb-30">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="tg-tour-info-item">
+                                                <span class="info-label">Destination:</span>
+                                                <span class="info-value">{{ tour.destination.name }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="tg-tour-info-item">
+                                                <span class="info-label">Duration:</span>
+                                                <span class="info-value">{{ tour.duration }} Days</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tour Description -->
+                                <div class="tg-tour-details-description mb-30">
+                                    <h4 class="mb-15">Tour Description</h4>
+                                    <p>{{ tour.description|linebreaks }}</p>
+                                </div>
+
+                                <!-- Tour Highlights -->
+                                {% if tour.highlights %}
+                                <div class="tg-tour-details-highlights mb-30">
+                                    <h4 class="mb-15">Tour Highlights</h4>
+                                    <div class="tg-tour-highlights-list">
+                                        {{ tour.highlights|linebreaks }}
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                                <!-- Tour Inclusions -->
+                                {% if tour.inclusions %}
+                                <div class="tg-tour-details-inclusions mb-30">
+                                    <h4 class="mb-15">What's Included</h4>
+                                    <div class="tg-tour-inclusions-list">
+                                        {{ tour.inclusions|linebreaks }}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4">
+                        <div class="tg-tour-sidebar">
+                            <!-- Booking Form -->
+                            <div class="tg-tour-booking-form mb-30">
+                                <div class="tg-booking-form-wrapper">
+                                    <h4 class="tg-booking-form-title mb-20">Book This Tour</h4>
+                                    <form method="post" action="{% url 'dede:tour_booking' tour.slug %}">
+                                        {% csrf_token %}
+                                        <div class="form-group mb-15">
+                                            <label for="booking_date">Select Date:</label>
+                                            <input type="date" class="form-control" id="booking_date" name="booking_date" required>
+                                        </div>
+                                        <div class="form-group mb-15">
+                                            <label for="number_of_people">Number of People:</label>
+                                            <input type="number" class="form-control" id="number_of_people" name="number_of_people" min="1" value="1" required>
+                                        </div>
+                                        <div class="form-group mb-15">
+                                            <label for="full_name">Full Name:</label>
+                                            <input type="text" class="form-control" id="full_name" name="full_name" required>
+                                        </div>
+                                        <div class="form-group mb-15">
+                                            <label for="email">Email:</label>
+                                            <input type="email" class="form-control" id="email" name="email" required>
+                                        </div>
+                                        <div class="form-group mb-15">
+                                            <label for="phone">Phone:</label>
+                                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                                        </div>
+                                        <button type="submit" class="tg-btn w-100">Book Now</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Tour Info Sidebar -->
+                            <div class="tg-tour-info-sidebar">
+                                <h4 class="mb-20">Tour Information</h4>
+                                <div class="tg-tour-info-list">
+                                    <div class="tg-tour-info-item">
+                                        <span class="info-icon"><i class="fa-solid fa-map-marker-alt"></i></span>
+                                        <span class="info-text">{{ tour.destination.name }}</span>
+                                    </div>
+                                    <div class="tg-tour-info-item">
+                                        <span class="info-icon"><i class="fa-solid fa-clock"></i></span>
+                                        <span class="info-text">{{ tour.duration }} Days</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- tour-details-area-end -->
+
+        {% include 'users/aronia/footer2.html' %}
+{% endblock %}

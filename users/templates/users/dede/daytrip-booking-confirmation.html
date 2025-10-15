@@ -1,0 +1,112 @@
+{% extends 'users/dede/basemain.html' %}
+{% load static %}
+
+{% block content %}
+        <!-- tg-breadcrumb-area-start -->
+        <div class="tg-breadcrumb-area tg-breadcrumb-spacing fix p-relative z-index-1 include-bg" data-background="{% static 'assets3/img/breadcrumb/breadcrumb.jpg' %}  ">
+            <div class="tg-hero-top-shadow"></div>
+            <div class="tg-breadcrumb-shadow"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tg-breadcrumb-content text-center">
+                            <h2 class="tg-breadcrumb-title mb-15">Booking Confirmation</h2>
+                            <div class="tg-breadcrumb-list">
+                                <span><a href="{% url 'dede:home' %}">Home</a></span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span>Booking Confirmation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- tg-breadcrumb-area-end -->
+
+        <!-- booking-confirmation-area-start -->
+        <div class="tg-booking-confirmation-area pt-80 pb-80">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-8 col-lg-10">
+                        <div class="tg-booking-confirmation-wrapper">
+                            <div class="tg-confirmation-header text-center mb-40">
+                                <div class="tg-confirmation-icon mb-20">
+                                    <i class="fa-solid fa-check-circle" style="font-size: 60px; color: #28a745;"></i>
+                                </div>
+                                <h2 class="tg-confirmation-title mb-15">Booking Confirmed!</h2>
+                                <p class="tg-confirmation-subtitle">Thank you for your booking. Your day trip has been successfully reserved.</p>
+                            </div>
+
+                            <div class="tg-booking-details-card">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="mb-0">Booking Details</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="tg-booking-detail-item mb-20">
+                                                    <strong>Booking Reference:</strong>
+                                                    <span class="text-primary">{{ booking.booking_reference }}</span>
+                                                </div>
+                                                <div class="tg-booking-detail-item mb-20">
+                                                    <strong>Day Trip:</strong>
+                                                    <span>{{ booking.daytrip.name }}</span>
+                                                </div>
+                                                <div class="tg-booking-detail-item mb-20">
+                                                    <strong>Date:</strong>
+                                                    <span>{{ booking.booking_date|date:"F d, Y" }}</span>
+                                                </div>
+                                                <div class="tg-booking-detail-item mb-20">
+                                                    <strong>Number of People:</strong>
+                                                    <span>{{ booking.number_of_people }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="tg-booking-detail-item mb-20">
+                                                    <strong>Customer Name:</strong>
+                                                    <span>{{ booking.full_name }}</span>
+                                                </div>
+                                                <div class="tg-booking-detail-item mb-20">
+                                                    <strong>Email:</strong>
+                                                    <span>{{ booking.email }}</span>
+                                                </div>
+                                                <div class="tg-booking-detail-item mb-20">
+                                                    <strong>Phone:</strong>
+                                                    <span>{{ booking.phone }}</span>
+                                                </div>
+                                                <div class="tg-booking-detail-item mb-20">
+                                                    <strong>Booking Status:</strong>
+                                                    <span class="badge badge-success">{{ booking.status|title }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tg-confirmation-actions text-center mt-40">
+                                <a href="{% url 'dede:daytrip_list' %}" class="tg-btn mr-15">Browse More Day Trips</a>
+                                <a href="{% url 'dede:home' %}" class="tg-btn tg-btn-outline">Back to Home</a>
+                            </div>
+
+                            <div class="tg-confirmation-note mt-40">
+                                <div class="alert alert-info">
+                                    <h5><i class="fa-solid fa-info-circle"></i> Important Information</h5>
+                                    <ul class="mb-0">
+                                        <li>A confirmation email has been sent to {{ booking.email }}</li>
+                                        <li>Please save your booking reference: <strong>{{ booking.booking_reference }}</strong></li>
+                                        <li>Our team will contact you within 24 hours to confirm the details</li>
+                                        <li>For any questions, please contact us at info@aroniatravel.com</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- booking-confirmation-area-end -->
+
+        {% include 'users/aronia/footer2.html' %}
+{% endblock %}
