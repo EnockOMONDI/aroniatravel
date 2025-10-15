@@ -2,6 +2,81 @@
 {% load static %}
 
 {% block content %}
+<style>
+    /* Itinerary Styling */
+    .tg-itinerary-timeline {
+        position: relative;
+    }
+
+    .tg-itinerary-day {
+        position: relative;
+        padding-left: 0;
+    }
+
+    .day-badge {
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 14px;
+        display: inline-block;
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+    }
+
+    .tg-itinerary-day-header {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #007bff;
+    }
+
+    .tg-itinerary-day-content {
+        padding: 15px;
+        background: white;
+        border-radius: 8px;
+        margin-top: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .tg-tour-details-inclusions ul li,
+    .tg-tour-details-highlights ul li {
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .tg-tour-details-inclusions ul li:last-child,
+    .tg-tour-details-highlights ul li:last-child {
+        border-bottom: none;
+    }
+
+    .tg-itinerary-divider hr {
+        border-top: 2px dashed #dee2e6;
+        margin: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .tg-itinerary-day-header {
+            flex-direction: column;
+            align-items: flex-start !important;
+        }
+
+        .tg-day-title {
+            margin-left: 0 !important;
+            margin-top: 10px;
+        }
+
+        .day-badge {
+            font-size: 12px;
+            padding: 6px 12px;
+        }
+
+        .tg-itinerary-day-content {
+            padding: 12px;
+        }
+    }
+</style>
         <!-- tg-breadcrumb-area-start -->
         <div class="tg-breadcrumb-area tg-breadcrumb-spacing fix p-relative z-index-1 include-bg" data-background="{% static 'assets3/img/breadcrumb/breadcrumb.jpg' %}  ">
             <div class="tg-hero-top-shadow"></div>
@@ -69,21 +144,64 @@
                                 </div>
 
                                 <!-- Tour Highlights -->
-                                {% if tour.highlights %}
+                                {% if highlights %}
                                 <div class="tg-tour-details-highlights mb-30">
                                     <h4 class="mb-15">Tour Highlights</h4>
                                     <div class="tg-tour-highlights-list">
-                                        {{ tour.highlights|linebreaks }}
+                                        <ul class="list-unstyled">
+                                            {% for highlight in highlights %}
+                                            <li class="mb-2">
+                                                <i class="fa-solid fa-star text-warning me-2"></i>
+                                                {{ highlight.highlight }}
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
                                     </div>
                                 </div>
                                 {% endif %}
 
                                 <!-- Tour Inclusions -->
-                                {% if tour.inclusions %}
+                                {% if inclusions %}
                                 <div class="tg-tour-details-inclusions mb-30">
                                     <h4 class="mb-15">What's Included</h4>
                                     <div class="tg-tour-inclusions-list">
-                                        {{ tour.inclusions|linebreaks }}
+                                        <ul class="list-unstyled">
+                                            {% for inclusion in inclusions %}
+                                            <li class="mb-2">
+                                                <i class="fa-solid fa-check text-success me-2"></i>
+                                                {{ inclusion.item }}
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                                <!-- Day-by-Day Itinerary -->
+                                {% if tour_days %}
+                                <div class="tg-tour-details-itinerary mb-30">
+                                    <h4 class="mb-20">Day-by-Day Itinerary</h4>
+                                    <div class="tg-itinerary-timeline">
+                                        {% for day in tour_days %}
+                                        <div class="tg-itinerary-day mb-25">
+                                            <div class="tg-itinerary-day-header d-flex align-items-center mb-15">
+                                                <div class="tg-day-number">
+                                                    <span class="day-badge">Day {{ day.day_number }}</span>
+                                                </div>
+                                                <div class="tg-day-title ms-3">
+                                                    <h5 class="mb-0">{{ day.title }}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="tg-itinerary-day-content">
+                                                <p class="text-muted">{{ day.description|linebreaks }}</p>
+                                            </div>
+                                        </div>
+                                        {% if not forloop.last %}
+                                        <div class="tg-itinerary-divider mb-20">
+                                            <hr class="border-light">
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 {% endif %}
@@ -96,7 +214,7 @@
                             <!-- Booking Form -->
                             <div class="tg-tour-booking-form mb-30">
                                 <div class="tg-booking-form-wrapper">
-                                    <h4 class="tg-booking-form-title mb-20">Book This Tour</h4>
+                                    <h4 class="tg-booking-form-title mb-20">Get Quote for This Tour</h4>
                                     <form method="post" action="{% url 'dede:tour_booking' tour.slug %}">
                                         {% csrf_token %}
                                         <div class="form-group mb-15">
@@ -119,7 +237,7 @@
                                             <label for="phone">Phone:</label>
                                             <input type="tel" class="form-control" id="phone" name="phone" required>
                                         </div>
-                                        <button type="submit" class="tg-btn w-100">Book Now</button>
+                                        <button type="submit" class="tg-btn w-100">Get Quote</button>
                                     </form>
                                 </div>
                             </div>
