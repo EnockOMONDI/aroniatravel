@@ -1,0 +1,207 @@
+{% extends 'users/dede/basemain.html' %}
+{% load static %}
+
+{% block content %}
+        <!-- tg-breadcrumb-area-start -->
+        <div class="tg-breadcrumb-area tg-breadcrumb-spacing fix p-relative z-index-1 include-bg" data-background="{% static 'assets3/img/breadcrumb/breadcrumb.jpg' %}">
+            <div class="tg-hero-top-shadow"></div>
+            <div class="tg-breadcrumb-shadow"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tg-breadcrumb-content text-center">
+                            <h2 class="tg-breadcrumb-title mb-15">Booking Confirmation</h2>
+                            <div class="tg-breadcrumb-list">
+                                <span><a href="{% url 'dede:home' %}">Home</a></span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span>Booking Confirmation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- tg-breadcrumb-area-end -->
+
+        <!-- booking-confirmation-area-start -->
+        <div class="tg-booking-confirmation-area pt-80 pb-80">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-10 col-lg-12">
+                        <div class="tg-booking-confirmation-wrapper">
+                            <div class="tg-confirmation-header text-center mb-40">
+                                <div class="tg-confirmation-icon mb-20">
+                                    <i class="fa-solid fa-check-circle" style="font-size: 80px; color: #28a745;"></i>
+                                </div>
+                                <h2 class="tg-confirmation-title mb-15">Booking Confirmed!</h2>
+                                <p class="tg-confirmation-subtitle">Thank you for choosing Aronia Travel. Your tour booking has been successfully submitted.</p>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <!-- Booking Details -->
+                                    <div class="tg-booking-details-card mb-30">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4 class="mb-0">Booking Details</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="tg-booking-detail-item mb-20">
+                                                            <strong>Booking Reference:</strong>
+                                                            <span class="text-primary fs-5">{{ booking.booking_reference }}</span>
+                                                        </div>
+                                                        <div class="tg-booking-detail-item mb-20">
+                                                            <strong>Tour:</strong>
+                                                            <span>{{ booking.tour.name }}</span>
+                                                        </div>
+                                                        <div class="tg-booking-detail-item mb-20">
+                                                            <strong>Destination:</strong>
+                                                            <span>{{ booking.tour.destination.name }}</span>
+                                                        </div>
+                                                        <div class="tg-booking-detail-item mb-20">
+                                                            <strong>Duration:</strong>
+                                                            <span>{{ booking.tour.duration }} days</span>
+                                                        </div>
+                                                        <div class="tg-booking-detail-item mb-20">
+                                                            <strong>Travel Date:</strong>
+                                                            <span>{{ booking.travel_date|date:"F d, Y" }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="tg-booking-detail-item mb-20">
+                                                            <strong>Customer Name:</strong>
+                                                            <span>{{ booking.full_name }}</span>
+                                                        </div>
+                                                        <div class="tg-booking-detail-item mb-20">
+                                                            <strong>Email:</strong>
+                                                            <span>{{ booking.email }}</span>
+                                                        </div>
+                                                        <div class="tg-booking-detail-item mb-20">
+                                                            <strong>Phone:</strong>
+                                                            <span>{{ booking.phone }}</span>
+                                                        </div>
+                                                        <div class="tg-booking-detail-item mb-20">
+                                                            <strong>Number of People:</strong>
+                                                            <span>{{ booking.number_of_people }}</span>
+                                                        </div>
+                                                        <div class="tg-booking-detail-item mb-20">
+                                                            <strong>Booking Status:</strong>
+                                                            <span class="badge badge-warning">{{ booking.status|title }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                {% if booking.special_requirements %}
+                                                <div class="tg-booking-detail-item mt-20">
+                                                    <strong>Special Requirements:</strong>
+                                                    <p class="mt-2 text-muted">{{ booking.special_requirements|linebreaks }}</p>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tour Summary -->
+                                    <div class="tg-tour-summary-card mb-30">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4 class="mb-0">Tour Summary</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        {% if booking.tour.Image %}
+                                                        <img src="{{ booking.tour.Image.cdn_url }}" alt="{{ booking.tour.name }}" class="img-fluid rounded">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{ booking.tour.name }}</h5>
+                                                        <p class="text-muted mb-2">{{ booking.tour.description|truncatewords:30 }}</p>
+                                                        <div class="tour-features">
+                                                            <span class="badge bg-light text-dark me-2"><i class="fa-solid fa-clock me-1"></i>{{ booking.tour.duration }} days</span>
+                                                            <span class="badge bg-light text-dark me-2"><i class="fa-solid fa-users me-1"></i>Max {{ booking.tour.group_size }}</span>
+                                                            <span class="badge bg-light text-dark"><i class="fa-solid fa-star me-1"></i>{{ booking.tour.rating }}/5</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <!-- Price Summary -->
+                                    <div class="tg-price-summary-card mb-30">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">Price Summary</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="price-breakdown">
+                                                    <div class="d-flex justify-content-between mb-2">
+                                                        <span>Price per person:</span>
+                                                        <span>USD {{ booking.tour.price }}</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between mb-2">
+                                                        <span>Number of people:</span>
+                                                        <span>{{ booking.number_of_people }}</span>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="fw-bold">Total Amount:</span>
+                                                        <span class="fw-bold text-primary">USD {{ booking.total_price }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Payment Status -->
+                                    <div class="tg-payment-status-card mb-30">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">Payment Status</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="payment-info text-center">
+                                                    <div class="payment-status-badge mb-3">
+                                                        <span class="badge badge-warning fs-6">{{ booking.payment_status|title }}</span>
+                                                    </div>
+                                                    <p class="text-muted">Payment instructions will be sent to your email shortly.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="tg-confirmation-actions text-center mt-40">
+                                <a href="{% url 'dede:tour_list' %}" class="tg-btn tg-btn-primary me-3">Browse More Tours</a>
+                                <a href="{% url 'dede:home' %}" class="tg-btn tg-btn-outline">Back to Home</a>
+                            </div>
+
+                            <!-- Important Information -->
+                            <div class="tg-confirmation-note mt-40">
+                                <div class="alert alert-info">
+                                    <h5><i class="fa-solid fa-info-circle"></i> Important Information</h5>
+                                    <ul class="mb-0">
+                                        <li>A confirmation email has been sent to {{ booking.email }}</li>
+                                        <li>Please save your booking reference: <strong>{{ booking.booking_reference }}</strong></li>
+                                        <li>Our team will contact you within 24 hours to confirm payment details</li>
+                                        <li>For any questions, please contact us at info@aroniatravel.com or +254 733 591 347</li>
+                                        <li>Please ensure your passport is valid for at least 6 months from travel date</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- booking-confirmation-area-end -->
+
+        {% include 'users/aronia/footer2.html' %}
+{% endblock %}

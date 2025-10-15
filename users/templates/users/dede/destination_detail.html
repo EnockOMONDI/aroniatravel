@@ -1,0 +1,225 @@
+{% extends 'users/dede/basemain.html' %}
+{% load static %}
+
+{% block content %}
+        <!-- tg-breadcrumb-area-start -->
+        <div class="tg-breadcrumb-area tg-breadcrumb-spacing fix p-relative z-index-1 include-bg" data-background="{% if destination.main_image %}{{ destination.main_image.cdn_url }}{% else %}{% static 'assets3/img/breadcrumb/breadcrumb.jpg' %}{% endif %}">
+            <div class="tg-hero-top-shadow"></div>
+            <div class="tg-breadcrumb-shadow"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tg-breadcrumb-content text-center">
+                            <h2 class="tg-breadcrumb-title mb-15">{{ destination.name }}</h2>
+                            <div class="tg-breadcrumb-list">
+                                <span><a href="{% url 'dede:home' %}">Home</a></span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span>Destinations</span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span>{{ destination.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- tg-breadcrumb-area-end -->
+
+        <!-- destination-detail-area-start -->
+        <div class="tg-destination-detail-area pt-80 pb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8">
+                        <div class="tg-destination-detail-wrapper">
+                            <!-- Destination Header -->
+                            <div class="tg-destination-header mb-40">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {% if destination.main_image %}
+                                        <div class="tg-destination-image">
+                                            <img src="{{ destination.main_image.cdn_url }}" alt="{{ destination.name }}" class="img-fluid rounded">
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="tg-destination-info">
+                                            <h3 class="tg-destination-title mb-20">{{ destination.name }}</h3>
+                                            <div class="tg-destination-meta mb-20">
+                                                <p class="mb-2"><i class="fa-solid fa-map-marker-alt me-2 text-primary"></i><strong>Location:</strong> {{ destination.location }}</p>
+                                                <p class="mb-2"><i class="fa-solid fa-route me-2 text-primary"></i><strong>Available Tours:</strong> {{ destination.tours.count }}</p>
+                                            </div>
+                                            <div class="tg-destination-actions">
+                                                <a href="{% url 'dede:tour_list' %}?destination={{ destination.slug }}" class="tg-btn tg-btn-primary">View Tours</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Destination Description -->
+                            <div class="tg-destination-description mb-40">
+                                <h4 class="mb-20">About {{ destination.name }}</h4>
+                                <div class="tg-destination-content">
+                                    {{ destination.description|linebreaks }}
+                                </div>
+                            </div>
+
+                            <!-- Available Tours -->
+                            {% if destination.tours.exists %}
+                            <div class="tg-destination-tours mb-40">
+                                <h4 class="mb-30">Tours in {{ destination.name }}</h4>
+                                <div class="row">
+                                    {% for tour in destination.tours.all %}
+                                    <div class="col-md-6 mb-30">
+                                        <div class="tg-tour-card">
+                                            <div class="card h-100">
+                                                {% if tour.Image %}
+                                                <div class="tg-tour-image">
+                                                    <img src="{{ tour.Image.cdn_url }}" alt="{{ tour.name }}" class="card-img-top">
+                                                    {% if tour.is_featured %}
+                                                    <div class="tg-tour-badge">
+                                                        <span class="badge bg-warning">Featured</span>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                                {% endif %}
+                                                <div class="card-body d-flex flex-column">
+                                                    <h5 class="card-title">{{ tour.name }}</h5>
+                                                    <p class="card-text text-muted flex-grow-1">{{ tour.description|truncatewords:20 }}</p>
+                                                    
+                                                    <div class="tg-tour-meta mb-3">
+                                                        <div class="row text-center">
+                                                            <div class="col-4">
+                                                                <small class="text-muted">Duration</small>
+                                                                <div class="fw-bold">{{ tour.duration }} days</div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <small class="text-muted">Group Size</small>
+                                                                <div class="fw-bold">{{ tour.group_size }}</div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <small class="text-muted">Rating</small>
+                                                                <div class="fw-bold">{{ tour.rating }}/5</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="tg-tour-footer d-flex justify-content-between align-items-center">
+                                                        <div class="tg-tour-price">
+                                                            <span class="text-primary h5 mb-0">USD {{ tour.price }}</span>
+                                                            <small class="text-muted">/person</small>
+                                                        </div>
+                                                        <a href="{% url 'dede:tour_detail' tour.slug %}" class="tg-btn tg-btn-sm">View Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                
+                                {% if destination.tours.count > 4 %}
+                                <div class="text-center mt-30">
+                                    <a href="{% url 'dede:tour_list' %}?destination={{ destination.slug }}" class="tg-btn tg-btn-outline">View All Tours in {{ destination.name }}</a>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-xl-4 col-lg-4">
+                        <div class="tg-destination-sidebar">
+                            <!-- Quick Stats -->
+                            <div class="tg-destination-stats mb-30">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">Quick Stats</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="stats-list">
+                                            <div class="stat-item d-flex justify-content-between mb-2">
+                                                <span>Available Tours:</span>
+                                                <span class="fw-bold">{{ destination.tours.count }}</span>
+                                            </div>
+                                            <div class="stat-item d-flex justify-content-between mb-2">
+                                                <span>Featured Tours:</span>
+                                                <span class="fw-bold">{{ destination.tours.filter.is_featured=True.count }}</span>
+                                            </div>
+                                            <div class="stat-item d-flex justify-content-between mb-2">
+                                                <span>Price Range:</span>
+                                                <span class="fw-bold">
+                                                    {% if destination.tours.exists %}
+                                                    USD {{ destination.tours.aggregate.price__min }} - {{ destination.tours.aggregate.price__max }}
+                                                    {% else %}
+                                                    N/A
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Popular Tours -->
+                            {% if destination.tours.exists %}
+                            <div class="tg-popular-tours mb-30">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">Popular Tours</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        {% for tour in destination.tours.filter.rating__gte=4.0|slice:":3" %}
+                                        <div class="popular-tour-item mb-3 {% if not forloop.last %}border-bottom pb-3{% endif %}">
+                                            <div class="d-flex">
+                                                {% if tour.Image %}
+                                                <div class="tour-thumb me-3">
+                                                    <img src="{{ tour.Image.cdn_url }}" alt="{{ tour.name }}" class="rounded" style="width: 60px; height: 60px; object-fit: cover;">
+                                                </div>
+                                                {% endif %}
+                                                <div class="tour-info flex-grow-1">
+                                                    <h6 class="mb-1"><a href="{% url 'dede:tour_detail' tour.slug %}" class="text-decoration-none">{{ tour.name|truncatechars:30 }}</a></h6>
+                                                    <div class="tour-meta">
+                                                        <small class="text-muted">{{ tour.duration }} days</small>
+                                                        <span class="mx-1">•</span>
+                                                        <small class="text-warning">{{ tour.rating }}/5</small>
+                                                    </div>
+                                                    <div class="tour-price">
+                                                        <span class="text-primary fw-bold">USD {{ tour.price }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <!-- Contact Info -->
+                            <div class="tg-contact-info">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">Plan Your Trip</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-3">Ready to explore {{ destination.name }}? Our travel experts can help you plan the perfect trip!</p>
+                                        <div class="contact-details">
+                                            <p class="mb-2"><i class="fa-solid fa-phone me-2"></i>+254 733 591 347</p>
+                                            <p class="mb-2"><i class="fa-solid fa-envelope me-2"></i>info@aroniatravel.com</p>
+                                            <p class="mb-3"><i class="fa-solid fa-clock me-2"></i>Mon - Fri: 9AM - 6PM</p>
+                                        </div>
+                                        <a href="{% url 'dede:contact' %}" class="tg-btn tg-btn-primary w-100">Contact Us</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- destination-detail-area-end -->
+
+        {% include 'users/aronia/footer2.html' %}
+{% endblock %}

@@ -1,0 +1,223 @@
+{% extends 'users/dede/basemain.html' %}
+{% load static %}
+
+{% block content %}
+        <!-- tg-breadcrumb-area-start -->
+        <div class="tg-breadcrumb-area tg-breadcrumb-spacing fix p-relative z-index-1 include-bg" data-background="{% static 'assets3/img/breadcrumb/breadcrumb.jpg' %}">
+            <div class="tg-hero-top-shadow"></div>
+            <div class="tg-breadcrumb-shadow"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tg-breadcrumb-content text-center">
+                            <h2 class="tg-breadcrumb-title mb-15">Book Your Tour</h2>
+                            <div class="tg-breadcrumb-list">
+                                <span><a href="{% url 'dede:home' %}">Home</a></span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span><a href="{% url 'dede:tour_list' %}">Tours</a></span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span><a href="{% url 'dede:tour_detail' tour.slug %}">{{ tour.name }}</a></span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span>Booking</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- tg-breadcrumb-area-end -->
+
+        <!-- booking-form-area-start -->
+        <div class="tg-booking-form-area pt-80 pb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8">
+                        <div class="tg-booking-form-wrapper">
+                            <div class="tg-booking-form-header mb-30">
+                                <h3 class="tg-booking-form-title">Complete Your Booking</h3>
+                                <p class="tg-booking-form-subtitle">Please fill in the details below to book your tour</p>
+                            </div>
+
+                            <!-- Tour Summary -->
+                            <div class="tg-tour-summary-card mb-30">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="mb-0">Tour Summary</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                {% if tour.Image %}
+                                                <img src="{{ tour.Image.cdn_url }}" alt="{{ tour.name }}" class="img-fluid rounded">
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h5>{{ tour.name }}</h5>
+                                                <p class="text-muted mb-2"><i class="fa-solid fa-location-dot me-2"></i>{{ tour.destination.name }}</p>
+                                                <p class="text-muted mb-2"><i class="fa-solid fa-clock me-2"></i>{{ tour.duration }} days</p>
+                                                <p class="text-muted mb-2"><i class="fa-solid fa-users me-2"></i>Max {{ tour.group_size }} people</p>
+                                                <p class="text-primary h5 mb-0">USD {{ tour.price }} per person</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Booking Form -->
+                            <div class="tg-booking-form-content">
+                                <form method="post" action="{% url 'dede:tour_booking' tour.slug %}">
+                                    {% csrf_token %}
+                                    
+                                    <!-- Display Messages -->
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                                {{ message }}
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-20">
+                                                <label for="travel_date" class="form-label">Travel Date <span class="text-danger">*</span></label>
+                                                <input type="date" class="form-control" id="travel_date" name="travel_date" 
+                                                       min="{{ today|date:'Y-m-d' }}" 
+                                                       value="{% if form_data %}{{ form_data.travel_date }}{% endif %}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-20">
+                                                <label for="number_of_people" class="form-label">Number of People <span class="text-danger">*</span></label>
+                                                <input type="number" class="form-control" id="number_of_people" name="number_of_people" 
+                                                       min="1" max="{{ tour.group_size }}" 
+                                                       value="{% if form_data %}{{ form_data.number_of_people }}{% else %}1{% endif %}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-20">
+                                                <label for="full_name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="full_name" name="full_name" 
+                                                       value="{% if form_data %}{{ form_data.full_name }}{% endif %}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-20">
+                                                <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                                                <input type="email" class="form-control" id="email" name="email" 
+                                                       value="{% if form_data %}{{ form_data.email }}{% endif %}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-20">
+                                                <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                                <input type="tel" class="form-control" id="phone" name="phone" 
+                                                       value="{% if form_data %}{{ form_data.phone }}{% endif %}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-20">
+                                                <label for="nationality" class="form-label">Nationality</label>
+                                                <input type="text" class="form-control" id="nationality" name="nationality" 
+                                                       value="{% if form_data %}{{ form_data.nationality }}{% endif %}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-20">
+                                        <label for="special_requirements" class="form-label">Special Requirements</label>
+                                        <textarea class="form-control" id="special_requirements" name="special_requirements" 
+                                                  rows="4" placeholder="Any dietary restrictions, accessibility needs, or special requests...">{% if form_data %}{{ form_data.special_requirements }}{% endif %}</textarea>
+                                    </div>
+
+                                    <div class="form-group mb-30">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="terms_accepted" name="terms_accepted" required>
+                                            <label class="form-check-label" for="terms_accepted">
+                                                I agree to the <a href="#" target="_blank">Terms and Conditions</a> and <a href="#" target="_blank">Privacy Policy</a> <span class="text-danger">*</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="tg-booking-form-actions">
+                                        <button type="submit" class="tg-btn tg-btn-primary">Complete Booking</button>
+                                        <a href="{% url 'dede:tour_detail' tour.slug %}" class="tg-btn tg-btn-outline ms-3">Back to Tour</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-xl-4 col-lg-4">
+                        <div class="tg-booking-sidebar">
+                            <!-- Price Calculator -->
+                            <div class="tg-price-calculator mb-30">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">Price Calculator</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="price-breakdown">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Price per person:</span>
+                                                <span class="fw-bold">USD {{ tour.price }}</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Number of people:</span>
+                                                <span id="people-count">1</span>
+                                            </div>
+                                            <hr>
+                                            <div class="d-flex justify-content-between">
+                                                <span class="fw-bold">Total:</span>
+                                                <span class="fw-bold text-primary" id="total-price">USD {{ tour.price }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contact Info -->
+                            <div class="tg-contact-info">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">Need Help?</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-3">Have questions about this tour? Our travel experts are here to help!</p>
+                                        <div class="contact-details">
+                                            <p class="mb-2"><i class="fa-solid fa-phone me-2"></i>+254 733 591 347</p>
+                                            <p class="mb-2"><i class="fa-solid fa-envelope me-2"></i>info@aroniatravel.com</p>
+                                            <p class="mb-0"><i class="fa-solid fa-clock me-2"></i>Mon - Fri: 9AM - 6PM</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- booking-form-area-end -->
+
+        <script>
+            // Price calculator
+            document.getElementById('number_of_people').addEventListener('input', function() {
+                const numberOfPeople = parseInt(this.value) || 1;
+                const pricePerPerson = {{ tour.price }};
+                const totalPrice = numberOfPeople * pricePerPerson;
+                
+                document.getElementById('people-count').textContent = numberOfPeople;
+                document.getElementById('total-price').textContent = 'USD ' + totalPrice.toFixed(2);
+            });
+        </script>
+
+        {% include 'users/aronia/footer2.html' %}
+{% endblock %}

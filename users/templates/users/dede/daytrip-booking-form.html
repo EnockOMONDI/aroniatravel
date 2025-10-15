@@ -1,0 +1,279 @@
+{% extends 'users/dede/basemain.html' %}
+{% load static %}
+
+{% block content %}
+        <!-- tg-breadcrumb-area-start -->
+        <div class="tg-breadcrumb-area tg-breadcrumb-spacing fix p-relative z-index-1 include-bg" data-background="{% static 'assets3/img/breadcrumb/breadcrumb.jpg' %}">
+            <div class="tg-hero-top-shadow"></div>
+            <div class="tg-breadcrumb-shadow"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tg-breadcrumb-content text-center">
+                            <h2 class="tg-breadcrumb-title mb-15">Book Day Trip</h2>
+                            <div class="tg-breadcrumb-list">
+                                <span><a href="{% url 'dede:home' %}">Home</a></span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span><a href="{% url 'dede:daytrip_list' %}">Day Trips</a></span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span><a href="{% url 'dede:daytrip_detail' daytrip.slug %}">{{ daytrip.name }}</a></span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span>Booking</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- tg-breadcrumb-area-end -->
+
+        <!-- daytrip-booking-form-area-start -->
+        <div class="tg-booking-form-area pt-80 pb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8">
+                        <div class="tg-booking-form-wrapper">
+                            <div class="tg-booking-form-header mb-30">
+                                <h3 class="tg-booking-form-title">Book Your Day Trip</h3>
+                                <p class="tg-booking-form-subtitle">Please fill in the details below to book your day trip</p>
+                            </div>
+
+                            <!-- Day Trip Summary -->
+                            <div class="tg-daytrip-summary-card mb-30">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="mb-0">Day Trip Summary</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                {% if daytrip.image %}
+                                                <img src="{{ daytrip.image.cdn_url }}" alt="{{ daytrip.name }}" class="img-fluid rounded">
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h5>{{ daytrip.name }}</h5>
+                                                <p class="text-muted mb-2"><i class="fa-solid fa-clock me-2"></i>{{ daytrip.duration }} hours</p>
+                                                <p class="text-muted mb-2"><i class="fa-solid fa-map-marker-alt me-2"></i>{{ daytrip.pickup_location }}</p>
+                                                <p class="text-muted mb-2"><i class="fa-solid fa-clock me-2"></i>Pickup: {{ daytrip.pickup_time }}</p>
+                                                <p class="text-muted mb-2"><i class="fa-solid fa-users me-2"></i>Max {{ daytrip.group_size }} people</p>
+                                                <p class="text-primary h5 mb-0">USD {{ daytrip.price }} per person</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Booking Form -->
+                            <div class="tg-booking-form-content">
+                                <form method="post" action="{% url 'dede:daytrip_booking' daytrip.slug %}">
+                                    {% csrf_token %}
+                                    
+                                    <!-- Display Messages -->
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                                {{ message }}
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-20">
+                                                <label for="booking_date" class="form-label">Select Date <span class="text-danger">*</span></label>
+                                                <select class="form-control" id="booking_date" name="booking_date" required>
+                                                    <option value="">Choose a date...</option>
+                                                    {% for date_info in available_dates %}
+                                                        <option value="{{ date_info.date|date:'Y-m-d' }}" 
+                                                                {% if form_data.booking_date == date_info.date|date:'Y-m-d' %}selected{% endif %}>
+                                                            {{ date_info.date|date:"F d, Y" }} 
+                                                            ({{ date_info.remaining_slots }} slots available)
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-20">
+                                                <label for="number_of_people" class="form-label">Number of People <span class="text-danger">*</span></label>
+                                                <input type="number" class="form-control" id="number_of_people" name="number_of_people" 
+                                                       min="1" max="{{ daytrip.group_size }}" 
+                                                       value="{% if form_data %}{{ form_data.number_of_people }}{% else %}1{% endif %}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-20">
+                                                <label for="full_name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="full_name" name="full_name" 
+                                                       value="{% if form_data %}{{ form_data.full_name }}{% endif %}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-20">
+                                                <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                                                <input type="email" class="form-control" id="email" name="email" 
+                                                       value="{% if form_data %}{{ form_data.email }}{% endif %}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-20">
+                                                <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                                <input type="tel" class="form-control" id="phone" name="phone" 
+                                                       value="{% if form_data %}{{ form_data.phone }}{% endif %}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-20">
+                                                <label for="emergency_contact" class="form-label">Emergency Contact</label>
+                                                <input type="tel" class="form-control" id="emergency_contact" name="emergency_contact" 
+                                                       value="{% if form_data %}{{ form_data.emergency_contact }}{% endif %}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-20">
+                                        <label for="special_requirements" class="form-label">Special Requirements</label>
+                                        <textarea class="form-control" id="special_requirements" name="special_requirements" 
+                                                  rows="4" placeholder="Any dietary restrictions, accessibility needs, or special requests...">{% if form_data %}{{ form_data.special_requirements }}{% endif %}</textarea>
+                                    </div>
+
+                                    <!-- Optional Activities -->
+                                    {% if daytrip.optional_activities.exists %}
+                                    <div class="form-group mb-20">
+                                        <label class="form-label">Optional Activities</label>
+                                        <div class="optional-activities">
+                                            {% for activity in daytrip.optional_activities.all %}
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input optional-activity" type="checkbox" 
+                                                       id="activity_{{ activity.id }}" name="optional_activities" 
+                                                       value="{{ activity.id }}" data-price="{{ activity.price }}">
+                                                <label class="form-check-label" for="activity_{{ activity.id }}">
+                                                    {{ activity.name }} - USD {{ activity.price }}
+                                                    {% if activity.description %}
+                                                    <small class="text-muted d-block">{{ activity.description }}</small>
+                                                    {% endif %}
+                                                </label>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    <div class="form-group mb-30">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="terms_accepted" name="terms_accepted" required>
+                                            <label class="form-check-label" for="terms_accepted">
+                                                I agree to the <a href="#" target="_blank">Terms and Conditions</a> and <a href="#" target="_blank">Privacy Policy</a> <span class="text-danger">*</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="tg-booking-form-actions">
+                                        <button type="submit" class="tg-btn tg-btn-primary">Complete Booking</button>
+                                        <a href="{% url 'dede:daytrip_detail' daytrip.slug %}" class="tg-btn tg-btn-outline ms-3">Back to Day Trip</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-xl-4 col-lg-4">
+                        <div class="tg-booking-sidebar">
+                            <!-- Price Calculator -->
+                            <div class="tg-price-calculator mb-30">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">Price Calculator</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="price-breakdown">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Price per person:</span>
+                                                <span class="fw-bold">USD {{ daytrip.price }}</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Number of people:</span>
+                                                <span id="people-count">1</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2" id="optional-activities-cost" style="display: none;">
+                                                <span>Optional activities:</span>
+                                                <span id="activities-cost">USD 0</span>
+                                            </div>
+                                            <hr>
+                                            <div class="d-flex justify-content-between">
+                                                <span class="fw-bold">Total:</span>
+                                                <span class="fw-bold text-primary" id="total-price">USD {{ daytrip.price }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contact Info -->
+                            <div class="tg-contact-info">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">Need Help?</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-3">Have questions about this day trip? Our travel experts are here to help!</p>
+                                        <div class="contact-details">
+                                            <p class="mb-2"><i class="fa-solid fa-phone me-2"></i>+254 733 591 347</p>
+                                            <p class="mb-2"><i class="fa-solid fa-envelope me-2"></i>info@aroniatravel.com</p>
+                                            <p class="mb-0"><i class="fa-solid fa-clock me-2"></i>Mon - Fri: 9AM - 6PM</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- daytrip-booking-form-area-end -->
+
+        <script>
+            // Price calculator
+            function updatePriceCalculator() {
+                const numberOfPeople = parseInt(document.getElementById('number_of_people').value) || 1;
+                const pricePerPerson = {{ daytrip.price }};
+                
+                // Calculate optional activities cost
+                let activitiesCost = 0;
+                const selectedActivities = document.querySelectorAll('.optional-activity:checked');
+                selectedActivities.forEach(activity => {
+                    activitiesCost += parseFloat(activity.dataset.price) * numberOfPeople;
+                });
+                
+                const totalPrice = (numberOfPeople * pricePerPerson) + activitiesCost;
+                
+                document.getElementById('people-count').textContent = numberOfPeople;
+                document.getElementById('total-price').textContent = 'USD ' + totalPrice.toFixed(2);
+                
+                // Show/hide optional activities cost
+                const activitiesCostElement = document.getElementById('optional-activities-cost');
+                if (activitiesCost > 0) {
+                    document.getElementById('activities-cost').textContent = 'USD ' + activitiesCost.toFixed(2);
+                    activitiesCostElement.style.display = 'flex';
+                } else {
+                    activitiesCostElement.style.display = 'none';
+                }
+            }
+            
+            document.getElementById('number_of_people').addEventListener('input', updatePriceCalculator);
+            document.querySelectorAll('.optional-activity').forEach(checkbox => {
+                checkbox.addEventListener('change', updatePriceCalculator);
+            });
+        </script>
+
+        {% include 'users/aronia/footer2.html' %}
+{% endblock %}
