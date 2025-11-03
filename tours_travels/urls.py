@@ -15,6 +15,7 @@ from django.conf.urls.static import static
 urlpatterns = [
 
     path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    path("ckeditor5/", include('django_ckeditor_5.urls')),  # CKEditor 5 URLs
     path('admin/', admin.site.urls),
     path('', include(('dede.urls', 'dede'), namespace='dede')),
     path('events/', include(('events.urls', 'events'), namespace='events')),

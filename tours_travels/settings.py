@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     'pyuploadcare.dj',
     'taggit',
     'crispy_forms',
+    'django_ckeditor_5',
 
     'adminside',
     'users',
@@ -127,46 +128,52 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tours_travels.wsgi.application'
 
-# Database
-# Database
+# Database Configuration
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-    
+# Production Database Safety Check
+PRODUCTION_DB = config('PRODUCTION_DB', default=False, cast=bool)
 
-# }
+if PRODUCTION_DB:
+    print("⚠️  WARNING: Using PRODUCTION NeonDB PostgreSQL database!")
+    print("⚠️  Be extremely careful with migrations and data operations!")
+    print("⚠️  Database: neondb on ep-shy-frog-a2opf8tj-pooler.eu-central-1.aws.neon.tech")
 
-# To use Neon with Django, you have to create a Project on Neon and specify the project connection settings in your settings.py in the same way as for standalone Postgres.
+# Primary database configuration using environment variables
+DATABASE_URL = config('DATABASE_URL', default='')
 
-DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'neondb',
-    'USER': 'neondb_owner',
-    'PASSWORD': 'npg_aYjkstobM1w5',
-    'HOST': 'ep-shy-frog-a2opf8tj-pooler.eu-central-1.aws.neon.tech',
-    'PORT': '5432',
-    'CONN_MAX_AGE': 0,  # Disable connection persistence
-    'OPTIONS': {
-        'client_encoding': 'UTF8',
-        'application_name': 'django',
-        'sslmode': 'prefer',
+if DATABASE_URL:
+    # Use DATABASE_URL if provided (recommended for production)
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL)
+    }
+    # Override connection settings for better performance and reliability
+    DATABASES['default'].update({
+        'CONN_MAX_AGE': 0,  # Disable connection persistence for safety
+        'OPTIONS': {
+            'client_encoding': 'UTF8',
+            'application_name': 'django_aronia_travel',
+            'sslmode': 'prefer',
         },
-  }
-}
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-     
-    
-#     }
-# }
-
-
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
+    })
+else:
+    # Fallback to individual environment variables
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('DB_NAME', default='neondb'),
+            'USER': config('DB_USER', default='neondb_owner'),
+            'PASSWORD': config('DB_PASSWORD', default=''),
+            'HOST': config('DB_HOST', default='ep-shy-frog-a2opf8tj-pooler.eu-central-1.aws.neon.tech'),
+            'PORT': config('DB_PORT', default='5432'),
+            'CONN_MAX_AGE': 0,  # Disable connection persistence
+            'OPTIONS': {
+                'client_encoding': 'UTF8',
+                'application_name': 'django_aronia_travel',
+                'sslmode': 'prefer',
+            },
+        }
+    }
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -258,14 +265,29 @@ TEMPLATE_DIRS = (
 
 
 
-# Email Configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True # Your app-specific password
-DEFAULT_FROM_EMAIL = 'ARONIA TRAVEL <aroniatravelke@gmail.com>'
-EMAIL_HOST_USER = 'aroniatravelke@gmail.com'
-EMAIL_HOST_PASSWORD = 'tdnc tjcv uwko somn'  # Replace with your App Password
+# Email Configuration - Mailtrap HTTP API
+MAILTRAP_API_TOKEN = os.getenv('MAILTRAP_API_TOKEN', 'd766975d57a7ef1acf2f750a36247a37')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'Novustell Travel <info@novustelltravel.com>')
+ADMIN_EMAIL = 'info@aroniatravel.com'
+
+# Email routing for different inquiry types
+EMAIL_ROUTING = {
+    'general': 'info@aroniatravel.com',
+    'careers': 'careers@aroniatravel.com',
+    'news': 'news@aroniatravel.com',
+    'mice': 'info@aroniatravel.com',
+    'booking': 'info@aroniatravel.com',
+    'support': 'info@aroniatravel.com',
+}
+
+# Fallback to Gmail SMTP if Mailtrap token not available (for development)
+if not MAILTRAP_API_TOKEN:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = 'aroniatravelke@gmail.com'
+    EMAIL_HOST_PASSWORD = 'tdnc tjcv uwko somn'  # Replace with your App Password
 
 # Django Jet settings
 JET_DEFAULT_THEME = 'light-gray'
@@ -286,4 +308,97 @@ JET_SIDE_MENU_COMPACT = True
 
 
 # Disable Django Jet's select2 for better compatibility
+
+# CKEditor 5 Configuration
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading', '|',
+            'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
+            'imageUpload', 'insertTable', '|',
+            'outdent', 'indent', '|',
+            'undo', 'redo'
+        ],
+        'height': 400,
+        'width': '100%',
+        'image': {
+            'toolbar': [
+                'imageTextAlternative', 'imageStyle:full', 'imageStyle:side'
+            ]
+        },
+        'table': {
+            'contentToolbar': [
+                'tableColumn', 'tableRow', 'mergeTableCells'
+            ]
+        },
+        'heading': {
+            'options': [
+                {'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph'},
+                {'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1'},
+                {'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2'},
+                {'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3'},
+            ]
+        }
+    },
+    'blog': {
+        'toolbar': [
+            'heading', '|',
+            'bold', 'italic', 'underline', 'strikethrough', 'link', '|',
+            'bulletedList', 'numberedList', 'blockQuote', 'codeBlock', '|',
+            'imageUpload', 'insertTable', 'mediaEmbed', '|',
+            'alignment', 'outdent', 'indent', '|',
+            'fontSize', 'fontColor', 'fontBackgroundColor', '|',
+            'removeFormat', 'undo', 'redo'
+        ],
+        'height': 500,
+        'width': '100%',
+        'image': {
+            'toolbar': [
+                'imageTextAlternative', 'imageStyle:full', 'imageStyle:side', 'imageStyle:alignLeft', 'imageStyle:alignRight'
+            ],
+            'styles': [
+                'full', 'side', 'alignLeft', 'alignRight'
+            ]
+        },
+        'table': {
+            'contentToolbar': [
+                'tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties'
+            ]
+        },
+        'heading': {
+            'options': [
+                {'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph'},
+                {'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1'},
+                {'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2'},
+                {'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3'},
+                {'model': 'heading4', 'view': 'h4', 'title': 'Heading 4', 'class': 'ck-heading_heading4'},
+            ]
+        },
+        'fontSize': {
+            'options': [9, 11, 13, 'default', 17, 19, 21]
+        },
+        'fontColor': {
+            'colors': [
+                {'color': 'hsl(0, 0%, 0%)', 'label': 'Black'},
+                {'color': 'hsl(0, 0%, 30%)', 'label': 'Dim grey'},
+                {'color': 'hsl(0, 0%, 60%)', 'label': 'Grey'},
+                {'color': 'hsl(0, 0%, 90%)', 'label': 'Light grey'},
+                {'color': 'hsl(0, 0%, 100%)', 'label': 'White', 'hasBorder': True},
+                {'color': 'hsl(0, 75%, 60%)', 'label': 'Red'},
+                {'color': 'hsl(30, 75%, 60%)', 'label': 'Orange'},
+                {'color': 'hsl(60, 75%, 60%)', 'label': 'Yellow'},
+                {'color': 'hsl(90, 75%, 60%)', 'label': 'Light green'},
+                {'color': 'hsl(120, 75%, 60%)', 'label': 'Green'},
+                {'color': 'hsl(150, 75%, 60%)', 'label': 'Aquamarine'},
+                {'color': 'hsl(180, 75%, 60%)', 'label': 'Turquoise'},
+                {'color': 'hsl(210, 75%, 60%)', 'label': 'Light blue'},
+                {'color': 'hsl(240, 75%, 60%)', 'label': 'Blue'},
+                {'color': 'hsl(270, 75%, 60%)', 'label': 'Purple'},
+            ]
+        }
+    }
+}
+
+# CKEditor 5 file upload settings
+CKEDITOR_5_FILE_STORAGE = "django.core.files.storage.default_storage"
 JET_SELECT2_THEME = None

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tour, TourHighlight, TourInclusion, TourDay, Review, Destination, Booking, DayTripBooking
+from .models import Tour, TourHighlight, TourInclusion, TourDay, Review, Destination, Booking, DayTripBooking, QuoteInquiry
 from .models import DayTrip, ItineraryItem, IncludedItem, OptionalActivity
 
 class TourHighlightInline(admin.TabularInline):
@@ -216,4 +216,46 @@ class DayTripBookingAdmin(admin.ModelAdmin):
         if not change:  # If this is a new booking
             obj.total_price = obj.calculate_total_price()
         super().save_model(request, obj, form, change)
+
+
+@admin.register(QuoteInquiry)
+class QuoteInquiryAdmin(admin.ModelAdmin):
+    list_display = ('inquiry_reference', 'tour', 'full_name', 'email', 'nationality',
+                   'preferred_date', 'number_of_people', 'status', 'inquiry_date')
+    list_filter = ('status', 'nationality', 'preferred_date', 'inquiry_date', 'tour__destination')
+    search_fields = ('full_name', 'email', 'phone', 'tour__name', 'nationality')
+    readonly_fields = ('inquiry_reference', 'inquiry_date')
+
+    fieldsets = (
+        ('Inquiry Information', {
+            'fields': ('inquiry_reference', 'tour', 'status', 'inquiry_date')
+        }),
+        ('Customer Details', {
+            'fields': ('full_name', 'email', 'phone', 'nationality')
+        }),
+        ('Trip Requirements', {
+            'fields': ('preferred_date', 'number_of_people', 'special_requirements')
+        }),
+        ('Quote Details', {
+            'fields': ('quoted_price', 'quote_valid_until', 'admin_notes'),
+            'classes': ('collapse',)
+        })
+    )
+
+    def inquiry_reference(self, obj):
+        return obj.inquiry_reference
+    inquiry_reference.short_description = 'Reference'
+
+    # Add actions for bulk status updates
+    actions = ['mark_as_responded', 'mark_as_closed']
+
+    def mark_as_responded(self, request, queryset):
+        updated = queryset.update(status='responded')
+        self.message_user(request, f'{updated} inquiries marked as responded.')
+    mark_as_responded.short_description = 'Mark selected inquiries as responded'
+
+    def mark_as_closed(self, request, queryset):
+        updated = queryset.update(status='closed')
+        self.message_user(request, f'{updated} inquiries marked as closed.')
+    mark_as_closed.short_description = 'Mark selected inquiries as closed'
 

@@ -39,14 +39,18 @@ def send_booking_confirmation_email(booking):
         # Render email body from a template
         email_body = render_to_string('users/booking_confirmation.html', email_context)
         
-        # Send email
-        send_mail(
-            subject,
-            email_body,
-            settings.DEFAULT_FROM_EMAIL,
-            ['info@aroniatravel.com'],  # Recipient email
-            html_message=email_body,  # Optional: HTML email
+        # Send email using Mailtrap
+        from users.email_utils import send_email_via_mailtrap
+
+        success = send_email_via_mailtrap(
+            subject=subject,
+            html_message=email_body,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=['info@aroniatravel.com']
         )
+
+        if not success:
+            return False
         return True
     except Exception as e:
         # Log the error or handle it as needed

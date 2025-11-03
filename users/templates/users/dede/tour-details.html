@@ -215,29 +215,65 @@
                             <div class="tg-tour-booking-form mb-30">
                                 <div class="tg-booking-form-wrapper">
                                     <h4 class="tg-booking-form-title mb-20">Get Quote for This Tour</h4>
-                                    <form method="post" action="{% url 'dede:tour_booking' tour.slug %}">
+                                    <p class="text-muted mb-20" style="font-size: 14px;">
+                                        <i class="fa fa-info-circle"></i>
+                                        Request a personalized quote and our team will respond within 2-24 hours.
+                                    </p>
+                                    <form method="post" action="{% url 'dede:tour_quote_inquiry' tour.slug %}">
                                         {% csrf_token %}
                                         <div class="form-group mb-15">
-                                            <label for="booking_date">Select Date:</label>
-                                            <input type="date" class="form-control" id="booking_date" name="booking_date" required>
+                                            <label for="preferred_date">Preferred Date: <span class="text-danger">*</span></label>
+                                            <input type="date" class="form-control" id="preferred_date" name="preferred_date" required>
                                         </div>
                                         <div class="form-group mb-15">
-                                            <label for="number_of_people">Number of People:</label>
-                                            <input type="number" class="form-control" id="number_of_people" name="number_of_people" min="1" value="1" required>
+                                            <label for="number_of_people">Number of People: <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="number_of_people" name="number_of_people" min="1" max="1000" value="1" required>
                                         </div>
                                         <div class="form-group mb-15">
-                                            <label for="full_name">Full Name:</label>
+                                            <label for="full_name">Full Name: <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="full_name" name="full_name" required>
                                         </div>
                                         <div class="form-group mb-15">
-                                            <label for="email">Email:</label>
+                                            <label for="email">Email: <span class="text-danger">*</span></label>
                                             <input type="email" class="form-control" id="email" name="email" required>
                                         </div>
                                         <div class="form-group mb-15">
-                                            <label for="phone">Phone:</label>
+                                            <label for="phone">Phone: <span class="text-danger">*</span></label>
                                             <input type="tel" class="form-control" id="phone" name="phone" required>
                                         </div>
-                                        <button type="submit" class="tg-btn w-100">Get Quote</button>
+                                        <div class="form-group mb-15">
+                                            <label for="nationality">Nationality: <span class="text-danger">*</span></label>
+                                            <select class="form-control" id="nationality" name="nationality" required>
+                                                <option value="">Select your nationality</option>
+                                                <option value="USA">United States</option>
+                                                <option value="UK">United Kingdom</option>
+                                                <option value="Canada">Canada</option>
+                                                <option value="Australia">Australia</option>
+                                                <option value="Germany">Germany</option>
+                                                <option value="France">France</option>
+                                                <option value="Italy">Italy</option>
+                                                <option value="Spain">Spain</option>
+                                                <option value="Netherlands">Netherlands</option>
+                                                <option value="Kenya">Kenya</option>
+                                                <option value="Tanzania">Tanzania</option>
+                                                <option value="Uganda">Uganda</option>
+                                                <option value="Rwanda">Rwanda</option>
+                                                <option value="South Africa">South Africa</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group mb-15">
+                                            <label for="special_requirements">Special Requirements:</label>
+                                            <textarea class="form-control" id="special_requirements" name="special_requirements" rows="3" placeholder="Any dietary restrictions, accessibility needs, or special requests..."></textarea>
+                                        </div>
+                                        <div class="form-group mb-15">
+                                            <small class="text-muted">
+                                                <span class="text-danger">*</span> Required fields
+                                            </small>
+                                        </div>
+                                        <button type="submit" class="tg-btn w-100">
+                                            <i class="fa fa-paper-plane"></i> Request Quote
+                                        </button>
                                     </form>
                                 </div>
                             </div>

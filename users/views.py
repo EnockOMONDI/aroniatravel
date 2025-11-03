@@ -514,39 +514,38 @@ def bookings(request, package_id):
 
 def send_booking_email(booking):
     """Send an email notification about the new booking."""
+    from users.email_utils import send_email_via_mailtrap
+    from django.conf import settings
+
     try:
-        s = smtplib.SMTP('smtp.gmail.com', 587)
-        s.starttls()
-
-        # Email credentials
-        sender_email = "aroniatravelke@gmail.com"
-        password = "jzuy eqkw ovpu wcxv"
-
-        s.login(sender_email, password)
-
         # Email content
-        msg = MIMEMultipart()
-        msg['From'] = "Aronia Travel"
-        msg['To'] = "info@dedeexpeditions.com"
-        msg['Subject'] = f"New Booking: {booking.full_name} for {booking.package.name}"
-
-        message = f"""
-        <p><strong>New Booking Alert</strong></p>
-        <p><strong>Customer Name:</strong> {booking.full_name}</p>
-        <p><strong>Phone Number:</strong> {booking.phone_number}</p>
-        <p><strong>Package:</strong> {booking.package.name}</p>
-        <p><strong>Adults:</strong> {booking.number_of_adults}</p>
-        <p><strong>Children:</strong> {booking.number_of_children}</p>
-        <p><strong>Rooms:</strong> {booking.number_of_rooms}</p>
-        <p><strong>Include Travelling:</strong> {'Yes' if booking.include_travelling else 'No'}</p>
+        html_message = f"""
+        <html>
+        <body>
+            <h2>New Booking Alert - Aronia Travel</h2>
+            <p><strong>Customer Name:</strong> {booking.full_name}</p>
+            <p><strong>Phone Number:</strong> {booking.phone_number}</p>
+            <p><strong>Package:</strong> {booking.package.name}</p>
+            <p><strong>Adults:</strong> {booking.number_of_adults}</p>
+            <p><strong>Children:</strong> {booking.number_of_children}</p>
+            <p><strong>Rooms:</strong> {booking.number_of_rooms}</p>
+            <p><strong>Include Travelling:</strong> {'Yes' if booking.include_travelling else 'No'}</p>
+        </body>
+        </html>
         """
 
-        msg.attach(MIMEText(message, 'html'))
+        # Send the email using Mailtrap
+        success = send_email_via_mailtrap(
+            subject=f"New Booking: {booking.full_name} for {booking.package.name}",
+            html_message=html_message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=["info@aroniatravel.com"]
+        )
 
-        # Send the email
-        s.send_message(msg)
-        s.quit()
-        print("Booking email sent successfully!")
+        if success:
+            print("Booking email sent successfully!")
+        else:
+            print("Failed to send booking email")
 
     except Exception as e:
         print(f"Error sending booking email: {e}")
@@ -585,15 +584,37 @@ def send_mice_email(request):
         """
 
         try:
-            # Send email
-            send_mail(
-                subject,
-                message,
-                settings.EMAIL_HOST_USER,
-                ['info@aroniatravel.com'],
-                fail_silently=False,
+            # Send email using Mailtrap
+            from users.email_utils import send_email_via_mailtrap
+
+            # Create HTML message
+            html_message = f"""
+            <html>
+            <body>
+                <h2>New MICE Inquiry - Aronia Travel</h2>
+                <p><strong>Company Name:</strong> {company_name}</p>
+                <p><strong>Contact Person:</strong> {contact_person}</p>
+                <p><strong>Email:</strong> {email}</p>
+                <p><strong>Phone:</strong> {phone}</p>
+                <p><strong>Event Type:</strong> {event_type}</p>
+                <p><strong>Number of Attendees:</strong> {attendees}</p>
+                <p><strong>Event Details:</strong></p>
+                <p>{event_details}</p>
+            </body>
+            </html>
+            """
+
+            success = send_email_via_mailtrap(
+                subject=subject,
+                html_message=html_message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=['info@aroniatravel.com']
             )
-            messages.success(request, 'Thank you! Your request has been submitted successfully. We will contact you soon.')
+
+            if success:
+                messages.success(request, 'Thank you! Your request has been submitted successfully. We will contact you soon.')
+            else:
+                messages.error(request, 'Sorry, there was an error sending your request. Please try again later.')
         except Exception as e:
             messages.error(request, 'Sorry, there was an error sending your request. Please try again later.')
             

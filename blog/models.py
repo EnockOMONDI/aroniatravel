@@ -6,6 +6,7 @@ from html import unescape
 from django.utils.html import strip_tags
 from shortuuid.django_fields import ShortUUIDField
 from pyuploadcare.dj.models import ImageField
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 BLOG_PUBLISH_STATUS = (
@@ -33,7 +34,8 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     image = ImageField(blank=True, null=True, manual_crop="4:4",)
     title = models.CharField(max_length=1000)
-    content = models.TextField()
+    excerpt = CKEditor5Field('Excerpt', config_name='default', blank=True, null=True, help_text="Brief description of the post (optional)")
+    content = CKEditor5Field('Content', config_name='blog')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     tags = TaggableManager()
     status = models.CharField(choices=BLOG_PUBLISH_STATUS, max_length=100, default="in_review")

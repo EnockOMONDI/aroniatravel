@@ -247,6 +247,55 @@ class OptionalActivity(models.Model):
         return self.name
 
 
+class QuoteInquiry(models.Model):
+    STATUS_CHOICES = (
+        ('pending', 'Pending'),
+        ('responded', 'Responded'),
+        ('closed', 'Closed'),
+    )
+
+    # Tour reference
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='quote_inquiries')
+
+    # Customer contact information
+    full_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    nationality = models.CharField(max_length=50)
+
+    # Trip details
+    preferred_date = models.DateField(help_text="Customer's preferred travel date")
+    number_of_people = models.PositiveIntegerField(
+        validators=[
+            MinValueValidator(1, message="Number of people must be at least 1"),
+            MaxValueValidator(1000, message="Number of people cannot exceed 1000")
+        ]
+    )
+    special_requirements = models.TextField(blank=True, null=True, help_text="Any special requests or requirements")
+
+    # Inquiry tracking
+    inquiry_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    admin_notes = models.TextField(blank=True, null=True, help_text="Internal notes for admin use")
+
+    # Quote details (to be filled by admin)
+    quoted_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    quote_valid_until = models.DateField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['-inquiry_date']
+        verbose_name = 'Quote Inquiry'
+        verbose_name_plural = 'Quote Inquiries'
+
+    def __str__(self):
+        return f"Quote for {self.tour.name} - {self.full_name} ({self.inquiry_date.strftime('%Y-%m-%d')})"
+
+    @property
+    def inquiry_reference(self):
+        """Generate a unique reference for the inquiry"""
+        return f"QI-{self.id:06d}"
+
+
 class Booking(models.Model):
     STATUS_CHOICES = (
         ('pending', 'Pending'),

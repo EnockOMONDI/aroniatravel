@@ -11,6 +11,7 @@ urlpatterns = [
     path('contact/', views.ContactView.as_view(), name='contact'),
     path('tour/<slug:tour_slug>/', views.TourDetailView.as_view(), name='tour_detail'),
     path('tour/<slug:tour_slug>/review/', views.submit_review, name='submit_review'),
+    path('tour/<slug:tour_slug>/quote/', views.tour_quote_inquiry, name='tour_quote_inquiry'),
     path('tour/<slug:tour_slug>/booking/', views.tour_booking, name='tour_booking'),
     path('daytrips/', views.DayTripListView.as_view(), name='daytrip_list'),
     path('daytrip/<slug:daytrip_slug>/', views.DayTripDetailView.as_view(), name='daytrip_detail'),

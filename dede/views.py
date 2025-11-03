@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.db.models import Avg
 from .models import Destination, Tour, Review, OptionalActivity
 from django.views.generic.edit import CreateView
-from .models import Tour, Booking, DayTrip, DayTripBooking
+from .models import Tour, Booking, DayTrip, DayTripBooking, QuoteInquiry
 from django.core.mail import send_mail
 from django.core.exceptions import ValidationError
 from django.utils import timezone
@@ -19,6 +19,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.db.models import Q  # Add this import at the top with other imports
+from users.email_utils import send_email_via_mailtrap
 
 
 # Add this view function
@@ -114,24 +115,11 @@ class DayTripDetailView(DetailView):
         return context
 
 def send_daytrip_confirmation_email(booking):
+    """Send day trip booking confirmation email using Mailtrap API"""
+    from users.email_utils import send_email_via_mailtrap
+    from django.conf import settings
+
     try:
-        s = smtplib.SMTP('smtp.gmail.com', 587)
-        s.starttls()
-        s.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
-
-        # Create two separate messages - one for each recipient
-        # First message (for customer)
-        msg1 = MIMEMultipart('alternative')
-        msg1['From'] = "ARONIA TRAVEL <aroniatravelke@gmail.com>"
-        msg1['To'] = booking.email
-        msg1['Subject'] = f"Day Trip Booking Confirmation - {booking.booking_reference}"
-
-        # Second message (for info@aroniatravel.com)
-        msg2 = MIMEMultipart('alternative')
-        msg2['From'] = "ARONIA TRAVEL <aroniatravelke@gmail.com>"
-        msg2['To'] = "travel@aroniatravel.com"
-        msg2['Subject'] = f"New Day Trip Booking - {booking.booking_reference}"
-
         # Create activities list for email if any were selected
         activities_html = ""
         if booking.optional_activities.exists():
@@ -325,16 +313,26 @@ def send_daytrip_confirmation_email(booking):
         </html>
         """
 
-        # Attach the HTML content to respective messages
-        msg1.attach(MIMEText(customer_email, 'html'))
-        msg2.attach(MIMEText(admin_email, 'html'))
+        # Send customer confirmation email
+        customer_success = send_email_via_mailtrap(
+            subject=f"Day Trip Booking Confirmation - {booking.booking_reference}",
+            html_message=customer_email,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[booking.email]
+        )
 
-        # Send both messages
-        s.send_message(msg1)
-        s.send_message(msg2)
-        
-        s.quit()
-        print(f"SUCCESSFULLY SENT EMAIL to {booking.email} and travel@aroniatravel.com for booking {booking.booking_reference}")
+        # Send admin notification email
+        admin_success = send_email_via_mailtrap(
+            subject=f"New Day Trip Booking - {booking.booking_reference}",
+            html_message=admin_email,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=["travel@aroniatravel.com"]
+        )
+
+        if customer_success and admin_success:
+            print(f"SUCCESSFULLY SENT EMAIL to {booking.email} and travel@aroniatravel.com for booking {booking.booking_reference}")
+        else:
+            print(f"Email sending partially failed for booking {booking.booking_reference}")
     except Exception as e:
         print(f"Email sending failed: {str(e)}")
         raise e
@@ -865,22 +863,7 @@ def tour_booking(request, tour_slug):
 
             # Send confirmation email
             try:
-                s = smtplib.SMTP('smtp.gmail.com', 587)
-                s.starttls()
-                s.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
-
-                # Create two separate messages - one for each recipient
-                # First message (for customer)
-                msg1 = MIMEMultipart('alternative')
-                msg1['From'] = "ARONIA TRAVEL <aroniatravelke@gmail.com>"
-                msg1['To'] = booking.email
-                msg1['Subject'] = f"Tour Booking Confirmation - {booking.booking_reference}"
-
-                # Second message (for info@aroniatravel.com)
-                msg2 = MIMEMultipart('alternative')
-                msg2['From'] = "ARONIA TRAVEL <aroniatravelke@gmail.com>"
-                msg2['To'] = "travel@aroniatravel.com"
-                msg2['Subject'] = f"New Tour Booking - {booking.booking_reference}"
+                from users.email_utils import send_email_via_mailtrap
 
                 # Customer email message
                 customer_email = f"""
@@ -1057,16 +1040,26 @@ def tour_booking(request, tour_slug):
                 </html>
                 """
 
-                # Attach the HTML content to respective messages
-                msg1.attach(MIMEText(customer_email, 'html'))
-                msg2.attach(MIMEText(admin_email, 'html'))
+                # Send customer confirmation email
+                customer_success = send_email_via_mailtrap(
+                    subject=f"Tour Booking Confirmation - {booking.booking_reference}",
+                    html_message=customer_email,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[booking.email]
+                )
 
-                # Send both messages
-                s.send_message(msg1)
-                s.send_message(msg2)
-                
-                s.quit()
-                print(f"SUCCESSFULLY SENT EMAIL to {booking.email} and travel@aroniatravel.com for booking {booking.booking_reference}")
+                # Send admin notification email
+                admin_success = send_email_via_mailtrap(
+                    subject=f"New Tour Booking - {booking.booking_reference}",
+                    html_message=admin_email,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=["travel@aroniatravel.com"]
+                )
+
+                if customer_success and admin_success:
+                    print(f"SUCCESSFULLY SENT EMAIL to {booking.email} and travel@aroniatravel.com for booking {booking.booking_reference}")
+                else:
+                    print(f"Email sending partially failed for booking {booking.booking_reference}")
             except Exception as e:
                 # Log the error but don't stop the booking process
                 print(f"Email sending failed: {str(e)}")
@@ -1100,6 +1093,297 @@ def tour_booking(request, tour_slug):
         'today': today,
         'form_data': None,
     })
+
+def tour_quote_inquiry(request, tour_slug):
+    """Handle quote inquiry form submissions"""
+    tour = get_object_or_404(Tour, slug=tour_slug)
+    today = timezone.now().date()
+
+    if request.method == 'POST':
+        try:
+            # Validate preferred date
+            preferred_date_str = request.POST.get('preferred_date')
+            if preferred_date_str:
+                preferred_date = datetime.datetime.strptime(preferred_date_str, '%Y-%m-%d').date()
+                if preferred_date < today:
+                    raise ValidationError("Preferred date cannot be in the past")
+            else:
+                raise ValidationError("Please select a preferred date")
+
+            # Validate number of people
+            try:
+                number_of_people = int(request.POST.get('number_of_people', 1))
+                if number_of_people < 1:
+                    raise ValidationError("Number of people must be at least 1")
+                if number_of_people > 1000:
+                    raise ValidationError("Number of people cannot exceed 1000")
+            except ValueError:
+                raise ValidationError("Please enter a valid number of people")
+
+            # Get form data
+            full_name = request.POST.get('full_name', '').strip()
+            email = request.POST.get('email', '').strip()
+            phone = request.POST.get('phone', '').strip()
+            nationality = request.POST.get('nationality', '').strip()
+            special_requirements = request.POST.get('special_requirements', '').strip()
+
+            # Validate required fields
+            if not full_name:
+                raise ValidationError("Full name is required")
+            if not email:
+                raise ValidationError("Email is required")
+            if not phone:
+                raise ValidationError("Phone number is required")
+            if not nationality:
+                raise ValidationError("Nationality is required")
+
+            # Create new quote inquiry
+            quote_inquiry = QuoteInquiry(
+                tour=tour,
+                full_name=full_name,
+                email=email,
+                phone=phone,
+                nationality=nationality,
+                preferred_date=preferred_date,
+                number_of_people=number_of_people,
+                special_requirements=special_requirements,
+                status='pending'
+            )
+
+            # Validate the model
+            quote_inquiry.full_clean()
+
+            # Save the quote inquiry
+            quote_inquiry.save()
+
+            # Send confirmation emails
+            try:
+                # Customer email message
+                customer_email = f"""
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Quote Request Received - Aronia Travel</title>
+                    <style>
+                        body {{
+                            font-family: Arial, sans-serif;
+                            line-height: 1.6;
+                            color: #333333;
+                            margin: 0;
+                            padding: 0;
+                        }}
+                        .email-container {{
+                            max-width: 600px;
+                            margin: 0 auto;
+                            padding: 20px;
+                        }}
+                        .header {{
+                            text-align: center;
+                            padding: 20px 0;
+                            background-color: #f8f9fa;
+                        }}
+                        .logo {{
+                            max-width: 200px;
+                            height: auto;
+                        }}
+                        .content {{
+                            padding: 20px 0;
+                        }}
+                        .quote-details {{
+                            background-color: #f8f9fa;
+                            padding: 20px;
+                            border-radius: 5px;
+                            margin: 20px 0;
+                        }}
+                        .footer {{
+                            text-align: center;
+                            padding: 20px;
+                            background-color: #f8f9fa;
+                            font-size: 12px;
+                            color: #666;
+                        }}
+                    </style>
+                </head>
+                <body>
+                    <div class="email-container">
+                        <div class="header">
+                            <img src="https://www.aroniatravel.com/static/assets4/img/logo/logo1.png" alt="ARONIA" class="logo">
+                        </div>
+
+                        <div class="content">
+                            <h2>Quote Request Received</h2>
+                            <p>Dear {quote_inquiry.full_name},</p>
+
+                            <p>Thank you for your interest in <strong>{tour.name}</strong>! We have received your quote request and our team will respond within 2-24 hours with a personalized quote.</p>
+
+                            <div class="quote-details">
+                                <h3>Your Quote Request Details:</h3>
+                                <p><strong>Reference:</strong> {quote_inquiry.inquiry_reference}</p>
+                                <p><strong>Tour:</strong> {tour.name}</p>
+                                <p><strong>Preferred Date:</strong> {quote_inquiry.preferred_date}</p>
+                                <p><strong>Duration:</strong> {tour.duration} days</p>
+                                <p><strong>Number of People:</strong> {quote_inquiry.number_of_people}</p>
+                                <p><strong>Nationality:</strong> {quote_inquiry.nationality}</p>
+                                {f'<p><strong>Special Requirements:</strong> {quote_inquiry.special_requirements}</p>' if quote_inquiry.special_requirements else ''}
+                            </div>
+
+                            <p>Our travel experts will review your requirements and provide you with a detailed quote including:</p>
+                            <ul>
+                                <li>Competitive pricing based on your group size</li>
+                                <li>Accommodation options</li>
+                                <li>Transportation details</li>
+                                <li>Meal arrangements</li>
+                                <li>Activity inclusions</li>
+                            </ul>
+
+                            <p>If you have any urgent questions, please contact us with your reference number: <strong>{quote_inquiry.inquiry_reference}</strong></p>
+                        </div>
+
+                        <div class="footer">
+                            <p>Best regards,<br>The ARONIA TRAVEL Team</p>
+                            <p>© 2024 ARONIA. All rights reserved.</p>
+                            <p>
+                                <a href="tel:+254758355325">+254758355325</a> |
+                                <a href="mailto:info@aroniatravel.com">info@aroniatravel.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+                """
+
+                # Admin email message
+                admin_email = f"""
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>New Quote Inquiry - {tour.name}</title>
+                    <style>
+                        body {{
+                            font-family: Arial, sans-serif;
+                            line-height: 1.6;
+                            color: #333333;
+                            margin: 0;
+                            padding: 0;
+                        }}
+                        .email-container {{
+                            max-width: 600px;
+                            margin: 0 auto;
+                            padding: 20px;
+                        }}
+                        .header {{
+                            text-align: center;
+                            padding: 20px 0;
+                            background-color: #f8f9fa;
+                        }}
+                        .logo {{
+                            max-width: 200px;
+                            height: auto;
+                        }}
+                        .content {{
+                            padding: 20px 0;
+                        }}
+                        .quote-details {{
+                            background-color: #f8f9fa;
+                            padding: 20px;
+                            border-radius: 5px;
+                            margin: 20px 0;
+                        }}
+                        .footer {{
+                            text-align: center;
+                            padding: 20px;
+                            background-color: #f8f9fa;
+                            font-size: 12px;
+                            color: #666;
+                        }}
+                    </style>
+                </head>
+                <body>
+                    <div class="email-container">
+                        <div class="header">
+                            <img src="https://www.aroniatravel.com/static/assets4/img/logo/logo1.png" alt="ARONIA" class="logo">
+                        </div>
+
+                        <div class="content">
+                            <h2>New Quote Inquiry - {tour.name}</h2>
+                            <p>A new quote inquiry has been received. Please review and respond promptly.</p>
+
+                            <div class="quote-details">
+                                <h3>Customer Information:</h3>
+                                <p><strong>Name:</strong> {quote_inquiry.full_name}</p>
+                                <p><strong>Email:</strong> {quote_inquiry.email}</p>
+                                <p><strong>Phone:</strong> {quote_inquiry.phone}</p>
+                                <p><strong>Nationality:</strong> {quote_inquiry.nationality}</p>
+
+                                <h3>Quote Request Details:</h3>
+                                <p><strong>Reference:</strong> {quote_inquiry.inquiry_reference}</p>
+                                <p><strong>Tour:</strong> {tour.name}</p>
+                                <p><strong>Preferred Date:</strong> {quote_inquiry.preferred_date}</p>
+                                <p><strong>Duration:</strong> {tour.duration} days</p>
+                                <p><strong>Number of People:</strong> {quote_inquiry.number_of_people}</p>
+                                <p><strong>Inquiry Date:</strong> {quote_inquiry.inquiry_date.strftime('%Y-%m-%d %H:%M')}</p>
+
+                                <h3>Special Requirements:</h3>
+                                <p>{quote_inquiry.special_requirements if quote_inquiry.special_requirements else 'None specified'}</p>
+                            </div>
+
+                            <p>Please respond to this inquiry within 2-24 hours to maintain our service standards.</p>
+                            <p><strong>Admin Panel:</strong> <a href="http://127.0.0.1:8000/admin/dede/quoteinquiry/{quote_inquiry.id}/change/">View in Admin</a></p>
+                        </div>
+
+                        <div class="footer">
+                            <p>© 2024 ARONIA. All rights reserved.</p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+                """
+
+                # Send customer confirmation email
+                customer_success = send_email_via_mailtrap(
+                    subject=f"Quote Request Received - Aronia Travel",
+                    html_message=customer_email,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[quote_inquiry.email]
+                )
+
+                # Send admin notification email
+                admin_success = send_email_via_mailtrap(
+                    subject=f"New Quote Inquiry - {tour.name}",
+                    html_message=admin_email,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=["info@aroniatravel.com"]
+                )
+
+                if customer_success and admin_success:
+                    print(f"SUCCESSFULLY SENT QUOTE EMAILS to {quote_inquiry.email} and info@aroniatravel.com for inquiry {quote_inquiry.inquiry_reference}")
+                else:
+                    print(f"Quote email sending partially failed for inquiry {quote_inquiry.inquiry_reference}")
+            except Exception as e:
+                # Log the error but don't stop the quote inquiry process
+                print(f"Quote email sending failed: {str(e)}")
+                print(f"Error type: {type(e).__name__}")
+                print(f"Error details: {str(e)}")
+
+            messages.success(request, 'Quote request submitted successfully! We will respond within 2-24 hours.')
+            return redirect('dede:tour_detail', tour_slug=tour_slug)
+
+        except ValidationError as e:
+            messages.error(request, str(e))
+        except Exception as e:
+            messages.error(request, 'There was an error processing your quote request. Please try again.')
+            print(f"Quote inquiry error: {str(e)}")  # For debugging
+
+        # If there's an error, redirect back to tour detail with error message
+        return redirect('dede:tour_detail', tour_slug=tour_slug)
+
+    # For GET requests, redirect to tour detail
+    return redirect('dede:tour_detail', tour_slug=tour_slug)
+
 
 def booking_confirmation(request, booking_reference):
     booking = get_object_or_404(Booking, booking_reference=booking_reference)
