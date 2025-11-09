@@ -1,7 +1,0 @@
-Looking in indexes: https://pypi.org/simple/
-Requirement already satisfied: mailtrap in /Users/djsean/Desktop/APPS2024/Aroniatravel2025/env/lib/python3.12/site-packages (2.1.0)
-Requirement already satisfied: requests>=2.26.0 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from mailtrap) (2.32.3)
-Requirement already satisfied: charset-normalizer<4,>=2 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from requests>=2.26.0->mailtrap) (3.3.2)
-Requirement already satisfied: idna<4,>=2.5 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from requests>=2.26.0->mailtrap) (3.4)
-Requirement already satisfied: urllib3<3,>=1.21.1 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from requests>=2.26.0->mailtrap) (2.2.1)
-Requirement already satisfied: certifi>=2017.4.17 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from requests>=2.26.0->mailtrap) (2023.7.22)
