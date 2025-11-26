@@ -16,6 +16,7 @@ urlpatterns = [
 
     path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
     path("ckeditor5/", include('django_ckeditor_5.urls')),  # CKEditor 5 URLs
+    path('admin/logout/', auth_views.LogoutView.as_view(next_page='/admin/'), name='admin_logout'),
     path('admin/', admin.site.urls),
     path('', include(('aronia.urls', 'aronia'), namespace='aronia')),
     path('events/', include(('events.urls', 'events'), namespace='events')),
