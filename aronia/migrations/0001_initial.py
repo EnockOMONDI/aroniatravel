@@ -176,7 +176,7 @@ class Migration(migrations.Migration):
                 ('booking_reference', models.CharField(blank=True, max_length=20, unique=True)),
                 ('daytrip', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='bookings', to='dede.daytrip')),
                 ('optional_activities', models.ManyToManyField(blank=True, to='dede.OptionalActivity')),
-                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'verbose_name': 'Day Trip Booking',

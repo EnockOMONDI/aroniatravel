@@ -9,7 +9,6 @@ def verification_mail(link, user):
     from users.email_utils import send_email_via_mailtrap
     from django.conf import settings
 
-    print(link, user.email, type(user.email))
 
     # Create the email message
     message = f'Hi {user.username}, welcome to Aronia Travel.<br>To activate your account, click the link below:<br>{link}<br><br>'
@@ -35,13 +34,16 @@ def verification_mail(link, user):
     """
 
     # Send email using Mailtrap
-    success = send_email_via_mailtrap(
-        subject="Welcome to Aronia Travel",
-        html_message=html_message,
-        from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[user.email]
-    )
-
+    try:
+        success = send_email_via_mailtrap(
+            subject="Welcome to Aronia Travel",
+            html_message=html_message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[user.email]
+        )
+    except Exception as e:
+        print(f"Exception sending verification email to {user.email}: {e}")
+        return False
     if success:
         print(f"Verification email sent successfully to {user.email}")
     else:

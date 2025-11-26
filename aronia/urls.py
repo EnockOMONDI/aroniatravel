@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = 'dede'
+app_name = 'aronia'
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
@@ -9,6 +9,7 @@ urlpatterns = [
     path('destination/<slug:slug>/', views.destination_detail, name='destination_detail'), 
     path('about/', views.AboutView.as_view(), name='about'),
     path('contact/', views.ContactView.as_view(), name='contact'),
+    path('tutorials/', views.TutorialsView.as_view(), name='tutorials'),
     path('tour/<slug:tour_slug>/', views.TourDetailView.as_view(), name='tour_detail'),
     path('tour/<slug:tour_slug>/review/', views.submit_review, name='submit_review'),
     path('tour/<slug:tour_slug>/quote/', views.tour_quote_inquiry, name='tour_quote_inquiry'),

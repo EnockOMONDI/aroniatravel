@@ -360,13 +360,14 @@ class Booking(models.Model):
         # Generate unique booking reference if not exists
         if not self.booking_reference:
             self.booking_reference = self.generate_booking_reference()
+        if not self.total_price:
+            self.total_price = self.calculate_total_price()
         super().save(*args, **kwargs)
 
     def generate_booking_reference(self):
         # Generate a unique booking reference based on timestamp and random numbers
-        timestamp = timezone.now().strftime('%Y%m%d%H%M')
-        random_nums = ''.join([str(random.randint(0, 9)) for _ in range(4)])
-        return f'BK{timestamp}{random_nums}'
+        import uuid
+        return f'BK{uuid.uuid4().hex[:12].upper()}'
 
     def calculate_total_price(self):
         return self.tour.price * self.number_of_people

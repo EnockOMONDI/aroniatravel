@@ -136,7 +136,7 @@
             <div class="col-lg-4">
                 <div class="sidebar-widget booking-form-widget">
                     <h4 class="widget-title">Book This Trip</h4>
-                    <form method="post" action="{% url 'dede:daytrip_booking' daytrip.slug %}" class="sidebar-booking-form">
+                    <form method="post" action="{% url 'aronia:daytrip_booking' daytrip.slug %}" class="sidebar-booking-form">
                         {% csrf_token %}
                         <div class="booking-item mb-20">
                             <label>Full Name</label>

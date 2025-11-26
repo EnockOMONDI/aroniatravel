@@ -9,7 +9,7 @@
         <div class="header-top clearfix">
             <div class="container">
                 <div class="brand-logo float-left">
-                    <a href="{% url 'dede:home' %} "><img src="{% static 'assets4/img/logo/logo1.png ' %}" alt=""></a>
+                    <a href="{% url 'aronia:home' %} "><img src="{% static 'assets4/img/logo/logo1.png ' %}" alt=""></a>
                 </div>
                 <div class="header-top-cta float-right clearfix ul-li">
                     <ul>
@@ -91,43 +91,46 @@
                                 <nav class="mobile-main-nav  clearfix ul-li">
                                     <ul id="m-main-nav" class="navbar-nav text-capitalize clearfix">
                                         <li class="">
-                                            <a href="{% url 'dede:home' %}">Home</a>
+                                            <a href="{% url 'aronia:home' %}">Home</a>
                                           
                                         </li>
                                        
                                         <li class="">
-                                            <a href="{% url 'dede:about' %}">About Us</a>
+                                            <a href="{% url 'aronia:about' %}">About Us</a>
                                          
                                              
                                         </li>
                                         <li class="dropdown">
                                             <a href="#">Corporate Travel</a>
                                             <ul class="dropdown-menu clearfix">
-                                                <li><a href="{% url 'dede:about'%} ">Corporate Travel</a></li>
+                                                <li><a href="{% url 'aronia:about'%} ">Corporate Travel</a></li>
                                              
                                             </ul>
                                         </li>
                                         <li class="dropdown">
                                             <a href="#">Tour packages</a>
                                             <ul class="dropdown-menu clearfix">
-                                                <li><a href="{% url 'dede:tour_list' %}">Tour packages</a></li>
+                                                <li><a href="{% url 'aronia:tour_list' %}">Tour packages</a></li>
                                                 
-                                                <li><a href="{% url 'dede:daytrip_list' %}">Day Trips</a></li>
+                                                <li><a href="{% url 'aronia:daytrip_list' %}">Day Trips</a></li>
                                              
                                             </ul>
                                         </li>
                                         <!-- <li class="dropdown">
                                             <a href="#">Hotels</a>
                                             <ul class="dropdown-menu clearfix">
-                                                <li><a href="{% url 'dede:tour_list' %}">Hotels</a></li>
+                                                <li><a href="{% url 'aronia:tour_list' %}">Hotels</a></li>
                                              
                                             </ul>
                                         </li> -->
                                       
                                       
                                         <li class="">
-                                            <a href="{% url 'dede:contact'%} ">Contact Us</a>
+                                            <a href="{% url 'aronia:contact'%} ">Contact Us</a>
                                             
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'aronia:tutorials' %}">Tutorials</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -145,28 +148,28 @@
                         <ul id="main-nav" class="navbar-nav text-capitalize clearfix">
                           
                             <li class="">
-                                <a href="{% url 'dede:home'%} ">Home</a>
+                                <a href="{% url 'aronia:home'%} ">Home</a>
                              
                                  
                             </li>
                             <li class="">
-                                <a href="{% url 'dede:about' %} ">About Us</a>
+                                <a href="{% url 'aronia:about' %} ">About Us</a>
                              
                                  
                             </li>
                             <li class="dropdown">
                                 <a href="#">Corporate Travel</a>
                                 <ul class="dropdown-menu clearfix">
-                                    <li><a href="{% url 'dede:about'%} ">Corporate Travel</a></li>
+                                    <li><a href="{% url 'aronia:about'%} ">Corporate Travel</a></li>
                                  
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="#">Tour packages</a>
                                 <ul class="dropdown-menu clearfix">
-                                    <li><a href="{% url 'dede:tour_list' %}">Tour packages</a></li>
+                                    <li><a href="{% url 'aronia:tour_list' %}">Tour packages</a></li>
                                                 
-                                    <li><a href="{% url 'dede:daytrip_list' %}">Day Trips</a></li>
+                                    <li><a href="{% url 'aronia:daytrip_list' %}">Day Trips</a></li>
                                 </ul>
                             </li>
                             <!-- <li class="dropdown">
@@ -179,8 +182,11 @@
                             
                           
                             <li class="">
-                                <a href="{% url 'dede:contact'%} ">Contact Us</a>
+                                <a href="{% url 'aronia:contact'%} ">Contact Us</a>
                                 
+                            </li>
+                            <li class="">
+                                <a href="{% url 'aronia:tutorials' %}">Tutorials</a>
                             </li>
                             <li class="dropdown">
                                 <a href="#">My Account</a>

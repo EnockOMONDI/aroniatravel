@@ -60,8 +60,8 @@ CSRF_TRUSTED_ORIGINS = [
 # If you're using HTTPS
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = False  # Set to True in production
-SESSION_COOKIE_SECURE = True  # Set to True in production
-CSRF_COOKIE_SECURE = True  # Set to True in production
+SESSION_COOKIE_SECURE = False  # Set to True only when using HTTPS in production
+CSRF_COOKIE_SECURE = False  # Set to True only when using HTTPS in production
 
 # Update your ALLOWED_HOSTS if needed
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
@@ -89,7 +89,7 @@ INSTALLED_APPS = [
     'adminside',
     'users',
     'blog',
-    'dede',
+    'aronia',
     'events',
    
 ]
@@ -135,10 +135,7 @@ WSGI_APPLICATION = 'tours_travels.wsgi.application'
 PRODUCTION_DB = config('PRODUCTION_DB', default=False, cast=bool)
 
 if PRODUCTION_DB:
-    print("⚠️  WARNING: Using PRODUCTION NeonDB PostgreSQL database!")
-    print("⚠️  Be extremely careful with migrations and data operations!")
-    print("⚠️  Database: neondb on ep-shy-frog-a2opf8tj-pooler.eu-central-1.aws.neon.tech")
-
+    print("⚠️  WARNING: Using PRODUCTION database! Be careful with migrations.")
 # Primary database configuration using environment variables
 DATABASE_URL = config('DATABASE_URL', default='')
 
@@ -220,9 +217,9 @@ STATICFILES_DIRS = [
 
 CRISPY_TEMPLATE_PACK='bootstrap4'
 
-LOGIN_REDIRECT_URL='dede:home'
+LOGIN_REDIRECT_URL='aronia:home'
 LOGIN_URL='login'
-LOGOUT_REDIRECT_URL = 'dede:home'
+LOGOUT_REDIRECT_URL = 'aronia:home'
 
 # settings.py
 
@@ -286,9 +283,8 @@ if not MAILTRAP_API_TOKEN:
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = 'aroniatravelke@gmail.com'
-    EMAIL_HOST_PASSWORD = 'tdnc tjcv uwko somn'  # Replace with your App Password
-
+    EMAIL_HOST_USER = os.getenv('GMAIL_USER', '')
+    EMAIL_HOST_PASSWORD = os.getenv('GMAIL_APP_PASSWORD', '')
 # Django Jet settings
 JET_DEFAULT_THEME = 'light-gray'
 JET_DEFAULT_THEME = 'light-gray'

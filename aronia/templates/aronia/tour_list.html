@@ -1,4 +1,4 @@
-{% extends 'users/dede/basemain.html' %}
+{% extends 'users/aronia/basemain.html' %}
 {% load static %}
 
 {% block content %}
@@ -12,7 +12,7 @@
                         <div class="tg-breadcrumb-content text-center">
                             <h2 class="tg-breadcrumb-title mb-15">Our Tours</h2>
                             <div class="tg-breadcrumb-list">
-                                <span><a href="{% url 'dede:home' %}">Home</a></span>
+                                <span><a href="{% url 'aronia:home' %}">Home</a></span>
                                 <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
                                 <span>Tour List</span>
                             </div>
@@ -44,7 +44,7 @@
                                     <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 tg-grid-full">
                                         <div class="tg-listing-card-item mb-30">
                                             <div class="tg-listing-card-thumb fix mb-15 p-relative">
-                                                <a href="{% url 'dede:tour_detail' tour_slug=tour.slug %}">
+                                                <a href="{% url 'aronia:tour_detail' tour_slug=tour.slug %}">
                                                     {% if tour.Image %}
                                                         <img class="tg-card-border w-100" src="{{ tour.Image.cdn_url }}" alt="{{ tour.name }}">
                                                     {% else %}
@@ -56,7 +56,7 @@
                                             <div class="tg-listing-main-content">
                                                 <div class="tg-listing-card-content">
                                                     <h4 class="tg-listing-card-title">
-                                                        <a href="{% url 'dede:tour_detail' tour_slug=tour.slug %}">{{ tour.name }}</a>
+                                                        <a href="{% url 'aronia:tour_detail' tour_slug=tour.slug %}">{{ tour.name }}</a>
                                                     </h4>
                                                     <div class="tg-listing-card-duration-tour">
                                                         <span class="tg-listing-card-duration-map mb-5">

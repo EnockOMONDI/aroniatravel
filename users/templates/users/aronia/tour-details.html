@@ -1,4 +1,4 @@
-{% extends 'users/dede/basemain.html' %}
+{% extends 'users/aronia/basemain.html' %}
 {% load static %}
 
 {% block content %}
@@ -87,9 +87,9 @@
                         <div class="tg-breadcrumb-content text-center">
                             <h2 class="tg-breadcrumb-title mb-15">{{ tour.name }}</h2>
                             <div class="tg-breadcrumb-list">
-                                <span><a href="{% url 'dede:home' %}">Home</a></span>
+                                <span><a href="{% url 'aronia:home' %}">Home</a></span>
                                 <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
-                                <span><a href="{% url 'dede:tour_list' %}">Tours</a></span>
+                                <span><a href="{% url 'aronia:tour_list' %}">Tours</a></span>
                                 <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
                                 <span>{{ tour.name }}</span>
                             </div>
@@ -219,7 +219,7 @@
                                         <i class="fa fa-info-circle"></i>
                                         Request a personalized quote and our team will respond within 2-24 hours.
                                     </p>
-                                    <form method="post" action="{% url 'dede:tour_quote_inquiry' tour.slug %}">
+                                    <form method="post" action="{% url 'aronia:tour_quote_inquiry' tour.slug %}">
                                         {% csrf_token %}
                                         <div class="form-group mb-15">
                                             <label for="preferred_date">Preferred Date: <span class="text-danger">*</span></label>

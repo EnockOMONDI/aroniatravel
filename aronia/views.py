@@ -410,7 +410,7 @@ def daytrip_booking(request, daytrip_slug):
 
             # Send confirmation emails
             try:
-                s = smtplib.SMTP('smtp.gmail.com', 587)
+                s = smtplib.SMTP('smtp.gmail.com', 587, timeout=30)
                 s.starttls()
                 s.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
 
@@ -635,7 +635,7 @@ def daytrip_booking(request, daytrip_slug):
                 # Continue with the booking process even if email fails
 
             messages.success(request, 'Day Trip booking successful! Check your email for confirmation.')
-            return redirect('dede:daytrip_booking_confirmation', booking_reference=booking.booking_reference)
+            return redirect('aronia:daytrip_booking_confirmation', booking_reference=booking.booking_reference)
             
         except ValidationError as e:
             if hasattr(e, 'message_dict'):
@@ -650,7 +650,7 @@ def daytrip_booking(request, daytrip_slug):
             print(f"Booking error: {str(e)}")  # For debugging
         
         # If there's an error, re-render the form with the submitted data
-        return render(request, 'users/dede/daytrip-booking-form.html', {
+        return render(request, 'users/aronia/daytrip-booking-form.html', {
             'daytrip': daytrip,
             'form_data': request.POST,
             'today': today,
@@ -658,7 +658,7 @@ def daytrip_booking(request, daytrip_slug):
         })
     
     # For GET requests, render empty form
-    return render(request, 'users/dede/daytrip-booking-form.html', {
+    return render(request, 'users/aronia/daytrip-booking-form.html', {
         'daytrip': daytrip,
         'today': today,
         'form_data': None,
@@ -667,7 +667,7 @@ def daytrip_booking(request, daytrip_slug):
 
 def daytrip_booking_confirmation(request, booking_reference):
     booking = get_object_or_404(DayTripBooking, booking_reference=booking_reference)
-    return render(request, 'users/dede/daytrip-booking-confirmation.html', {'booking': booking})
+    return render(request, 'users/aronia/daytrip-booking-confirmation.html', {'booking': booking})
     
 class AboutView(TemplateView):
     template_name = 'users/aronia/about.html'
@@ -681,11 +681,11 @@ class AboutView(TemplateView):
 
 def destination_detail(request, slug):
     destination = get_object_or_404(Destination, slug=slug)
-    return render(request, 'users/dede/destination_detail.html', {'destination': destination})
+    return render(request, 'users/aronia/destination_detail.html', {'destination': destination})
 
 # class ShopView(ListView):
 #     model = Product
-#     template_name = 'users/dede/shop.html'
+#     template_name = 'users/aronia/shop.html'
 #     context_object_name = 'products'
 #     paginate_by = 9  # Number of products per page
 
@@ -723,9 +723,117 @@ class ContactView(TemplateView):
             'success_message': 'Thank you for your message. We will get back to you soon!'
         })
 
+
+class TutorialsView(TemplateView):
+    template_name = 'users/aronia/tutorials.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['guide_sections'] = [
+            {
+                'title': 'Sign In & Dashboard Orientation',
+                'icon': 'fa-lock',
+                'summary': 'Use the Django admin to manage every section of the site.',
+                'steps': [
+                    'Visit /admin/ and sign in with your staff account.',
+                    'Use the left sidebar to open the section you want to manage (BLOG, ARONIA, EVENTS, USERS).',
+                    'The search bar at the top of the admin lists helps you quickly find tours, day trips, or bookings.'
+                ]
+            },
+            {
+                'title': 'Publish Blog Stories',
+                'icon': 'fa-pen-nib',
+                'summary': 'Keep the blog fresh with new posts and highlights.',
+                'steps': [
+                    'Open BLOG ▸ Posts and click “Add Post”.',
+                    'Fill in the title, summary/excerpt, body content, thumbnail, and select the destination or category.',
+                    'Set the status to “Published” and hit Save; use “Draft” when you need editorial review.'
+                ]
+            },
+            {
+                'title': 'Add Tour Packages',
+                'icon': 'fa-suitcase-rolling',
+                'summary': 'Packages appear on the public Tours page.',
+                'steps': [
+                    'Go to ARONIA ▸ Tours and click “Add tour”.',
+                    'Choose the destination, upload hero and gallery images via UploadCare, and fill in pricing, duration, and highlights.',
+                    'Add itinerary days, inclusions, and highlights at the bottom of the form, then Save.'
+                ]
+            },
+            {
+                'title': 'Create Day Trips',
+                'icon': 'fa-map-marked-alt',
+                'summary': 'One-day experiences with optional activities.',
+                'steps': [
+                    'Open ARONIA ▸ Day trips ▸ Add day trip.',
+                    'Set the recurrence (one-time, weekend, Saturday, or Sunday) and include pickup details plus included items.',
+                    'Use the optional activities inline form to upsell add-ons guests can pick on checkout.'
+                ]
+            },
+            {
+                'title': 'Review Bookings & Quotes',
+                'icon': 'fa-receipt',
+                'summary': 'Every request is stored in the admin.',
+                'steps': [
+                    'Tours: ARONIA ▸ Bookings shows pending, confirmed, or completed reservations.',
+                    'Day trips: ARONIA ▸ Day trip bookings lists attendees and remaining slots.',
+                    'Quotes: ARONIA ▸ Quote inquiries tracks travelers waiting for a price proposal.'
+                ]
+            },
+            {
+                'title': 'Manage Events',
+                'icon': 'fa-calendar-check',
+                'summary': 'Events keep your community informed.',
+                'steps': [
+                    'Visit EVENTS ▸ Events to add or update experiences, tickets, and galleries.',
+                    'Ticket types let you control prices, quotas, and sale dates.',
+                    'Use “Launch notifications” to see who subscribed for updates.'
+                ]
+            }
+        ]
+
+        context['quick_actions'] = [
+            {
+                'title': 'Check New Bookings',
+                'detail': 'ARONIA ▸ Bookings ▸ filter by “Pending” to contact travelers who just booked.'
+            },
+            {
+                'title': 'Update Hero Images',
+                'detail': 'Blog posts, tours, and day trips all use UploadCare. Replace images directly inside each record.'
+            },
+            {
+                'title': 'Coordinate Quotes',
+                'detail': 'ARONIA ▸ Quote inquiries ▸ open each entry, add your price and validity date, then update the status.'
+            },
+        ]
+
+        context['booking_flow'] = [
+            'Visitors browse Tours or Day Trips and submit a booking or quote form.',
+            'The request appears immediately inside the ARONIA ▸ Bookings or Quote inquiries tables.',
+            'Automatic confirmation emails go to the traveler; admins receive the same details.',
+            'Staff reviews the request, updates the status (Pending → Confirmed/Completed), and adds notes as needed.',
+            'Finance or reservations reaches out to collect payment and final travel documents.'
+        ]
+
+        context['support_cards'] = [
+            {
+                'title': 'Need a New Admin User?',
+                'body': 'Create staff accounts under USERS ▸ Users, check “Staff status”, and assign only the groups they need.'
+            },
+            {
+                'title': 'Content Ready to Publish?',
+                'body': 'Use the Preview button in the admin to double-check formatting before publishing blog stories or tour updates.'
+            },
+            {
+                'title': 'Keep the Inbox in Sync',
+                'body': 'When a booking is handled offline, update its status inside the admin so the dashboard reflects reality.'
+            }
+        ]
+        return context
+
 class TourListView(ListView):
     model = Tour
-    template_name = 'users/dede/tour-grid-1.html'
+    template_name = 'users/aronia/tour-grid-1.html'
     context_object_name = 'tours'
     paginate_by = 9
 
@@ -758,7 +866,7 @@ class TourListView(ListView):
 
 class TourDetailView(DetailView):
     model = Tour
-    template_name = 'users/dede/tour-details.html'
+    template_name = 'users/aronia/tour-details.html'
     context_object_name = 'tour'
     slug_url_kwarg = 'tour_slug'  # Add this line to match the URL pattern
 
@@ -811,9 +919,9 @@ def submit_review(request, tour_slug):
         
         messages.success(request, 'Your review has been submitted successfully!')
         # Update the redirect to use tour_slug instead of slug
-        return redirect('dede:tour_detail', tour_slug=tour_slug)
+        return redirect('aronia:tour_detail', tour_slug=tour_slug)
     
-    return redirect('dede:tour_detail', tour_slug=tour_slug)
+    return redirect('aronia:tour_detail', tour_slug=tour_slug)
 
 
 def tour_booking(request, tour_slug):
@@ -1067,7 +1175,7 @@ def tour_booking(request, tour_slug):
                 print(f"Error details: {str(e)}")
 
             messages.success(request, 'Booking successful! Check your email for confirmation.')
-            return redirect('dede:booking_confirmation', booking_reference=booking.booking_reference)
+            return redirect('aronia:booking_confirmation', booking_reference=booking.booking_reference)
             
         except ValidationError as e:
             if hasattr(e, 'message_dict'):
@@ -1081,14 +1189,14 @@ def tour_booking(request, tour_slug):
             print(f"Booking error: {str(e)}")  # For debugging
         
         # If there's an error, re-render the form with the submitted data
-        return render(request, 'users/dede/booking-form.html', {
+        return render(request, 'users/aronia/booking-form.html', {
             'tour': tour,
             'form_data': request.POST,
             'today': today,
         })
     
     # For GET requests, render empty form
-    return render(request, 'users/dede/booking-form.html', {
+    return render(request, 'users/aronia/booking-form.html', {
         'tour': tour,
         'today': today,
         'form_data': None,
@@ -1370,7 +1478,7 @@ def tour_quote_inquiry(request, tour_slug):
                 print(f"Error details: {str(e)}")
 
             messages.success(request, 'Quote request submitted successfully! We will respond within 2-24 hours.')
-            return redirect('dede:tour_detail', tour_slug=tour_slug)
+            return redirect('aronia:tour_detail', tour_slug=tour_slug)
 
         except ValidationError as e:
             messages.error(request, str(e))
@@ -1379,12 +1487,12 @@ def tour_quote_inquiry(request, tour_slug):
             print(f"Quote inquiry error: {str(e)}")  # For debugging
 
         # If there's an error, redirect back to tour detail with error message
-        return redirect('dede:tour_detail', tour_slug=tour_slug)
+        return redirect('aronia:tour_detail', tour_slug=tour_slug)
 
     # For GET requests, redirect to tour detail
-    return redirect('dede:tour_detail', tour_slug=tour_slug)
+    return redirect('aronia:tour_detail', tour_slug=tour_slug)
 
 
 def booking_confirmation(request, booking_reference):
     booking = get_object_or_404(Booking, booking_reference=booking_reference)
-    return render(request, 'users/dede/booking-confirmation.html', {'booking': booking})
+    return render(request, 'users/aronia/booking-confirmation.html', {'booking': booking})

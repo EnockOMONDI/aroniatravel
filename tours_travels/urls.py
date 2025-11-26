@@ -17,12 +17,12 @@ urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
     path("ckeditor5/", include('django_ckeditor_5.urls')),  # CKEditor 5 URLs
     path('admin/', admin.site.urls),
-    path('', include(('dede.urls', 'dede'), namespace='dede')),
+    path('', include(('aronia.urls', 'aronia'), namespace='aronia')),
     path('events/', include(('events.urls', 'events'), namespace='events')),
     path('users/', include(('users.urls', 'users'), namespace='home')),
     path('tours/', include(('adminside.urls', 'adminside'), namespace='adminside')),
-    path('login/',auth_views.LoginView.as_view(template_name='users/dede/login.html'),name='login'),
-    path('logout/',auth_views.LogoutView.as_view(template_name='users/dede/index.html'),name='logout'),
+    path('login/',auth_views.LoginView.as_view(template_name='users/aronia/login.html'),name='login'),
+    path('logout/',auth_views.LogoutView.as_view(template_name='users/aronia/index.html'),name='logout'),
     path('mail/',tours_travels_views.mail,name='mail'),
   
     

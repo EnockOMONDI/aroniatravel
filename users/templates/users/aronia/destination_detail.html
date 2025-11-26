@@ -1,4 +1,4 @@
-{% extends 'users/dede/basemain.html' %}
+{% extends 'users/aronia/basemain.html' %}
 {% load static %}
 
 {% block content %}
@@ -12,7 +12,7 @@
                         <div class="tg-breadcrumb-content text-center">
                             <h2 class="tg-breadcrumb-title mb-15">{{ destination.name }}</h2>
                             <div class="tg-breadcrumb-list">
-                                <span><a href="{% url 'dede:home' %}">Home</a></span>
+                                <span><a href="{% url 'aronia:home' %}">Home</a></span>
                                 <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
                                 <span>Destinations</span>
                                 <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
@@ -49,7 +49,7 @@
                                                 <p class="mb-2"><i class="fa-solid fa-route me-2 text-primary"></i><strong>Available Tours:</strong> {{ destination.tours.count }}</p>
                                             </div>
                                             <div class="tg-destination-actions">
-                                                <a href="{% url 'dede:tour_list' %}?destination={{ destination.slug }}" class="tg-btn tg-btn-primary">View Tours</a>
+                                                <a href="{% url 'aronia:tour_list' %}?destination={{ destination.slug }}" class="tg-btn tg-btn-primary">View Tours</a>
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +109,7 @@
                                                             <span class="text-primary h5 mb-0">USD {{ tour.price }}</span>
                                                             <small class="text-muted">/person</small>
                                                         </div>
-                                                        <a href="{% url 'dede:tour_detail' tour.slug %}" class="tg-btn tg-btn-sm">View Details</a>
+                                                        <a href="{% url 'aronia:tour_detail' tour.slug %}" class="tg-btn tg-btn-sm">View Details</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -120,7 +120,7 @@
                                 
                                 {% if destination.tours.count > 4 %}
                                 <div class="text-center mt-30">
-                                    <a href="{% url 'dede:tour_list' %}?destination={{ destination.slug }}" class="tg-btn tg-btn-outline">View All Tours in {{ destination.name }}</a>
+                                    <a href="{% url 'aronia:tour_list' %}?destination={{ destination.slug }}" class="tg-btn tg-btn-outline">View All Tours in {{ destination.name }}</a>
                                 </div>
                                 {% endif %}
                             </div>
@@ -179,7 +179,7 @@
                                                 </div>
                                                 {% endif %}
                                                 <div class="tour-info flex-grow-1">
-                                                    <h6 class="mb-1"><a href="{% url 'dede:tour_detail' tour.slug %}" class="text-decoration-none">{{ tour.name|truncatechars:30 }}</a></h6>
+                                                    <h6 class="mb-1"><a href="{% url 'aronia:tour_detail' tour.slug %}" class="text-decoration-none">{{ tour.name|truncatechars:30 }}</a></h6>
                                                     <div class="tour-meta">
                                                         <small class="text-muted">{{ tour.duration }} days</small>
                                                         <span class="mx-1">•</span>
@@ -210,7 +210,7 @@
                                             <p class="mb-2"><i class="fa-solid fa-envelope me-2"></i>info@aroniatravel.com</p>
                                             <p class="mb-3"><i class="fa-solid fa-clock me-2"></i>Mon - Fri: 9AM - 6PM</p>
                                         </div>
-                                        <a href="{% url 'dede:contact' %}" class="tg-btn tg-btn-primary w-100">Contact Us</a>
+                                        <a href="{% url 'aronia:contact' %}" class="tg-btn tg-btn-primary w-100">Contact Us</a>
                                     </div>
                                 </div>
                             </div>

@@ -142,7 +142,7 @@ class BookingAdmin(admin.ModelAdmin):
     )
 
     def save_model(self, request, obj, form, change):
-        if not obj.total_price:
+        if obj.total_price is None:
             obj.total_price = obj.calculate_total_price()
         super().save_model(request, obj, form, change)
 

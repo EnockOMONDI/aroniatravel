@@ -1,4 +1,4 @@
-{% extends 'users/dede/basemain.html' %}
+{% extends 'users/aronia/basemain.html' %}
 {% load static %}
 
 {% block content %}
@@ -12,11 +12,11 @@
                         <div class="tg-breadcrumb-content text-center">
                             <h2 class="tg-breadcrumb-title mb-15">Book Day Trip</h2>
                             <div class="tg-breadcrumb-list">
-                                <span><a href="{% url 'dede:home' %}">Home</a></span>
+                                <span><a href="{% url 'aronia:home' %}">Home</a></span>
                                 <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
-                                <span><a href="{% url 'dede:daytrip_list' %}">Day Trips</a></span>
+                                <span><a href="{% url 'aronia:daytrip_list' %}">Day Trips</a></span>
                                 <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
-                                <span><a href="{% url 'dede:daytrip_detail' daytrip.slug %}">{{ daytrip.name }}</a></span>
+                                <span><a href="{% url 'aronia:daytrip_detail' daytrip.slug %}">{{ daytrip.name }}</a></span>
                                 <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
                                 <span>Booking</span>
                             </div>
@@ -66,7 +66,7 @@
 
                             <!-- Booking Form -->
                             <div class="tg-booking-form-content">
-                                <form method="post" action="{% url 'dede:daytrip_booking' daytrip.slug %}">
+                                <form method="post" action="{% url 'aronia:daytrip_booking' daytrip.slug %}">
                                     {% csrf_token %}
                                     
                                     <!-- Display Messages -->
@@ -178,7 +178,7 @@
 
                                     <div class="tg-booking-form-actions">
                                         <button type="submit" class="tg-btn tg-btn-primary">Complete Booking</button>
-                                        <a href="{% url 'dede:daytrip_detail' daytrip.slug %}" class="tg-btn tg-btn-outline ms-3">Back to Day Trip</a>
+                                        <a href="{% url 'aronia:daytrip_detail' daytrip.slug %}" class="tg-btn tg-btn-outline ms-3">Back to Day Trip</a>
                                     </div>
                                 </form>
                             </div>

@@ -1,0 +1,226 @@
+{% extends 'users/aronia/basemain.html' %}
+{% load static %}
+
+{% block content %}
+<section class="tg-breadcrumb-area tg-breadcrumb-spacing fix p-relative z-index-1 include-bg" data-background="{% static 'assets3/img/breadcrumb/breadcrumb.jpg' %}">
+    <div class="tg-hero-top-shadow"></div>
+    <div class="tg-breadcrumb-shadow"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="tg-breadcrumb-content text-center">
+                    <p class="text-uppercase text-white mb-10">Admin Tutorials</p>
+                    <h1 class="tg-breadcrumb-title mb-15">Run Aronia Travel with Confidence</h1>
+                    <p class="text-white opacity-75">Simple, non-technical steps to keep stories, tours, day trips, and bookings up to date.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tutorials-intro pt-60 pb-40">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h2 class="mb-3">Aronia travel Back Office Tutorial</h2>
+                <ul class="list-unstyled icon-list">
+                    <li><i class="fas fa-check-circle"></i> Update blog posts, tours, and day trips in under five minutes.</li>
+                    <li><i class="fas fa-check-circle"></i> Track bookings and quote requests from the same dashboard.</li>
+                </ul>
+            </div>
+            <div class="col-lg-5">
+                <div class="tutorials-callout">
+                    <h4>Quick Start</h4>
+                    <ol class="mb-0">
+                        <li>Browse to <a href="/admin/" class="main-btn primary-btn">Open the Admin Now <i class="fas fa-arrow-right ms-2"></i></a>  and sign in.</li>
+                        <li>Use the menu on the left to open the feature you want.</li>
+                        <li>Click “Add” or choose an existing record to edit.</li>
+                    </ol>
+                    <p class="mb-0 small text-muted mt-2">Tip: Use the search bar at the top of any list to jump straight to a tour, day trip, or booking.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tutorials-grid pb-60">
+    <div class="container">
+        <div class="row">
+            {% for section in guide_sections %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="tutorial-card h-100">
+                    <div class="tutorial-icon">
+                        <i class="fas {{ section.icon }}"></i>
+                    </div>
+                    <h4>{{ section.title }}</h4>
+                    <p>{{ section.summary }}</p>
+                    <ol>
+                        {% for step in section.steps %}
+                        <li>{{ step }}</li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="tutorials-quick-actions pt-60 pb-60">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-lg-8">
+                <h3>Fast Actions</h3>
+                <p class="mb-0">Use these reminders before jumping into the admin so you always know where the right button lives.</p>
+            </div>
+        </div>
+        <div class="row">
+            {% for action in quick_actions %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="quick-action-card">
+                    <h5>{{ action.title }}</h5>
+                    <p class="mb-0">{{ action.detail }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="tutorials-booking-flow pt-60 pb-60">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-lg-8">
+                <h3>Booking Flow at a Glance</h3>
+                <p class="mb-0">Here’s what happens from the moment a customer submits a form until the trip is confirmed.</p>
+            </div>
+        </div>
+        <div class="booking-flow-wrapper">
+            {% for step in booking_flow %}
+            <div class="booking-flow-step">
+                <div class="step-number">{{ forloop.counter }}</div>
+                <p class="mb-0">{{ step }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="tutorials-support pt-60 pb-80">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-lg-8">
+                <h3>Helpful Reminders</h3>
+                <p class="mb-0">Keep your workflows tidy and your travelers informed.</p>
+            </div>
+        </div>
+        <div class="row">
+            {% for card in support_cards %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="support-card h-100">
+                    <h5>{{ card.title }}</h5>
+                    <p class="mb-0">{{ card.body }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-10">
+                <div class="tutorials-cta">
+                    <h4>Still need help?</h4>
+                    <p class="mb-3">Email <a href="mailto:info@aroniatravel.com">info@aroniatravel.com</a> or ask your system administrator to walk you through a live screen-share session.</p>
+                    <a href="/admin/" class="main-btn primary-btn">Open the Admin Now <i class="fas fa-arrow-right ms-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .tutorials-intro,
+    .tutorials-grid,
+    .tutorials-quick-actions,
+    .tutorials-booking-flow,
+    .tutorials-support {
+        background-color: #f7f5ef;
+    }
+    .tutorials-callout,
+    .tutorial-card,
+    .quick-action-card,
+    .booking-flow-wrapper,
+    .support-card,
+    .tutorials-cta {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.08);
+        padding: 30px;
+    }
+    .tutorial-card h4,
+    .quick-action-card h5,
+    .support-card h5 {
+        color: #0f5132;
+    }
+    .tutorial-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #0f5132;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    .tutorial-card ol {
+        padding-left: 18px;
+        margin-bottom: 0;
+    }
+    .icon-list li {
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+    .icon-list i {
+        color: #0f5132;
+        margin-right: 8px;
+    }
+    .booking-flow-wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+        gap: 20px;
+    }
+    .booking-flow-step {
+        background: #fff;
+        border-radius: 16px;
+        padding: 24px;
+        border: 1px solid rgba(15,81,50,0.08);
+        position: relative;
+        min-height: 160px;
+    }
+    .booking-flow-step .step-number {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #0f5132;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+    .tutorials-cta {
+        border-left: 6px solid #0f5132;
+    }
+    .main-btn.primary-btn {
+        background: #0f5132;
+        color: #fff;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 30px;
+    }
+    .tutorials-callout {
+        border-left: 6px solid #0f5132;
+    }
+</style>
+{% endblock %}

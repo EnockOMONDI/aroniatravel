@@ -211,7 +211,7 @@ def notify_launch(request):
                 # First send the user confirmation email
                 try:
                     user_msg = MIMEMultipart('alternative')
-                    user_msg['From'] = "DEDE EXPEDITIONS <dedeexpeditions@gmail.com>"
+                    user_msg['From'] = "ARONIA TRAVEL <info@aroniatravel.com>"
                     user_msg['To'] = email
                     user_msg['Subject'] = "Events Launch Notification Confirmation"
                     
@@ -240,14 +240,14 @@ def notify_launch(request):
                             </div>
                             <div class="content">
                                 <p>Dear valued customer,</p>
-                                <p>Thank you for signing up to be notified about the launch of our Events feature at DEDE EXPEDITIONS.</p>
+                                <p>Thank you for signing up to be notified about the launch of our Events feature at ARONIA TRAVEL.</p>
                                 <p>We'll send you an email as soon as our Events feature goes live, so you can be among the first to:</p>
                                 <ul>
                                     <li>Discover exciting events</li>
                                     <li>Book tickets directly through our platform</li>
                                     <li>Get exclusive early access to special events</li>
                                 </ul>
-                                <p>Best regards,<br>The DEDE EXPEDITIONS Team</p>
+                                <p>Best regards,<br>The ARONIA TRAVEL Team</p>
                             </div>
                         </div>
                     </body>
@@ -268,8 +268,8 @@ def notify_launch(request):
                 # Then send the admin notification
                 try:
                     admin_msg = MIMEMultipart('alternative')
-                    admin_msg['From'] = "DEDE EXPEDITIONS <dedeexpeditions@gmail.com>"
-                    admin_msg['To'] = "events@dedeexpeditions.com"
+                    admin_msg['From'] = "ARONIA TRAVEL <info@aroniatravel.com>"
+                    admin_msg['To'] = "events@aroniatravel.com"
                     admin_msg['Reply-To'] = email  # Add reply-to header
                     admin_msg['Subject'] = "New Events Launch Notification Signup"
                     

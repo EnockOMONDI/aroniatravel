@@ -40,7 +40,7 @@ def send_email_via_mailtrap(
     Returns:
         bool: True if email was sent successfully, False otherwise
     """
-    if not MAILTRAP_AVAILABLE or not settings.MAILTRAP_API_TOKEN:
+    if not MAILTRAP_AVAILABLE or not getattr(settings, 'MAILTRAP_API_TOKEN', None):
         # Fallback to Django's default email backend
         logger.info("Using Django's default email backend as fallback")
         try:

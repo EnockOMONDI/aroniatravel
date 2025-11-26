@@ -26,13 +26,13 @@ This document provides a detailed analysis of the current Aronia Travel Django p
 ├── adminside/         # Travel packages, destinations, bookings
 ├── users/             # User management, profiles, bookings
 ├── blog/              # Blog posts, categories, comments
-├── dede/              # Tours, day trips, destinations, bookings
+├── aronia/            # Tours, day trips, destinations, bookings
 ├── events/            # Events management
 └── tours_travels/     # Main project settings
 ```
 
 **Key URL Patterns:**
-- `/` → dede app (main homepage)
+- `/` → aronia app (main homepage)
 - `/events/` → events app
 - `/users/` → users app
 - `/tours/` → adminside app
@@ -42,7 +42,7 @@ This document provides a detailed analysis of the current Aronia Travel Django p
 
 **Aronia Travel Models:**
 
-**dede app:**
+**aronia app:**
 - `Destination` (name, slug, location, description, main_image)
 - `Tour` (destination, name, Image, gallery_images, slug, description, price, duration, group_size, languages, rating, reviews_count, is_featured)
 - `TourDay` (tour, day_number, title, description)
@@ -180,7 +180,7 @@ This document provides a detailed analysis of the current Aronia Travel Django p
 
 | Feature | Aronia Travel | Novustell Travel | Gap Analysis |
 |---------|---------------|------------------|--------------|
-| **Template Structure** | Multiple template directories (aronia, dede) | Organized structure | ❌ Inconsistent organization |
+| **Template Structure** | Multiple template directories (aronia) | Organized structure | ❌ Inconsistent organization |
 | **Admin Interface** | Django Jet (older) | Django Unfold (modern) | ❌ Missing modern admin UI |
 | **Rich Content** | Plain text fields | CKEditor 5 integration | ❌ Missing rich content editing |
 | **Responsive Design** | Present | Present | ✅ Comparable |
@@ -497,3 +497,34 @@ The recommended phased approach will systematically address these gaps while mai
 - Background task processing
 
 By implementing these recommendations, Aronia Travel will achieve a modern, scalable, and professional travel booking platform that exceeds the capabilities documented in the Novustell system.
+
+---
+
+## 9. Additional Technical Observations
+
+### 9.1 Environment & Configuration
+- `tours_travels/settings.py` still contains production-like defaults (SMTP password, Uploadcare secret, Neon host). Strip these from version control and rely solely on environment variables.
+- `PRODUCTION_DB` acts only as a console warning; consider blocking migrations unless `--force` is passed via the `safe_migrate` command.
+- Static settings define both `STATIC_ROOT = os.path.join(BASE_DIR, 'static')` and later `STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')`. Keeping a single destination prevents confusion during `collectstatic`.
+- Helper management commands `safe_migrate` and `createsu` offer valuable tooling but lack documentation in the README/admin guide.
+
+### 9.2 Data Flow & Email Notifications
+- Booking and quote flows in `aronia/views.py` calculate totals and immediately send SMTP emails with large inline HTML strings. Moving templates to dedicated files (or a transactional provider) would simplify translations and updates.
+- Email routing configuration (`EMAIL_ROUTING` in settings) is not referenced by existing booking/quote code; aligning on a single email sending utility would reduce duplication.
+- There is no retry/back-off when Gmail rejects a message; bookings succeed even if emails fail, potentially leaving users without confirmations.
+
+### 9.3 Security & Compliance
+- HTTPS enforcement flags (`SECURE_SSL_REDIRECT`, `SESSION_COOKIE_SECURE`, `CSRF_COOKIE_SECURE`) are `False`, and `ALLOWED_HOSTS` includes `*`. Production deployments should tighten these values and add the live domain to `CSRF_TRUSTED_ORIGINS`.
+- Debug logging is inconsistent; several sensitive operations (`users/views.py` OAuth block, booking flows) print stack traces. Replace prints with structured logging and centralize sensitive logs.
+- There is no documented backup/restore plan before running migrations or deploying framework upgrades.
+
+### 9.4 Testing & Quality Assurance
+- Aside from placeholder app tests, there is no automated coverage for bookings, quotes, or events. The lack of CI means regressions may reach production unnoticed.
+- Scripts such as `create_pdf_guide.py` and `simple_html_generator.py` rely on manual execution. If these outputs are critical, include automation in deployment or documentation builds.
+
+### 9.5 Deployment & Operations
+- Render.com is referenced as the hosting platform, yet the repo lacks service definitions, environment scripts, or health checks. Adding infrastructure docs (or IaC) would improve onboarding.
+- Static and media assets depend on Uploadcare plus WhiteNoise; ensure `collectstatic` runs in every deployment pipeline and document how Uploadcare credentials rotate.
+- `safe_migrate` is a good safeguard but should log to monitoring tooling and confirm backups before allowing production migrations.
+
+Capturing these operational insights alongside the earlier strategic recommendations will help engineering, operations, and admin teams share a unified roadmap for stabilizing and evolving the platform.

@@ -113,7 +113,7 @@ from django.utils.http import urlsafe_base64_decode
 #                 logger.debug(f'User logged in successfully: {email}')
 
 #                 # Generate absolute redirect URL
-#                 redirect_url = request.build_absolute_uri(reverse('dede:home'))
+#                 redirect_url = request.build_absolute_uri(reverse('aronia:home'))
 #                 logger.debug(f'Generated redirect URL: {redirect_url}')
 
 #                 return JsonResponse({
@@ -259,7 +259,7 @@ def register(request):
     else:
         form = UserRegisterForm()
 
-    return render(request, 'users/dede/register.html', {'form': form})
+    return render(request, 'users/aronia/register.html', {'form': form})
 
 
 
@@ -280,7 +280,7 @@ def success(request):
 
 @login_required
 def profile(request):
-    return render(request, 'users/dede/profile.html', {'user': request.user})
+    return render(request, 'users/aronia/profile.html', {'user': request.user})
 
 @login_required
 def profile_edit(request):
@@ -292,7 +292,7 @@ def profile_edit(request):
             return redirect('users:users-profile')
     else:
         form = ProfileForm(instance=request.user.profile)
-    return render(request, 'users/dede/profile_edit.html', {'form': form})
+    return render(request, 'users/aronia/profile_edit.html', {'form': form})
 
 
 
