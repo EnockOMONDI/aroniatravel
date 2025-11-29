@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aronia Travel | {% block page_title %}{% endblock %}</title>
+    <style>
+        :root {
+            --primary: #0f463a;
+            --primary-dark: #0a2f26;
+            --accent: #f7a934;
+            --text: #1f2a37;
+            --muted: #5f6c7b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Poppins", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(120deg, rgba(15, 70, 58, 0.95), rgba(28, 122, 100, 0.9)), url("{% static 'assets4/img/bg/error-bg.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .error-card {
+            width: 100%;
+            max-width: 740px;
+            background: #fff;
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+            color: var(--text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .error-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(247, 169, 52, 0.15), rgba(15, 70, 58, 0.05));
+            pointer-events: none;
+        }
+
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--primary);
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand-badge img {
+            width: 72px;
+            height: auto;
+        }
+
+        .error-code {
+            font-size: clamp(4rem, 9vw, 7.5rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0;
+            line-height: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .error-heading {
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            margin: 16px 0 18px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .error-message {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--muted);
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-group a {
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 999px;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta-primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 12px 25px rgba(15, 70, 58, 0.25);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 30px rgba(15, 70, 58, 0.25);
+        }
+
+        .cta-secondary {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .support-card {
+            margin-top: 40px;
+            padding: 20px 24px;
+            border-radius: 18px;
+            background: rgba(15, 70, 58, 0.06);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .support-card div {
+            flex: 1 1 200px;
+        }
+
+        .support-card span {
+            display: block;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+
+        .support-card a,
+        .support-card strong {
+            color: var(--primary-dark);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            .error-card {
+                padding: 32px 24px;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .cta-group a {
+                text-align: center;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="error-card">
+        <div class="brand-badge">
+            <img src="{% static 'assets4/img/logo/logo1.png' %}" alt="Aronia Travel logo">
+            <span>Aronia Travel</span>
+        </div>
+        <p class="error-code">{% block error_code %}{% endblock %}</p>
+        <h1 class="error-heading">{% block heading %}{% endblock %}</h1>
+        <p class="error-message">{% block message %}{% endblock %}</p>
+        <div class="cta-group">
+            <a class="cta-primary" href="{% url 'aronia:home' %}">Back to Home</a>
+            <a class="cta-secondary" href="{% url 'aronia:contact' %}">Contact Our Team</a>
+        </div>
+        <div class="support-card">
+            <div>
+                <span>Call Us</span>
+                <a href="tel:+254116784345">+254 116 784 345</a>
+            </div>
+            <div>
+                <span>Email</span>
+                <a href="mailto:info@aroniatravel.com">info@aroniatravel.com</a>
+            </div>
+            <div>
+                <span>Office</span>
+                <strong>New People Media Center, Kilimani</strong>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
