@@ -214,7 +214,7 @@ def send_daytrip_confirmation_email(booking):
                     <p>Best regards,<br>The ARONIA TRAVEL Team</p>
                     <p>© 2024 ARONIA. All rights reserved.</p>
                     <p>
-                        <a href="tel:+254733591347</a> 
+                        <a href="tel:+254116784345</a> 
                         <a href="mailto:info@aroniatravel.com">info@aroniatravel.com</a>
                     </p>
                 </div>
@@ -521,7 +521,7 @@ def daytrip_booking(request, daytrip_slug):
                             <p>Best regards,<br>The ARONIA TRAVEL Team</p>
                             <p>© 2024 ARONIA. All rights reserved.</p>
                             <p>
-                                <a href="tel:+254733591347</a> |
+                                <a href="tel:+254116784345</a> |
                                 <a href="mailto:info@aroniatravel.com">info@aroniatravel.com</a>
                             </p>
                         </div>
