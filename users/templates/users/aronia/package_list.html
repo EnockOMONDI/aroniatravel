@@ -29,7 +29,7 @@
                                 <div class="activity-item-card d-flex">
                                     <div class="col-lg-5 col-md-6 act-pl">
                                         <div class="activity-item-img text-center">
-                                            {% if tour.image %}
+                                            {% if tour.Image %}
                                                 <img src="{{ tour.Image.cdn_url }}" alt="{{ tour.title }}">
                                             {% else %}
                                                 <img src="{% static 'assets/img/activity/activity-l1.jpg' %}" alt="{{ tour.title }}">
@@ -118,8 +118,8 @@
                             {% for tour in featured_tours %}
                             <div class="recent-blog-content">
                                 <div class="recent-blog-img float-left">
-                                    {% if tour.image %}
-                                        <img src="{{ tour.image.url }}" alt="{{ tour.title }}">
+                                    {% if tour.Image %}
+                                        <img src="{{ tour.Image.cdn_url }}" alt="{{ tour.title }}">
                                     {% else %}
                                         <img src="{% static 'assets/img/blog/blog-sml-1.jpg' %}" alt="{{ tour.title }}">
                                     {% endif %}
@@ -145,5 +145,4 @@
 
 {% include 'users/aronia/footer.html' %}
 {% endblock %}
-
 
