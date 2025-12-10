@@ -20,6 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('aronia.urls', 'aronia'), namespace='aronia')),
     path('events/', include(('events.urls', 'events'), namespace='events')),
+    path('blog/', include(('blog.urls', 'blog'), namespace='blog')),
     path('users/', include(('users.urls', 'users'), namespace='home')),
     path('tours/', include(('adminside.urls', 'adminside'), namespace='adminside')),
     path('login/',auth_views.LoginView.as_view(template_name='users/aronia/login.html'),name='login'),
