@@ -866,7 +866,7 @@ class TourListView(ListView):
 
 class TourDetailView(DetailView):
     model = Tour
-    template_name = 'users/aronia/tour-details.html'
+    template_name = 'users/aronia/tourdetailsmain.html'
     context_object_name = 'tour'
     slug_url_kwarg = 'tour_slug'  # Add this line to match the URL pattern
 
@@ -888,7 +888,8 @@ class TourDetailView(DetailView):
             'reviews': reviews,
             'avg_ratings': avg_ratings,
             'highlights': tour.highlights.all(),
-            'inclusions': tour.inclusions.all(),
+            'inclusions': tour.inclusions.filter(is_included=True),
+            'exclusions': tour.inclusions.filter(is_included=False),
             'tour_days': tour.tour_days.all(),
             'related_tours': Tour.objects.filter(destination=tour.destination).exclude(id=tour.id)[:3]
         })

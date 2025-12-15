@@ -3,6 +3,212 @@
 
 {% block content %}
 <style>
+    :root {
+        --tour-dark: #050b1a;
+        --tour-card: #faf7f2;
+        --tour-border: rgba(15, 23, 42, 0.08);
+        --tour-accent: #0ea5e9;
+        --tour-soft: #94a3b8;
+    }
+
+    .tg-breadcrumb-area {
+        position: relative;
+        padding: 140px 0 120px;
+        border-bottom-left-radius: 36px;
+        border-bottom-right-radius: 36px;
+        overflow: hidden;
+        background: var(--tour-dark);
+        isolation: isolate;
+    }
+
+    .tour-hero-media {
+        position: absolute;
+        inset: 0;
+        padding: 60px 8%;
+        z-index: 1;
+    }
+
+    .hero-media-grid {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, minmax(160px, 1fr));
+        gap: 18px;
+    }
+
+    .hero-media-tile {
+        border-radius: 24px;
+        overflow: hidden;
+        position: relative;
+       
+    }
+
+    .hero-media-tile img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.08);
+        transition: transform 0.8s ease;
+        filter: saturate(1.05);
+    }
+
+    .hero-media-tile:hover img {
+        transform: scale(1.15);
+    }
+
+    .hero-media-xl {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+
+    .tour-hero-overlay,
+    .tg-breadcrumb-area::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+    }
+
+    .tg-breadcrumb-content {
+        position: relative;
+        z-index: 3;
+        color: #fff;
+        max-width: 760px;
+        margin: 0 auto;
+    }
+
+    .tg-breadcrumb-title {
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    .tg-breadcrumb-list span,
+    .tg-breadcrumb-list a {
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 500;
+    }
+
+    .tg-tour-details-area {
+        background: #faf7f2;
+    }
+
+    .tour-main-stack > *:not(:last-child) {
+        margin-bottom: 35px;
+    }
+
+    .content-card {
+        background: var(--tour-card);
+        border-radius: 28px;
+        padding: 35px;
+        border: 1px solid var(--tour-border);
+        box-shadow: 0 30px 70px rgba(15, 23, 42, 0.08);
+    }
+
+    .content-card h4 {
+        font-weight: 600;
+        color: #0f172a;
+    }
+
+    .tour-media-panel {
+        padding: 28px;
+    }
+
+    .tour-media-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 18px;
+    }
+
+    .tour-media-main,
+    .tour-media-thumb {
+        border-radius: 22px;
+        overflow: hidden;
+        position: relative;
+        background: #0f172a;
+    }
+
+    .tour-media-main img,
+    .tour-media-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .tour-media-main {
+        min-height: 360px;
+    }
+
+    .tour-media-stack {
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+        gap: 16px;
+    }
+
+    .tour-meta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 18px;
+    }
+
+    .tour-meta-card {
+        border: 1px solid var(--tour-border);
+        border-radius: 20px;
+        padding: 18px 22px;
+        background: #f8fafc;
+    }
+
+    .tour-meta-card span {
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-size: 12px;
+        color: var(--tour-soft);
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .tour-meta-card strong {
+        font-size: 20px;
+        color: #0f172a;
+    }
+
+    .eyebrow {
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--tour-soft);
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .section-lead {
+        font-size: 22px;
+        color: #475569;
+        max-width: 90%;
+    }
+
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px 20px;
+    }
+
+    .feature-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        color: #0f172a;
+        font-weight: 500;
+    }
+
+    .feature-list i {
+        color: var(--tour-accent);
+        margin-top: 4px;
+    }
+
     /* Itinerary Styling */
     .tg-itinerary-timeline {
         position: relative;
@@ -14,49 +220,159 @@
     }
 
     .day-badge {
-        background: linear-gradient(135deg, #007bff, #0056b3);
+        background: linear-gradient(135deg, #0ea5e9, #2563eb);
         color: white;
-        padding: 8px 16px;
-        border-radius: 25px;
+        padding: 8px 18px;
+        border-radius: 999px;
         font-weight: 600;
         font-size: 14px;
-        display: inline-block;
-        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        box-shadow: 0 12px 24px rgba(14, 165, 233, 0.25);
     }
 
     .tg-itinerary-day-header {
-        background: #f8f9fa;
-        padding: 15px;
-        border-radius: 8px;
-        border-left: 4px solid #007bff;
+        background: #f8fafc;
+        padding: 18px;
+        border-radius: 18px;
+        border: 1px solid var(--tour-border);
     }
 
     .tg-itinerary-day-content {
-        padding: 15px;
+        padding: 20px;
         background: white;
-        border-radius: 8px;
-        margin-top: 10px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        border-radius: 18px;
+        margin-top: 12px;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
     }
 
-    .tg-tour-details-inclusions ul li,
-    .tg-tour-details-highlights ul li {
-        padding: 8px 0;
-        border-bottom: 1px solid #f0f0f0;
-    }
-
-    .tg-tour-details-inclusions ul li:last-child,
-    .tg-tour-details-highlights ul li:last-child {
-        border-bottom: none;
-    }
-
-    .tg-itinerary-divider hr {
-        border-top: 2px dashed #dee2e6;
+    .tg-itinerary-day-content p {
+        color: #475569;
         margin: 0;
     }
 
+    .tg-itinerary-divider hr {
+        border-top: 2px dashed #e2e8f0;
+        margin: 0;
+    }
+
+    .sidebar-card {
+        border-radius: 26px;
+        padding: 30px;
+        background: #0b1a33;
+        color: #fff;
+        box-shadow: 0 30px 60px rgba(5, 11, 26, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .sidebar-card + .sidebar-card {
+        margin-top: 30px;
+    }
+
+    .sidebar-card h4 {
+        color: #fff;
+    }
+
+    .sidebar-card label,
+    .sidebar-card p,
+    .sidebar-card small,
+    .sidebar-card .text-muted {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    .sidebar-card .form-control,
+    .sidebar-card select,
+    .sidebar-card textarea {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #fff;
+        border-radius: 14px;
+    }
+
+    .sidebar-card .form-control:focus {
+        box-shadow: none;
+        border-color: rgba(14, 165, 233, 0.7);
+    }
+
+    .tg-tour-info-list {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .tg-tour-info-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .tg-tour-info-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .info-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        background: rgba(14, 165, 233, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0ea5e9;
+        font-size: 20px;
+    }
+
+    .info-text {
+        color: rgba(255, 255, 255, 0.92);
+        font-weight: 600;
+    }
+
     /* Responsive Design */
+    @media (max-width: 992px) {
+        .tg-breadcrumb-title {
+            font-size: 36px;
+        }
+
+        .tour-media-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .tour-media-main {
+            min-height: 320px;
+        }
+
+        .tour-media-stack {
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-rows: none;
+        }
+    }
+
     @media (max-width: 768px) {
+        .tg-breadcrumb-area {
+            padding: 120px 0 90px;
+        }
+
+        .tour-hero-media {
+            padding: 30px 5%;
+        }
+
+        .hero-media-grid {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, minmax(140px, 1fr));
+        }
+
+        .tour-media-panel {
+            padding: 20px;
+        }
+
+        .content-card {
+            padding: 28px;
+        }
+
         .tg-itinerary-day-header {
             flex-direction: column;
             align-items: flex-start !important;
@@ -73,19 +389,40 @@
         }
 
         .tg-itinerary-day-content {
-            padding: 12px;
+            padding: 16px;
         }
     }
 </style>
         <!-- tg-breadcrumb-area-start -->
-        <div class="tg-breadcrumb-area tg-breadcrumb-spacing fix p-relative z-index-1 include-bg" data-background="{% static 'assets3/img/breadcrumb/breadcrumb.jpg' %}  ">
-            <div class="tg-hero-top-shadow"></div>
-            <div class="tg-breadcrumb-shadow"></div>
+        {% static 'assets3/img/breadcrumb/breadcrumb.jpg' as fallback_image %}
+        <div class="tg-breadcrumb-area tg-breadcrumb-spacing fix p-relative z-index-1 include-bg" data-background="">
+            <div class="tour-hero-media">
+                <div class="hero-media-grid">
+                    <div class="hero-media-tile hero-media-xl">
+                        <img src="{% if tour.Image %}{{ tour.Image.cdn_url }}{% else %}{{ fallback_image }}{% endif %}" alt="{{ tour.name }} hero image">
+                    </div>
+                    <div class="hero-media-tile">
+                        <img src="{% if tour.gallery_image1 %}{{ tour.gallery_image1.cdn_url }}{% elif tour.Image %}{{ tour.Image.cdn_url }}{% else %}{{ fallback_image }}{% endif %}" alt="{{ tour.name }} gallery image 1">
+                    </div>
+                    <div class="hero-media-tile">
+                        <img src="{% if tour.gallery_image2 %}{{ tour.gallery_image2.cdn_url }}{% elif tour.Image %}{{ tour.Image.cdn_url }}{% else %}{{ fallback_image }}{% endif %}" alt="{{ tour.name }} gallery image 2">
+                    </div>
+                    <div class="hero-media-tile">
+                        <img src="{% if tour.gallery_image3 %}{{ tour.gallery_image3.cdn_url }}{% elif tour.Image %}{{ tour.Image.cdn_url }}{% else %}{{ fallback_image }}{% endif %}" alt="{{ tour.name }} gallery image 3">
+                    </div>
+                </div>
+            </div>
+            <div class="tour-hero-overlay"></div>
+          
             <div class="container">
                 <div class="row">
                     <div class="col-12">
                         <div class="tg-breadcrumb-content text-center">
+                            <p class="eyebrow">Signature Journey</p>
                             <h2 class="tg-breadcrumb-title mb-15">{{ tour.name }}</h2>
+                            <p class="section-lead mx-auto mb-25">
+                                Discover {{ tour.destination.name }} over {{ tour.duration }} unforgettable days curated by Aronia Travel.
+                            </p>
                             <div class="tg-breadcrumb-list">
                                 <span><a href="{% url 'aronia:home' %}">Home</a></span>
                                 <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
@@ -103,183 +440,194 @@
         <!-- tour-details-area-start -->
         <div class="tg-tour-details-area pt-80 pb-80">
             <div class="container">
-                <div class="row">
+                <div class="row gy-5 gx-4">
                     <div class="col-xl-8 col-lg-8">
-                        <div class="tg-tour-details-wrapper">
-                            <!-- Tour Image -->
-                            <div class="tg-tour-details-thumb mb-30">
-                                {% if tour.Image %}
-                                    <img class="w-100" src="{{ tour.Image.cdn_url }}" alt="{{ tour.name }}">
-                                {% else %}
-                                    <img class="w-100" src="{% static 'assets3/img/default-tour.jpg' %}" alt="{{ tour.name }}">
-                                {% endif %}
-                            </div>
-
-                            <!-- Tour Content -->
-                            <div class="tg-tour-details-content">
-                                <h3 class="tg-tour-details-title mb-20">{{ tour.name }}</h3>
-                                
-                                <!-- Tour Info -->
-                                <div class="tg-tour-details-info mb-30">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="tg-tour-info-item">
-                                                <span class="info-label">Destination:</span>
-                                                <span class="info-value">{{ tour.destination.name }}</span>
-                                            </div>
+                        <div class="tour-main-stack">
+                            <div class="content-card tour-media-panel">
+                                <div class="tour-media-grid">
+                                    <div class="tour-media-main">
+                                        {% if tour.Image %}
+                                            <img src="{{ tour.Image.cdn_url }}" alt="{{ tour.name }}">
+                                        {% else %}
+                                            <img src="{% static 'assets3/img/default-tour.jpg' %}" alt="{{ tour.name }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="tour-media-stack">
+                                        <div class="tour-media-thumb">
+                                            {% if tour.gallery_image1 %}
+                                                <img src="{{ tour.gallery_image1.cdn_url }}" alt="{{ tour.name }} gallery 1">
+                                            {% else %}
+                                                <img src="{% static 'assets3/img/default-tour.jpg' %}" alt="{{ tour.name }}">
+                                            {% endif %}
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="tg-tour-info-item">
-                                                <span class="info-label">Duration:</span>
-                                                <span class="info-value">{{ tour.duration }} Days</span>
-                                            </div>
+                                        <div class="tour-media-thumb">
+                                            {% if tour.gallery_image2 %}
+                                                <img src="{{ tour.gallery_image2.cdn_url }}" alt="{{ tour.name }} gallery 2">
+                                            {% else %}
+                                                <img src="{% static 'assets3/img/default-tour.jpg' %}" alt="{{ tour.name }}">
+                                            {% endif %}
+                                        </div>
+                                        <div class="tour-media-thumb">
+                                            {% if tour.gallery_image3 %}
+                                                <img src="{{ tour.gallery_image3.cdn_url }}" alt="{{ tour.name }} gallery 3">
+                                            {% else %}
+                                                <img src="{% static 'assets3/img/default-tour.jpg' %}" alt="{{ tour.name }}">
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- Tour Description -->
-                                <div class="tg-tour-details-description mb-30">
+                            <div class="content-card">
+                                <p class="eyebrow">Overview</p>
+                                <h3 class="tg-tour-details-title mb-3">{{ tour.name }}</h3>
+                                <p class="section-lead mb-4">Tailor-made experiences, seamless logistics, and expert guides designed for travelers who expect more.</p>
+                                <div class="tour-meta-grid mb-30">
+                                    <div class="tour-meta-card">
+                                        <span>Destination</span>
+                                        <strong>{{ tour.destination.name }}</strong>
+                                    </div>
+                                    <div class="tour-meta-card">
+                                        <span>Duration</span>
+                                        <strong>{{ tour.duration }} Days</strong>
+                                    </div>
+                                </div>
+                                <div class="tg-tour-details-description">
                                     <h4 class="mb-15">Tour Description</h4>
                                     <p>{{ tour.description|linebreaks }}</p>
                                 </div>
-
-                                <!-- Tour Highlights -->
-                                {% if highlights %}
-                                <div class="tg-tour-details-highlights mb-30">
-                                    <h4 class="mb-15">Tour Highlights</h4>
-                                    <div class="tg-tour-highlights-list">
-                                        <ul class="list-unstyled">
-                                            {% for highlight in highlights %}
-                                            <li class="mb-2">
-                                                <i class="fa-solid fa-star text-warning me-2"></i>
-                                                {{ highlight.highlight }}
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                </div>
-                                {% endif %}
-
-                                <!-- Tour Inclusions -->
-                                {% if inclusions %}
-                                <div class="tg-tour-details-inclusions mb-30">
-                                    <h4 class="mb-15">What's Included</h4>
-                                    <div class="tg-tour-inclusions-list">
-                                        <ul class="list-unstyled">
-                                            {% for inclusion in inclusions %}
-                                            <li class="mb-2">
-                                                <i class="fa-solid fa-check text-success me-2"></i>
-                                                {{ inclusion.item }}
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                </div>
-                                {% endif %}
-
-                                <!-- Day-by-Day Itinerary -->
-                                {% if tour_days %}
-                                <div class="tg-tour-details-itinerary mb-30">
-                                    <h4 class="mb-20">Day-by-Day Itinerary</h4>
-                                    <div class="tg-itinerary-timeline">
-                                        {% for day in tour_days %}
-                                        <div class="tg-itinerary-day mb-25">
-                                            <div class="tg-itinerary-day-header d-flex align-items-center mb-15">
-                                                <div class="tg-day-number">
-                                                    <span class="day-badge">Day {{ day.day_number }}</span>
-                                                </div>
-                                                <div class="tg-day-title ms-3">
-                                                    <h5 class="mb-0">{{ day.title }}</h5>
-                                                </div>
-                                            </div>
-                                            <div class="tg-itinerary-day-content">
-                                                <p class="text-muted">{{ day.description|linebreaks }}</p>
-                                            </div>
-                                        </div>
-                                        {% if not forloop.last %}
-                                        <div class="tg-itinerary-divider mb-20">
-                                            <hr class="border-light">
-                                        </div>
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                {% endif %}
                             </div>
+
+                            {% if highlights or inclusions %}
+                            <div class="content-card">
+                                <div class="row g-4">
+                                    {% if highlights %}
+                                    <div class="col-lg-6">
+                                        <h4 class="mb-15">Tour Highlights</h4>
+                                        <ul class="feature-list">
+                                            {% for highlight in highlights %}
+                                                <li>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    {{ highlight.highlight }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    {% endif %}
+                                    {% if inclusions %}
+                                    <div class="col-lg-6">
+                                        <h4 class="mb-15">What's Included</h4>
+                                        <ul class="feature-list">
+                                            {% for inclusion in inclusions %}
+                                                <li>
+                                                    <i class="fa-solid fa-check"></i>
+                                                    {{ inclusion.item }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% if tour_days %}
+                            <div class="content-card">
+                                <h4 class="mb-25">Day-by-Day Itinerary</h4>
+                                <div class="tg-itinerary-timeline">
+                                    {% for day in tour_days %}
+                                    <div class="tg-itinerary-day mb-25">
+                                        <div class="tg-itinerary-day-header d-flex align-items-center justify-content-between flex-wrap">
+                                            <div class="tg-day-number">
+                                                <span class="day-badge"><i class="fa-solid fa-calendar-day"></i> Day {{ day.day_number }}</span>
+                                            </div>
+                                            <div class="tg-day-title ms-3">
+                                                <h5 class="mb-0">{{ day.title }}</h5>
+                                            </div>
+                                        </div>
+                                        <div class="tg-itinerary-day-content">
+                                            <p class="text-muted mb-0">{{ day.description|linebreaks }}</p>
+                                        </div>
+                                    </div>
+                                    {% if not forloop.last %}
+                                    <div class="tg-itinerary-divider mb-25">
+                                        <hr class="border-light">
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
 
                     <div class="col-xl-4 col-lg-4">
                         <div class="tg-tour-sidebar">
-                            <!-- Booking Form -->
-                            <div class="tg-tour-booking-form mb-30">
-                                <div class="tg-booking-form-wrapper">
-                                    <h4 class="tg-booking-form-title mb-20">Get Quote for This Tour</h4>
-                                    <p class="text-muted mb-20" style="font-size: 14px;">
-                                        <i class="fa fa-info-circle"></i>
-                                        Request a personalized quote and our team will respond within 2-24 hours.
-                                    </p>
-                                    <form method="post" action="{% url 'aronia:tour_quote_inquiry' tour.slug %}">
-                                        {% csrf_token %}
-                                        <div class="form-group mb-15">
-                                            <label for="preferred_date">Preferred Date: <span class="text-danger">*</span></label>
-                                            <input type="date" class="form-control" id="preferred_date" name="preferred_date" required>
-                                        </div>
-                                        <div class="form-group mb-15">
-                                            <label for="number_of_people">Number of People: <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="number_of_people" name="number_of_people" min="1" max="1000" value="1" required>
-                                        </div>
-                                        <div class="form-group mb-15">
-                                            <label for="full_name">Full Name: <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="full_name" name="full_name" required>
-                                        </div>
-                                        <div class="form-group mb-15">
-                                            <label for="email">Email: <span class="text-danger">*</span></label>
-                                            <input type="email" class="form-control" id="email" name="email" required>
-                                        </div>
-                                        <div class="form-group mb-15">
-                                            <label for="phone">Phone: <span class="text-danger">*</span></label>
-                                            <input type="tel" class="form-control" id="phone" name="phone" required>
-                                        </div>
-                                        <div class="form-group mb-15">
-                                            <label for="nationality">Nationality: <span class="text-danger">*</span></label>
-                                            <select class="form-control" id="nationality" name="nationality" required>
-                                                <option value="">Select your nationality</option>
-                                                <option value="USA">United States</option>
-                                                <option value="UK">United Kingdom</option>
-                                                <option value="Canada">Canada</option>
-                                                <option value="Australia">Australia</option>
-                                                <option value="Germany">Germany</option>
-                                                <option value="France">France</option>
-                                                <option value="Italy">Italy</option>
-                                                <option value="Spain">Spain</option>
-                                                <option value="Netherlands">Netherlands</option>
-                                                <option value="Kenya">Kenya</option>
-                                                <option value="Tanzania">Tanzania</option>
-                                                <option value="Uganda">Uganda</option>
-                                                <option value="Rwanda">Rwanda</option>
-                                                <option value="South Africa">South Africa</option>
-                                                <option value="Other">Other</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group mb-15">
-                                            <label for="special_requirements">Special Requirements:</label>
-                                            <textarea class="form-control" id="special_requirements" name="special_requirements" rows="3" placeholder="Any dietary restrictions, accessibility needs, or special requests..."></textarea>
-                                        </div>
-                                        <div class="form-group mb-15">
-                                            <small class="text-muted">
-                                                <span class="text-danger">*</span> Required fields
-                                            </small>
-                                        </div>
-                                        <button type="submit" class="tg-btn w-100">
-                                            <i class="fa fa-paper-plane"></i> Request Quote
-                                        </button>
-                                    </form>
-                                </div>
+                            <div class="sidebar-card">
+                                <h4 class="tg-booking-form-title mb-3">Get Quote for This Tour</h4>
+                                <p class="text-muted mb-20" style="font-size: 14px;">
+                                    <i class="fa fa-info-circle"></i>
+                                    Request a personalized quote and our team will respond within 2-24 hours.
+                                </p>
+                                <form method="post" action="{% url 'aronia:tour_quote_inquiry' tour.slug %}">
+                                    {% csrf_token %}
+                                    <div class="form-group mb-15">
+                                        <label for="preferred_date">Preferred Date: <span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" id="preferred_date" name="preferred_date" required>
+                                    </div>
+                                    <div class="form-group mb-15">
+                                        <label for="number_of_people">Number of People: <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" id="number_of_people" name="number_of_people" min="1" max="1000" value="1" required>
+                                    </div>
+                                    <div class="form-group mb-15">
+                                        <label for="full_name">Full Name: <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="full_name" name="full_name" required>
+                                    </div>
+                                    <div class="form-group mb-15">
+                                        <label for="email">Email: <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+                                    <div class="form-group mb-15">
+                                        <label for="phone">Phone: <span class="text-danger">*</span></label>
+                                        <input type="tel" class="form-control" id="phone" name="phone" required>
+                                    </div>
+                                    <div class="form-group mb-15">
+                                        <label for="nationality">Nationality: <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="nationality" name="nationality" required>
+                                            <option value="">Select your nationality</option>
+                                            <option value="USA">United States</option>
+                                            <option value="UK">United Kingdom</option>
+                                            <option value="Canada">Canada</option>
+                                            <option value="Australia">Australia</option>
+                                            <option value="Germany">Germany</option>
+                                            <option value="France">France</option>
+                                            <option value="Italy">Italy</option>
+                                            <option value="Spain">Spain</option>
+                                            <option value="Netherlands">Netherlands</option>
+                                            <option value="Kenya">Kenya</option>
+                                            <option value="Tanzania">Tanzania</option>
+                                            <option value="Uganda">Uganda</option>
+                                            <option value="Rwanda">Rwanda</option>
+                                            <option value="South Africa">South Africa</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-15">
+                                        <label for="special_requirements">Special Requirements:</label>
+                                        <textarea class="form-control" id="special_requirements" name="special_requirements" rows="3" placeholder="Any dietary restrictions, accessibility needs, or special requests..."></textarea>
+                                    </div>
+                                    <div class="form-group mb-15">
+                                        <small class="text-muted">
+                                            <span class="text-danger">*</span> Required fields
+                                        </small>
+                                    </div>
+                                    <button type="submit" class="tg-btn w-100">
+                                        <i class="fa fa-paper-plane"></i> Request Quote
+                                    </button>
+                                </form>
                             </div>
 
-                            <!-- Tour Info Sidebar -->
-                            <div class="tg-tour-info-sidebar">
+                            <div class="sidebar-card">
                                 <h4 class="mb-20">Tour Information</h4>
                                 <div class="tg-tour-info-list">
                                     <div class="tg-tour-info-item">
