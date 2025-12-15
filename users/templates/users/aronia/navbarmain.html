@@ -36,7 +36,7 @@
                                                 <i class="far fa-map-marker-alt"></i>
                                             </div>
                                             <div class="info">
-                                                <span class="title">hekima university college , 
+                                                <span class="title">Hekima university college , 
                                                   Riara Road, Kilimani Nairobi, Kenya. </span>
                                                 <!-- <h5>Eagle Nest House Kilimani Ndemi Rd, Kilimani Rd Junction Off Ngong Rd</h5> -->
                                             </div>
@@ -126,14 +126,14 @@
                                         </ul>
                                     </li>
 
-                                <li class="menu-item has-children"><a href="#"> <span style="padding-right: 10px;"><i class="far fa-bed"></i> Hotels</a></a>
+                                <li class="menu-item has-children"><a href="{% url 'aronia:hotel_list' %}"> <span style="padding-right: 10px;"><i class="far fa-bed"></i> Hotels</a></a>
                                     <ul class="sub-menu">
-                                        <li><a href="">Luxury Hotels </a></li>
-                                        <li><a href="">Comfortable Stays </a></li>
-                                        <li><a href="">Affordable Lodgings</a></li>
-                                        <li><a href="">Extended Stays </a></li>
-                                        <li><a href="">Airport Convenience</a></li>
-                                        <li><a href=""><strong>   <i class="far fa-arrow-right "></i> View All</strong></a></li>
+                                        <li><a href="{% url 'aronia:hotel_list' %}?category=luxury">Luxury Hotels </a></li>
+                                        <li><a href="{% url 'aronia:hotel_list' %}?category=comfort">Comfortable Stays </a></li>
+                                        <li><a href="{% url 'aronia:hotel_list' %}?category=budget">Affordable Lodgings</a></li>
+                                        <li><a href="{% url 'aronia:hotel_list' %}?category=longstay">Extended Stays </a></li>
+                                        <li><a href="{% url 'aronia:hotel_list' %}?category=airport">Airport Convenience</a></li>
+                                        <li><a href="{% url 'aronia:hotel_list' %}"><strong>   <i class="far fa-arrow-right "></i> View All</strong></a></li>
 
 
 

@@ -1,0 +1,303 @@
+{% extends 'users/aronia/basemain.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .hotel-card {
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+        transition: transform 0.35s ease, box-shadow 0.35s ease;
+        background: #fff;
+        min-height: 100%;
+    }
+
+    .hotel-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 28px 60px rgba(15, 23, 42, 0.16);
+    }
+
+    .hotel-card-thumb {
+        border-radius: 18px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .hotel-card-thumb img {
+        height: 220px;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .hotel-card:hover .hotel-card-thumb img {
+        transform: scale(1.05);
+    }
+
+    .hotel-placeholder {
+        height: 220px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at top, #092200 #103c00);
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .hotel-placeholder i {
+        font-size: 40px;
+        margin-bottom: 12px;
+    }
+
+    .hotel-placeholder span {
+        font-weight: 600;
+        font-size: 18px;
+    }
+
+    .hotel-card-content {
+        padding: 20px 22px 24px;
+    }
+
+    .hotel-card-title a {
+        color: #0f172a;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .hotel-card-meta {
+        font-size: 14px;
+        color: #475569;
+        margin-bottom: 15px;
+    }
+
+    .hotel-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid rgba(15, 23, 42, 0.08);
+        padding-top: 18px;
+        margin-top: 18px;
+        gap: 25px;
+    }
+
+    .hotel-card-price span {
+        font-size: 13px;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .hotel-card-price strong {
+        display: block;
+        font-size: 20px;
+        color: #0f172a;
+    }
+
+    .tg-btn-green {
+        background: #1dbf73;
+        border-color: #1dbf73;
+        color: #fff;
+    }
+
+    .tg-btn-green:hover {
+        background: #17a764;
+        border-color: #17a764;
+        color: #fff;
+    }
+
+    .hotel-category-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .hotel-category-pills a {
+        padding: 8px 16px;
+        border-radius: 999px;
+        background: #f1f5f9;
+        color: #0f172a;
+        font-weight: 500;
+        font-size: 14px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .hotel-category-pills a.active,
+    .hotel-category-pills a:hover {
+        background: #092200;
+        color: #fff;
+        box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+    }
+</style>
+        <!-- tg-breadcrumb-area-start -->
+        <div class="tg-breadcrumb-area tg-breadcrumb-spacing fix p-relative z-index-1 include-bg" data-background="{% static 'assets3/img/breadcrumb/breadcrumb.jpg' %}">
+            <div class="tg-hero-top-shadow"></div>
+            <div class="tg-breadcrumb-shadow"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tg-breadcrumb-content text-center">
+                            <h2 class="tg-breadcrumb-title mb-15">Hotel & Stay Collection</h2>
+                            <div class="tg-breadcrumb-list">
+                                <span><a href="{% url 'aronia:home' %}">Home</a></span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span>Hotels</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tg-hero-bottom-shape d-none d-md-block">
+                <span>
+                    <svg width="432" height="290" viewBox="0 0 432 290" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path class="line-1" opacity="0.4" d="M39.6042 428.345C4.41235 355.065 -24.3018 203.867 142.377 185.309C350.725 162.111 488.893 393.541 289.169 313.515C129.389 249.494 458.202 85.4772 642.58 11.4713" stroke="white" stroke-width="24" />
+                    </svg>
+                </span>
+            </div>
+            <div class="tg-hero-bottom-shape-2 d-none d-md-block">
+                <span>
+                    <svg width="154" height="243" viewBox="0 0 154 243" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path class="line-1" opacity="0.4" d="M144.616 328.905C116.117 300.508 62.5986 230.961 76.5162 179.949C93.9131 116.184 275.231 7.44494 -65.0181 12.8762" stroke="white" stroke-width="24" />
+                    </svg>
+                </span>
+            </div>
+        </div>
+        <!-- tg-breadcrumb-area-end -->
+
+        <!-- filter + search -->
+        <div class="tg-booking-form-area tg-booking-form-grid-space pb-10 pt-30">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="tg-booking-form-item tg-booking-form-grid">
+                            <form class="tg-filter-form" method="GET">
+                                <div class="row align-items-center g-3">
+                                    <div class="col-lg-4 col-md-6">
+                                        <input type="text" class="form-control" placeholder="Search by hotel name..." name="search" value="{{ search_query }}">
+                                    </div>
+                                    <div class="col-lg-4 col-md-6">
+                                        <select name="category" class="form-select">
+                                            <option value="">All Categories</option>
+                                            {% for category in categories %}
+                                                <option value="{{ category.key }}" {% if selected_category == category.key %}selected{% endif %}>
+                                                    {{ category.label }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <button type="submit" class="tg-btn">Filter Hotels</button>
+                                    </div>
+                                    {% if search_query or selected_category %}
+                                    <div class="col-lg-1 col-md-6">
+                                        <a href="{% url 'aronia:hotel_list' %}" class="tg-btn btn-sm" style="background:#f1f5f9;color:#0f172a;border:none;">Clear</a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </form>
+                        </div>
+                        <div class="hotel-category-pills">
+                            {% for category in categories %}
+                                <a href="?category={{ category.key }}{% if search_query %}&search={{ search_query }}{% endif %}" class="{% if selected_category == category.key %}active{% endif %}">
+                                    {{ category.label }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- listing -->
+        <div class="tg-listing-grid-area mb-85">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="tg-listing-item-box-wrap ml-10">
+                            <div class="tg-listing-box-filter mb-15">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6 col-md-6 mb-15">
+                                        <div class="tg-listing-box-number-found">
+                                            <span>Found {{ page_obj.paginator.count }} Hotels</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tg-listing-grid-item">
+                                <div class="row list-card">
+                                    {% if hotels %}
+                                        {% for hotel in hotels %}
+                                        <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 tg-grid-full">
+                                            <div class="tg-listing-card-item hotel-card mb-30">
+                                                <div class="tg-listing-card-thumb fix mb-15 p-relative hotel-card-thumb">
+                                                    {% if hotel.image %}
+                                                        <img class="tg-card-border w-100" src="{{ hotel.image.url }}" alt="{{ hotel.hotel_name }}">
+                                                    {% else %}
+                                                        <div class="hotel-placeholder">
+                                                            <i class="fa-solid fa-bed"></i>
+                                                            <span>{{ hotel.hotel_name }}</span>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="hotel-card-content">
+                                                    <h4 class="hotel-card-title mb-2">
+                                                        {{ hotel.hotel_name }}
+                                                    </h4>
+                                                    <div class="hotel-card-meta">
+                                                        Starting from USD {{ hotel.price_per_room }}
+                                                    </div>
+                                                    <p class="text-muted mb-0">{{ hotel.hotel_description|truncatewords:32 }}</p>
+                                                    <div class="hotel-card-footer">
+                                                        <div class="hotel-card-price">
+                                                            <span>Nightly Rate</span>
+                                                            <strong>USD {{ hotel.price_per_room }}</strong>
+                                                        </div>
+                                                        <a href="{% url 'users:contactus' %}" class="tg-btn tg-btn-green">Book Stay</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <div class="col-12">
+                                            <div class="alert alert-info text-center">
+                                                No hotels found for the selected filters. Please adjust your search.
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                {% if is_paginated %}
+                                <div class="tg-pagenation-wrap text-center mt-50 mb-30">
+                                    <nav>
+                                        <ul>
+                                            {% if page_obj.has_previous %}
+                                                <li><a class="p-btn mr-25" href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}">Previous Page</a></li>
+                                            {% endif %}
+
+                                            {% for num in page_obj.paginator.page_range %}
+                                                {% if page_obj.number == num %}
+                                                    <li><span class="active" aria-current="page">{{ num }}</span></li>
+                                                {% else %}
+                                                    <li><a href="?page={{ num }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}">{{ num }}</a></li>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% if page_obj.has_next %}
+                                                <li><a class="p-btn ml-25" href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}">Next Page</a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </nav>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'users/aronia/footer2.html' %}
+{% endblock %}

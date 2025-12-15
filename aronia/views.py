@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib import messages
 from django.db.models import Avg
 from .models import Destination, Tour, Review, OptionalActivity
+from adminside.models import Accomodation
 from django.views.generic.edit import CreateView
 from .models import Tour, Booking, DayTrip, DayTripBooking, QuoteInquiry
 from django.core.mail import send_mail
@@ -863,6 +864,52 @@ class TourListView(ListView):
             queryset = queryset.filter(is_featured=True)
 
         return queryset.select_related('destination')  # Optimize database queries
+
+class HotelListView(ListView):
+    model = Accomodation
+    template_name = 'users/aronia/hotel-grid-1.html'
+    context_object_name = 'hotels'
+    paginate_by = 9
+
+    CATEGORY_FILTERS = {
+        'luxury': {'min_price': 400},
+        'comfort': {'min_price': 200, 'max_price': 399},
+        'budget': {'max_price': 199},
+        'longstay': {'min_price': 150},
+        'airport': {},
+    }
+
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('hotel_name')
+        search = self.request.GET.get('search')
+        category = self.request.GET.get('category')
+
+        if search:
+            queryset = queryset.filter(hotel_name__icontains=search.strip())
+
+        if category in self.CATEGORY_FILTERS:
+            filters = self.CATEGORY_FILTERS[category]
+            min_price = filters.get('min_price')
+            max_price = filters.get('max_price')
+            if min_price is not None:
+                queryset = queryset.filter(price_per_room__gte=min_price)
+            if max_price is not None:
+                queryset = queryset.filter(price_per_room__lte=max_price)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('search', '')
+        context['selected_category'] = self.request.GET.get('category', '')
+        context['categories'] = [
+            {'key': 'luxury', 'label': 'Luxury Hotels'},
+            {'key': 'comfort', 'label': 'Comfort Stays'},
+            {'key': 'budget', 'label': 'Affordable Lodging'},
+            {'key': 'longstay', 'label': 'Extended Stays'},
+            {'key': 'airport', 'label': 'Airport Convenience'},
+        ]
+        return context
 
 class TourDetailView(DetailView):
     model = Tour

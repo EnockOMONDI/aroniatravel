@@ -120,10 +120,14 @@
 
                                         </li>
                                         <li class="dropdown">
-                                            <a href="#">Hotels</a>
+                                            <a href="{% url 'aronia:hotel_list' %}">Hotels</a>
                                             <ul class="dropdown-menu clearfix">
-                                                <li><a href="{% url 'aronia:tour_list' %}">Hotels</a></li>
-                                             
+                                                <li><a href="{% url 'aronia:hotel_list' %}?category=luxury">Luxury Hotels</a></li>
+                                                <li><a href="{% url 'aronia:hotel_list' %}?category=comfort">Comfortable Stays</a></li>
+                                                <li><a href="{% url 'aronia:hotel_list' %}?category=budget">Affordable Lodgings</a></li>
+                                                <li><a href="{% url 'aronia:hotel_list' %}?category=longstay">Extended Stays</a></li>
+                                                <li><a href="{% url 'aronia:hotel_list' %}?category=airport">Airport Convenience</a></li>
+                                                <li><a href="{% url 'aronia:hotel_list' %}"><strong><i class="far fa-arrow-right"></i> View All</strong></a></li>
                                             </ul>
                                         </li>
                                       
@@ -174,10 +178,14 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#">Hotels</a>
+                                <a href="{% url 'aronia:hotel_list' %}">Hotels</a>
                                 <ul class="dropdown-menu clearfix">
-                                    <li><a href="">Hotels</a></li>
-                                 
+                                    <li><a href="{% url 'aronia:hotel_list' %}?category=luxury">Luxury Hotels</a></li>
+                                    <li><a href="{% url 'aronia:hotel_list' %}?category=comfort">Comfortable Stays</a></li>
+                                    <li><a href="{% url 'aronia:hotel_list' %}?category=budget">Affordable Lodgings</a></li>
+                                    <li><a href="{% url 'aronia:hotel_list' %}?category=longstay">Extended Stays</a></li>
+                                    <li><a href="{% url 'aronia:hotel_list' %}?category=airport">Airport Convenience</a></li>
+                                    <li><a href="{% url 'aronia:hotel_list' %}"><strong><i class="far fa-arrow-right"></i> View All</strong></a></li>
                                 </ul>
                             </li>
                             
