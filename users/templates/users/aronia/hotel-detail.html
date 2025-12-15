@@ -1,0 +1,289 @@
+{% extends 'users/aronia/basemain.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    :root {
+        --hotel-dark: #050b1a;
+        --hotel-soft: #94a3b8;
+        --hotel-card: #ffffff;
+    }
+
+    .tg-breadcrumb-area {
+        position: relative;
+        padding: 140px 0 120px;
+        border-bottom-left-radius: 36px;
+        border-bottom-right-radius: 36px;
+        overflow: hidden;
+        background: var(--hotel-dark);
+        isolation: isolate;
+    }
+
+    .hotel-hero-media {
+        position: absolute;
+        inset: 0;
+        padding: 50px 10%;
+        z-index: 1;
+    }
+
+    .hotel-hero-grid {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, minmax(160px, 1fr));
+        gap: 18px;
+    }
+
+    .hotel-hero-tile {
+        border-radius: 24px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 30px 70px rgba(5, 11, 26, 0.45);
+    }
+
+    .hotel-hero-tile img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.08);
+        transition: transform 0.8s ease;
+    }
+
+    .hotel-hero-tile:nth-child(1) {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+
+    .hotel-hero-overlay,
+    .tg-breadcrumb-area::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, rgba(5, 11, 26, 0.85), rgba(5, 11, 26, 0.45));
+        z-index: 2;
+    }
+
+    .tg-breadcrumb-content {
+        position: relative;
+        z-index: 3;
+        color: #fff;
+        max-width: 780px;
+        margin: 0 auto;
+    }
+
+    .content-card {
+        background: var(--hotel-card);
+        border-radius: 28px;
+        padding: 35px;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 30px 70px rgba(15, 23, 42, 0.08);
+    }
+
+    .content-card + .content-card {
+        margin-top: 35px;
+    }
+
+    .eyebrow {
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--hotel-soft);
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 18px;
+    }
+
+    .meta-card {
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 20px;
+        padding: 18px 22px;
+        background: #f8fafc;
+    }
+
+    .meta-card span {
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-size: 12px;
+        color: var(--hotel-soft);
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .amenities-list {
+        columns: 2;
+        column-gap: 25px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .amenities-list li {
+        margin-bottom: 12px;
+        color: #0f172a;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .sidebar-card {
+        border-radius: 26px;
+        padding: 30px;
+        background: #0b1a33;
+        color: #fff;
+        box-shadow: 0 30px 60px rgba(5, 11, 26, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .related-card {
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 15px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .related-card img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+        .hotel-hero-grid {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, minmax(140px, 1fr));
+        }
+
+        .amenities-list {
+            columns: 1;
+        }
+    }
+</style>
+        {% static 'assets3/img/breadcrumb/breadcrumb.jpg' as fallback_image %}
+        <div class="tg-breadcrumb-area tg-breadcrumb-spacing fix p-relative z-index-1 include-bg">
+            <div class="hotel-hero-media">
+                <div class="hotel-hero-grid">
+                    {% for _ in "1234" %}
+                    <div class="hotel-hero-tile">
+                        <img src="{% if hotel.image %}{{ hotel.image.cdn_url }}{% else %}{{ fallback_image }}{% endif %}" alt="{{ hotel.hotel_name }}">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="hotel-hero-overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tg-breadcrumb-content text-center">
+                            <p class="eyebrow">Curated Stay</p>
+                            <h2 class="tg-breadcrumb-title mb-15">{{ hotel.hotel_name }}</h2>
+                            <p class="section-lead mx-auto mb-25">
+                                Refined hospitality and effortless service starting from USD {{ hotel.price_per_room }} per night.
+                            </p>
+                            <div class="tg-breadcrumb-list">
+                                <span><a href="{% url 'aronia:home' %}">Home</a></span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span><a href="{% url 'aronia:hotel_list' %}">Hotels</a></span>
+                                <span class="dvdr"><i class="fa-sharp fa-solid fa-angle-right"></i></span>
+                                <span>{{ hotel.hotel_name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tg-tour-details-area pt-80 pb-80">
+            <div class="container">
+                <div class="row gy-5 gx-4">
+                    <div class="col-xl-8 col-lg-8">
+                        <div class="content-card">
+                            <p class="eyebrow">Overview</p>
+                            <h3 class="mb-3">{{ hotel.hotel_name }}</h3>
+                            <p class="section-lead mb-4">Experience tailored stays curated by Aronia Travel’s hotel desk.</p>
+                            <div class="meta-grid mb-30">
+                                <div class="meta-card">
+                                    <span>Nightly Rate</span>
+                                    <strong>USD {{ hotel.price_per_room }}</strong>
+                                </div>
+                                <div class="meta-card">
+                                    <span>Experience</span>
+                                    <strong>Premium Comfort</strong>
+                                </div>
+                                <div class="meta-card">
+                                    <span>Availability</span>
+                                    <strong>On Request</strong>
+                                </div>
+                            </div>
+                            <p>{{ hotel.hotel_description|linebreaks }}</p>
+                        </div>
+
+                        <div class="content-card">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <h4 class="mb-20">Highlights</h4>
+                                    <ul class="amenities-list">
+                                        <li><i class="fa-solid fa-check text-success"></i>Personalized concierge</li>
+                                        <li><i class="fa-solid fa-check text-success"></i>Seamless transfers</li>
+                                        <li><i class="fa-solid fa-check text-success"></i>Curated dining access</li>
+                                        <li><i class="fa-solid fa-check text-success"></i>Preferred check-in support</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="mb-20">Perfect For</h4>
+                                    <ul class="amenities-list">
+                                        <li><i class="fa-solid fa-star text-warning"></i>Executive stays</li>
+                                        <li><i class="fa-solid fa-star text-warning"></i>Honeymoons</li>
+                                        <li><i class="fa-solid fa-star text-warning"></i>Weekend escapes</li>
+                                        <li><i class="fa-solid fa-star text-warning"></i>Extended residencies</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4">
+                        <div class="sidebar-card mb-30">
+                            <h4 class="mb-20">Plan Your Stay</h4>
+                            <p class="mb-3">Share your travel dates and our hotel specialists will confirm availability within 24 hours.</p>
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2"><i class="fa-solid fa-phone me-2"></i>+254 116 784 345</li>
+                                <li class="mb-2"><i class="fa-solid fa-envelope me-2"></i>stay@aroniatravel.com</li>
+                                <li><i class="fa-solid fa-globe me-2"></i>Concierge Team</li>
+                            </ul>
+                            <a href="{% url 'users:contactus' %}" class="tg-btn w-100"><i class="fa-solid fa-paper-plane"></i> Request Reservation</a>
+                        </div>
+
+                        <div class="sidebar-card">
+                            <h4 class="mb-20">Similar Stays</h4>
+                            {% for related in related_hotels %}
+                                <div class="related-card mb-20">
+                                    <a href="{% url 'aronia:hotel_detail' related.pk %}">
+                                        {% if related.image %}
+                                            <img src="{{ related.image.cdn_url }}" alt="{{ related.hotel_name }}">
+                                        {% else %}
+                                            <img src="{% static 'assets3/img/default-tour.jpg' %}" alt="{{ related.hotel_name }}">
+                                        {% endif %}
+                                    </a>
+                                    <div class="p-3">
+                                        <h5 class="mb-1">{{ related.hotel_name }}</h5>
+                                        <p class="text-muted mb-2">From USD {{ related.price_per_room }}/night</p>
+                                        <a href="{% url 'aronia:hotel_detail' related.pk %}" class="text-decoration-underline">View</a>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <p class="text-muted mb-0">More curated hotels coming soon.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'users/aronia/footer2.html' %}
+{% endblock %}

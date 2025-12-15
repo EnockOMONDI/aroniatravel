@@ -876,7 +876,7 @@ class HotelListView(ListView):
         'comfort': {'min_price': 200, 'max_price': 399},
         'budget': {'max_price': 199},
         'longstay': {'min_price': 150},
-        'airport': {},
+        'airport': {}
     }
 
     def get_queryset(self):
@@ -909,6 +909,16 @@ class HotelListView(ListView):
             {'key': 'longstay', 'label': 'Extended Stays'},
             {'key': 'airport', 'label': 'Airport Convenience'},
         ]
+        return context
+
+class HotelDetailView(DetailView):
+    model = Accomodation
+    template_name = 'users/aronia/hotel-detail.html'
+    context_object_name = 'hotel'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['related_hotels'] = Accomodation.objects.exclude(pk=self.object.pk)[:3]
         return context
 
 class TourDetailView(DetailView):

@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
     path('tours/', views.TourListView.as_view(), name='tour_list'),
     path('hotels/', views.HotelListView.as_view(), name='hotel_list'),
+    path('hotel/<int:pk>/', views.HotelDetailView.as_view(), name='hotel_detail'),
     path('destination/<slug:slug>/', views.destination_detail, name='destination_detail'), 
     path('about/', views.AboutView.as_view(), name='about'),
     path('contact/', views.ContactView.as_view(), name='contact'),

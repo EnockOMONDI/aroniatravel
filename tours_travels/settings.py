@@ -51,7 +51,9 @@ GOOGLE_CLIENT_ID = '876054945568-ma5924no5c16cetu6umbkanpsu3djppt.apps.googleuse
 
 # Security settings
 CSRF_TRUSTED_ORIGINS = [
-    'http://127.0.0.1:8000',
+    'http://127.0.0.1:8000'
+    'https://www.aroniatravel.com',
+    'https://aroniatravel.com'
     'http://localhost:8000',
     'https://127.0.0.1:8000',
     'https://localhost:8000'
@@ -158,10 +160,10 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config('DB_NAME', default='neondb'),
-            'USER': config('DB_USER', default='neondb_owner'),
-            'PASSWORD': config('DB_PASSWORD', default=''),
-            'HOST': config('DB_HOST', default='ep-shy-frog-a2opf8tj-pooler.eu-central-1.aws.neon.tech'),
+            'NAME': config('DB_NAME', default='aronia'),
+            'USER': config('DB_USER', default='reline9556'),
+            'PASSWORD': config('DB_PASSWORD', default='G47mWrzAMjSg'),
+            'HOST': config('DB_HOST', default='ep-tiny-union-a28ylo8q.eu-central-1.aws.neon.tech'),
             'PORT': config('DB_PORT', default='5432'),
             'CONN_MAX_AGE': 0,  # Disable connection persistence
             'OPTIONS': {

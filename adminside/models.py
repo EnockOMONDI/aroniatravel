@@ -33,6 +33,7 @@ class Accomodation(models.Model):
     hotel_name = models.CharField(max_length=200)
     hotel_description = models.TextField()
     price_per_room = models.PositiveIntegerField()
+    image = ImageField(blank=True, null=True, manual_crop="4:4")
 
     def __str__(self):
         return f'{self.hotel_name}'
