@@ -106,7 +106,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+ 
 ROOT_URLCONF = 'tours_travels.urls'
 
 TEMPLATES = [
@@ -223,7 +223,7 @@ LOGIN_REDIRECT_URL='aronia:home'
 LOGIN_URL='login'
 LOGOUT_REDIRECT_URL = 'aronia:home'
 UPLOADCARE_PUBLIC_KEY = "21c2913d4e908096d38e"
-UPLOADCARE_SECRET_KEY = "e99a7668da1327823902"
+UPLOADCARE_SECRET_KEY = "a3af045492c15b0cf4f1"
 # settings.py
 
 LOGGING = {
@@ -255,7 +255,7 @@ UPLOADCARE = {
   # Don't forget to set real keys when it gets real :)
 
   'pub_key': '21c2913d4e908096d38e', 
-  'secret': 'e99a7668da1327823902',
+  'secret': 'a3af045492c15b0cf4f1',
 }
 
 TEMPLATE_DIRS = (
