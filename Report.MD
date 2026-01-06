@@ -20,4 +20,11 @@
 # Tasks
 - **High priority:** Plan and complete a full upgrade of the project to the new Django 5 toolset (Unfold admin, CKEditor 5, newer packages). This is needed so we keep receiving security fixes and can use the modern admin and media tools the business now expects.
 
+- **Highlights**
+Core framework: moves from Django 3.2.20 to 5.0.14. That’s a full two-version jump, so we’d need to update middleware, settings, URL patterns, etc.
+
+Admin/editor stack: yet again replaces django-jet with django-unfold plus CKEditor 5. That’s not present in our current requirements, so we’d need to re-theme the admin and wire CKEditor fields.
+
+Package versions: almost every dependency is bumped to newer releases (gunicorn 21→21.2, whitenoise 5.3→6.6, Pillow 8.4→10.2, pyuploadcare 4.1→6.x, djangorestframework already matches but others like django-import-export, django-taggit, django-crispy-forms all need updates). Some new additions today (bleach, html5lib, sentry-sdk, django-cors-headers), plus full Google API stack versions.
+
 

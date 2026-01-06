@@ -1,0 +1,20 @@
+# Database Configuration - NeonDB PostgreSQL
+DATABASE_URL=postgresql://USERNAME:PASSWORD@HOST/DATABASE?sslmode=require
+DB_NAME=aronia
+DB_USER=reline9556
+DB_PASSWORD=G47mWrzAMjSg
+DB_HOST=ep-tiny-union-a28ylo8q.eu-central-1.aws.neon.tech
+DB_PORT=5432
+
+# Email Configuration
+MAILTRAP_API_TOKEN=your-mailtrap-token
+DEFAULT_FROM_EMAIL=Novustell Travel <info@novustelltravel.com>
+
+# Django Settings
+DEBUG=True
+SECRET_KEY=seen
+PRODUCTION_DB=False
+
+# Uploadcare Configuration
+UPLOADCARE_PUBLIC_KEY=21c2913d4e908096d38e
+UPLOADCARE_SECRET_KEY=e99a7668da1327823902
