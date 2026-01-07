@@ -222,8 +222,8 @@ CRISPY_TEMPLATE_PACK='bootstrap4'
 LOGIN_REDIRECT_URL='aronia:home'
 LOGIN_URL='login'
 LOGOUT_REDIRECT_URL = 'aronia:home'
-UPLOADCARE_PUBLIC_KEY = "21c2913d4e908096d38e"
-UPLOADCARE_SECRET_KEY = "a3af045492c15b0cf4f1"
+UPLOADCARE_PUBLIC_KEY = "10305d09acec6b534c85"
+UPLOADCARE_SECRET_KEY = "d41faee05ce8a785df2e"
 # settings.py
 
 LOGGING = {
@@ -254,8 +254,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 UPLOADCARE = {
   # Don't forget to set real keys when it gets real :)
 
-  'pub_key': '21c2913d4e908096d38e', 
-  'secret': 'a3af045492c15b0cf4f1',
+  'pub_key': '10305d09acec6b534c85', 
+  'secret': 'd41faee05ce8a785df2e',
 }
 
 TEMPLATE_DIRS = (
