@@ -224,6 +224,7 @@ LOGIN_URL='login'
 LOGOUT_REDIRECT_URL = 'aronia:home'
 UPLOADCARE_PUBLIC_KEY = "10305d09acec6b534c85"
 UPLOADCARE_SECRET_KEY = "d41faee05ce8a785df2e"
+UPLOADCARE_CDN_BASE="https://ioc6rcdjx5.ucarecd.net"
 # settings.py
 
 LOGGING = {
@@ -256,6 +257,7 @@ UPLOADCARE = {
 
   'pub_key': '10305d09acec6b534c85', 
   'secret': 'd41faee05ce8a785df2e',
+  'cdn_base': os.getenv('UPLOADCARE_CDN_BASE', 'https://ioc6rcdjx5.ucarecd.net'),
 }
 
 TEMPLATE_DIRS = (
