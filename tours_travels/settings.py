@@ -51,10 +51,9 @@ GOOGLE_CLIENT_ID = '876054945568-ma5924no5c16cetu6umbkanpsu3djppt.apps.googleuse
 
 # Security settings
 CSRF_TRUSTED_ORIGINS = [
-    'http://127.0.0.1:8000'
+    'http://127.0.0.1:8000',
     'https://www.aroniatravel.com',
-    'https://aroniatravel.com'
-    'http://localhost:8000',
+    'https://aroniatravel.com'    'http://localhost:8000',
     'https://127.0.0.1:8000',
     'https://localhost:8000'
 ]
@@ -224,7 +223,7 @@ LOGIN_URL='login'
 LOGOUT_REDIRECT_URL = 'aronia:home'
 UPLOADCARE_PUBLIC_KEY = "10305d09acec6b534c85"
 UPLOADCARE_SECRET_KEY = "d41faee05ce8a785df2e"
-UPLOADCARE_CDN_BASE="https://ioc6rcdjx5.ucarecd.net"
+UPLOADCARE_CDN_BASE="https://ioc6rcdjx5.ucarecd.net/"
 # settings.py
 
 LOGGING = {
@@ -257,7 +256,7 @@ UPLOADCARE = {
 
   'pub_key': '10305d09acec6b534c85', 
   'secret': 'd41faee05ce8a785df2e',
-  'cdn_base': os.getenv('UPLOADCARE_CDN_BASE', 'https://ioc6rcdjx5.ucarecd.net'),
+  'cdn_base': os.getenv('UPLOADCARE_CDN_BASE', 'https://ioc6rcdjx5.ucarecd.net/'),
 }
 
 TEMPLATE_DIRS = (
