@@ -1395,7 +1395,7 @@ def tour_quote_inquiry(request, tour_slug):
                                 {f'<p><strong>Special Requirements:</strong> {quote_inquiry.special_requirements}</p>' if quote_inquiry.special_requirements else ''}
                             </div>
 
-                            <p>Our travel experts will review your requirements and provide you with a detailed quote including:</p>
+                            <p>Our travel team will review your requirements and provide you with a detailed quote including:</p>
                             <ul>
                                 <li>Competitive pricing based on your group size</li>
                                 <li>Accommodation options</li>
@@ -1613,7 +1613,7 @@ def tour_quote_inquiry(request, tour_slug):
                 print(f"Error type: {type(e).__name__}")
                 print(f"Error details: {str(e)}")
 
-            messages.success(request, 'Quote request submitted successfully! We will respond within 2-24 hours.')
+            messages.success(request, 'Your quote request was received. Please check your email for our confirmation—we aim to respond within 2-24 hours.')
             return redirect('aronia:tour_detail', tour_slug=tour_slug)
 
         except ValidationError as e:
