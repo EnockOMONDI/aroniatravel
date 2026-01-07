@@ -7,8 +7,8 @@ DB_HOST=ep-tiny-union-a28ylo8q.eu-central-1.aws.neon.tech
 DB_PORT=5432
 
 # Email Configuration
-MAILTRAP_API_TOKEN=your-mailtrap-token
-DEFAULT_FROM_EMAIL=Novustell Travel <info@novustelltravel.com>
+MAILTRAP_API_TOKEN=a773b5f359a98500918392522f1e222c
+DEFAULT_FROM_EMAIL=Aronia Travel <info@aroniatravel.com>
 
 # Django Settings
 DEBUG=True

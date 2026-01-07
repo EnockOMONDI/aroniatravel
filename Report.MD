@@ -22,6 +22,11 @@
 - **Fix:** Copied the `assets4/img` folder into the main `static` directory, removed the extra spaces from the image paths in the templates, tidied the static-file settings, and pointed the browser icon to the real logo.
 - **Impact:** All images load correctly on the development website, `collectstatic` keeps working, and the browser no longer requests missing files. *Time taken: ~45 minutes.*
 
+### Jan 7, 2026 – Email delivery failures
+- **Issue:** Website messages stopped sending because the Mailtrap API password was outdated.
+- **Fix:** Updated `.env`, `.sample_env`, and Render’s environment variables with the new Mailtrap token (`a773b5`) and restarted the app so Django uses the fresh credentials.
+- **Impact:** All inquiry forms send emails again through Mailtrap without errors. *Time taken: ~ 30 minutes.*
+
 
 
 # Tasks
@@ -33,4 +38,3 @@ Core framework: moves from Django 3.2.20 to 5.0.14. That’s a full two-version 
 Admin/editor stack: yet again replaces django-jet with django-unfold plus CKEditor 5. That’s not present in our current requirements, so we’d need to re-theme the admin and wire CKEditor fields.
 
 Package versions: almost every dependency is bumped to newer releases (gunicorn 21→21.2, whitenoise 5.3→6.6, Pillow 8.4→10.2, pyuploadcare 4.1→6.x, djangorestframework already matches but others like django-import-export, django-taggit, django-crispy-forms all need updates). Some new additions today (bleach, html5lib, sentry-sdk, django-cors-headers), plus full Google API stack versions.
-

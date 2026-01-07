@@ -1423,86 +1423,164 @@ def tour_quote_inquiry(request, tour_slug):
                 # Admin email message
                 admin_email = f"""
                 <!DOCTYPE html>
-                <html>
+                <html lang="en">
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>New Quote Inquiry - {tour.name}</title>
+                    <title>New Quote Inquiry • {tour.name}</title>
                     <style>
+                        :root {{
+                            --emerald: #0f463a;
+                            --seafoam: #1c7a64;
+                            --gold: #f7a934;
+                            --mist: #f4f7f5;
+                            --slate: #4d5a56;
+                        }}
                         body {{
-                            font-family: Arial, sans-serif;
-                            line-height: 1.6;
-                            color: #333333;
                             margin: 0;
                             padding: 0;
+                            background: #e8efec;
+                            font-family: "Segoe UI", "Inter", system-ui, sans-serif;
+                            color: var(--slate);
                         }}
-                        .email-container {{
-                            max-width: 600px;
+                        .shell {{
+                            max-width: 660px;
                             margin: 0 auto;
-                            padding: 20px;
+                            padding: 32px 18px;
                         }}
-                        .header {{
+                        .card {{
+                            border-radius: 20px;
+                            overflow: hidden;
+                            background: #fff;
+                            box-shadow: 0 25px 80px rgba(15, 70, 58, 0.12);
+                        }}
+                        .hero {{
                             text-align: center;
-                            padding: 20px 0;
-                            background-color: #f8f9fa;
+                            padding: 32px 24px 24px;
+                            background: radial-gradient(circle at top, var(--seafoam), var(--emerald));
+                            color: #fff;
                         }}
-                        .logo {{
-                            max-width: 200px;
-                            height: auto;
+                        .hero img {{
+                            width: 160px;
+                            margin-bottom: 12px;
+                        }}
+                        h1 {{
+                            margin: 10px 0 0;
+                            font-size: 24px;
+                            letter-spacing: .4px;
                         }}
                         .content {{
-                            padding: 20px 0;
+                            padding: 30px;
                         }}
-                        .quote-details {{
-                            background-color: #f8f9fa;
-                            padding: 20px;
-                            border-radius: 5px;
-                            margin: 20px 0;
+                        .pill {{
+                            display: inline-block;
+                            background: rgba(247, 169, 52, 0.18);
+                            color: var(--gold);
+                            padding: 6px 16px;
+                            border-radius: 999px;
+                            font-size: 11px;
+                            letter-spacing: 1px;
+                            text-transform: uppercase;
+                            margin-bottom: 18px;
+                        }}
+                        .info-block {{
+                            background: var(--mist);
+                            border-radius: 16px;
+                            padding: 22px;
+                            margin-bottom: 18px;
+                        }}
+                        .info-block h3 {{
+                            margin-top: 0;
+                            color: var(--emerald);
+                            letter-spacing: .5px;
+                        }}
+                        .info-item {{
+                            margin: 6px 0;
+                        }}
+                        .actions {{
+                            border-radius: 16px;
+                            padding: 22px;
+                            border: 1px solid rgba(15, 70, 58, 0.15);
+                            margin: 22px 0;
+                        }}
+                        .actions h3 {{
+                            margin-top: 0;
+                        }}
+                        .actions ol {{
+                            padding-left: 18px;
+                            margin: 12px 0 0;
+                        }}
+                        .cta {{
+                            display: inline-block;
+                            margin-top: 22px;
+                            padding: 14px 28px;
+                            border-radius: 999px;
+                            background: linear-gradient(120deg, var(--gold), #ffd885);
+                            color: #fff;
+                            text-decoration: none;
+                            font-weight: 600;
+                            letter-spacing: .4px;
                         }}
                         .footer {{
                             text-align: center;
-                            padding: 20px;
-                            background-color: #f8f9fa;
-                            font-size: 12px;
-                            color: #666;
+                            background: var(--emerald);
+                            color: rgba(255,255,255,.75);
+                            padding: 26px;
+                            font-size: 13px;
+                        }}
+                        .footer a {{
+                            color: var(--gold);
+                            text-decoration: none;
                         }}
                     </style>
                 </head>
                 <body>
-                    <div class="email-container">
-                        <div class="header">
-                            <img src="https://www.aroniatravel.com/static/assets4/img/logo/logo1.png" alt="ARONIA" class="logo">
-                        </div>
-
-                        <div class="content">
-                            <h2>New Quote Inquiry - {tour.name}</h2>
-                            <p>A new quote inquiry has been received. Please review and respond promptly.</p>
-
-                            <div class="quote-details">
-                                <h3>Customer Information:</h3>
-                                <p><strong>Name:</strong> {quote_inquiry.full_name}</p>
-                                <p><strong>Email:</strong> {quote_inquiry.email}</p>
-                                <p><strong>Phone:</strong> {quote_inquiry.phone}</p>
-                                <p><strong>Nationality:</strong> {quote_inquiry.nationality}</p>
-
-                                <h3>Quote Request Details:</h3>
-                                <p><strong>Reference:</strong> {quote_inquiry.inquiry_reference}</p>
-                                <p><strong>Tour:</strong> {tour.name}</p>
-                                <p><strong>Preferred Date:</strong> {quote_inquiry.preferred_date}</p>
-                                <p><strong>Duration:</strong> {tour.duration} days</p>
-                                <p><strong>Number of People:</strong> {quote_inquiry.number_of_people}</p>
-                                <p><strong>Inquiry Date:</strong> {quote_inquiry.inquiry_date.strftime('%Y-%m-%d %H:%M')}</p>
-
-                                <h3>Special Requirements:</h3>
-                                <p>{quote_inquiry.special_requirements if quote_inquiry.special_requirements else 'None specified'}</p>
+                    <div class="shell">
+                        <div class="card">
+                            <div class="hero">
+                                <img src="https://www.aroniatravel.com/static/assets4/img/logo/logo1.png" alt="Aronia Travel">
+                                <h1>New Quote Inquiry</h1>
+                                <p>{tour.name}</p>
                             </div>
+                            <div class="content">
+                                <span class="pill">Immediate follow-up</span>
+                                <p>We’ve just received a premium guest inquiry. Kindly guide them with the Aronia experience in mind.</p>
 
-                            <p>Please respond to this inquiry within 2-24 hours to maintain our service standards.</p>
-                            <p><strong>Admin Panel:</strong> <a href="http://127.0.0.1:8000/admin/dede/quoteinquiry/{quote_inquiry.id}/change/">View in Admin</a></p>
-                        </div>
+                                <div class="info-block">
+                                    <h3>Guest Profile</h3>
+                                    <p class="info-item"><strong>Name:</strong> {quote_inquiry.full_name}</p>
+                                    <p class="info-item"><strong>Email:</strong> {quote_inquiry.email}</p>
+                                    <p class="info-item"><strong>Phone:</strong> {quote_inquiry.phone}</p>
+                                    <p class="info-item"><strong>Nationality:</strong> {quote_inquiry.nationality}</p>
+                                </div>
 
-                        <div class="footer">
-                            <p>© 2024 ARONIA. All rights reserved.</p>
+                                <div class="info-block">
+                                    <h3>Journey Brief</h3>
+                                    <p class="info-item"><strong>Reference:</strong> {quote_inquiry.inquiry_reference}</p>
+                                    <p class="info-item"><strong>Preferred Tour:</strong> {tour.name}</p>
+                                    <p class="info-item"><strong>Preferred Date:</strong> {quote_inquiry.preferred_date}</p>
+                                    <p class="info-item"><strong>Duration:</strong> {tour.duration} days</p>
+                                    <p class="info-item"><strong>Guests:</strong> {quote_inquiry.number_of_people}</p>
+                                    <p class="info-item"><strong>Submitted:</strong> {quote_inquiry.inquiry_date.strftime('%Y-%m-%d %H:%M')}</p>
+                                    <p class="info-item"><strong>Notes:</strong> {quote_inquiry.special_requirements if quote_inquiry.special_requirements else 'None provided'}</p>
+                                </div>
+
+                                <div class="actions">
+                                    <h3>What to do now</h3>
+                                    <ol>
+                                        <li>Please respond to this inquiry within 2-24 hours to maintain our service standards..</li>
+                                        <li>Craft a tailored quote (rates, accommodation, experiences) that fits their brief.</li>
+                                    </ol>
+                                </div>
+
+                                <a class="cta" href="https://www.aroniatravel.com/admin/dede/quoteinquiry/{quote_inquiry.id}/change/">Open inquiry in admin</a>
+                                <p style="margin-top:18px;">Need destination support? Loop in the product desk on Slack #journey-design.</p>
+                            </div>
+                            <div class="footer">
+                                <p>Aronia Travel • Hotline <a href="tel:+254758355325">+254 758 355 325</a></p>
+                                <p><a href="mailto:info@aroniatravel.com">info@aroniatravel.com</a> • www.aroniatravel.com</p>
+                                <p>Aronia Travel. Designed for world-class journeys.</p>
+                            </div>
                         </div>
                     </div>
                 </body>
